@@ -3,7 +3,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: './tsconfig.base.json',
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'jest'],
   extends: [
@@ -24,7 +24,34 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off',
+    // '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
     'react/prop-types': 'off',
   },
+  overrides: [
+    {
+      files: ['packages/examples/**/*.js'],
+      extends: ['plugin:node/recommended'],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: './tsconfig.json',
+        ecmaVersion: 6,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    {
+      files: ['packages/examples/**/*', '*.test*', 'rollup.config.ts'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+      },
+    },
+  ],
 }

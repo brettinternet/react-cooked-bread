@@ -42,7 +42,7 @@ export const useToasts = () => {
 }
 
 export const Consumer: React.FC<CustomerProps> = ({ children }) => (
-  <Context.Consumer>{context => children(context)}</Context.Consumer>
+  <Context.Consumer>{(context) => children(context)}</Context.Consumer>
 )
 
 Consumer.propTypes = {
@@ -51,5 +51,5 @@ Consumer.propTypes = {
 
 export const withContext = <T extends GenericObject>(Component: React.ComponentType<T>) =>
   React.forwardRef((props: T, ref: React.Ref<HTMLElement>) => (
-    <Consumer>{context => <Component ref={ref} toastContext={context} {...props} />}</Consumer>
+    <Consumer>{(context) => <Component ref={ref} toastContext={context} {...props} />}</Consumer>
   ))

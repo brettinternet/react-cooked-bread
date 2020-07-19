@@ -9,8 +9,8 @@ const getDefaultProps = (width: number) => {
     style: {
       display: 'inline-block',
       verticalAlign: 'text-top',
-      fill: 'currentColor'
-    }
+      fill: 'currentColor',
+    },
   }
 }
 
@@ -19,14 +19,14 @@ const ids = {
   check: 'react-cooked-bread__check-icon-title',
   flame: 'react-cooked-bread__flame-icon-title',
   info: 'react-cooked-bread__info-icon-title',
-  close: 'react-cooked-bread__close-icon-title'
+  close: 'react-cooked-bread__close-icon-title',
 }
 
 interface IconProps {
   className?: string
 }
 
-export const AlertIcon: React.FC<IconProps> = props => (
+export const AlertIcon: React.FC<IconProps> = (props) => (
   <svg aria-labelledby={ids.alert} {...getDefaultProps(16)} {...props}>
     <title id={ids.alert}>warning</title>
     <path
@@ -36,14 +36,14 @@ export const AlertIcon: React.FC<IconProps> = props => (
   </svg>
 )
 
-export const CheckIcon: React.FC<IconProps> = props => (
+export const CheckIcon: React.FC<IconProps> = (props) => (
   <svg aria-labelledby={ids.check} {...getDefaultProps(12)} {...props}>
     <title id={ids.check}>success</title>
     <path fillRule="evenodd" d="M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z" />
   </svg>
 )
 
-export const FlameIcon: React.FC<IconProps> = props => (
+export const FlameIcon: React.FC<IconProps> = (props) => (
   <svg aria-labelledby={ids.flame} {...getDefaultProps(12)} {...props}>
     <title id={ids.flame}>error</title>
     <path
@@ -53,7 +53,7 @@ export const FlameIcon: React.FC<IconProps> = props => (
   </svg>
 )
 
-export const InfoIcon: React.FC<IconProps> = props => {
+export const InfoIcon: React.FC<IconProps> = (props) => {
   return (
     <svg aria-labelledby={ids.info} {...getDefaultProps(14)} {...props}>
       <title id={ids.info}>informational</title>
@@ -65,7 +65,7 @@ export const InfoIcon: React.FC<IconProps> = props => {
   )
 }
 
-export const CloseIcon: React.FC<IconProps> = props => (
+export const CloseIcon: React.FC<IconProps> = (props) => (
   <svg aria-labelledby={ids.close} {...getDefaultProps(14)} {...props}>
     <title id={ids.close}>close</title>
     <path

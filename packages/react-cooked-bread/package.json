@@ -1,0 +1,96 @@
+{
+  "name": "react-cooked-bread",
+  "version": "0.0.0",
+  "description": "Customizable Toasts for React",
+  "keywords": [
+    "react",
+    "toasts",
+    "notifications",
+    "popups"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "brett <brettinternet@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brettinternet/react-cooked-bread"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && npm run docs",
+    "predocs": "rimraf docs",
+    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "publish:release": "semantic-release"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-transition-group": "^4.4.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.17.27",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-transition-group": "^4.4.0",
+    "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
+    "husky": "^1.0.1",
+    "jest": "^23.6.0",
+    "jest-config": "^23.6.0",
+    "lodash.camelcase": "^4.3.0",
+    "rimraf": "^2.6.2",
+    "rollup": "^2.22.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "semantic-release": "^15.9.16",
+    "ts-jest": "^23.10.2",
+    "typedoc": "^0.17.8",
+    "typescript": "^3.0.3"
+  }
+}

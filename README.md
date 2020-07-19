@@ -1,4 +1,4 @@
-# react-cooked-bread
+# react-cooked-bread <sup>toasts!</sup>
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 

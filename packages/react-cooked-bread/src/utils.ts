@@ -6,10 +6,7 @@ export const noop = (): void => undefined
 /**
  * @source https://stackoverflow.com/a/8084248/6817437
  */
-export const getId = (): string =>
-  Math.random()
-    .toString(36)
-    .substr(2, 6)
+export const getId = (): string => Math.random().toString(36).substr(2, 6)
 
 export const getStylerCSS = <T>(styler: Styler<T> | undefined, props: T): CSSProperties =>
   (typeof styler === 'function' ? styler(props) : styler) || {}

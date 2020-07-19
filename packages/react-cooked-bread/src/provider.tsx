@@ -39,7 +39,7 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
   const exists = useCallback(
     (id: Id | undefined) => {
       if (id && hasToasts) {
-        return Boolean(toasts.filter(t => t.id === id).length)
+        return Boolean(toasts.filter((t) => t.id === id).length)
       }
     },
     [toasts, hasToasts]
@@ -48,7 +48,7 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
   const remove = useCallback(
     (id: Id | undefined) => {
       if (exists(id)) {
-        setToasts(toasts.filter(t => t.id !== id))
+        setToasts(toasts.filter((t) => t.id !== id))
       }
     },
     [toasts, exists]
@@ -73,7 +73,7 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
   const update = useCallback(
     (id: Id, options: Options = {}) => {
       if (exists(id)) {
-        const index = toasts.findIndex(t => t.id === id)
+        const index = toasts.findIndex((t) => t.id === id)
         const updatedToast = { ...toasts[index], ...options }
         setToasts([...toasts.slice(0, index), updatedToast, ...toasts.slice(index + 1)])
       }
@@ -87,7 +87,7 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
         <TransitionGroup>
           {toasts.map(({ id, type, autoDismiss, onDismiss, content, ...unknownConsumerProps }) => (
             <Transition key={id} appear mountOnEnter timeout={transitionDuration} unmountOnExit>
-              {transitionState => (
+              {(transitionState) => (
                 <Toaster
                   key={id}
                   type={type}
