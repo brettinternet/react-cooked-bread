@@ -22,10 +22,9 @@ export type ActiveToast = {
 } & Options
 
 export type Add = (content: React.ReactNode, options?: Options) => Id | void
-
 export type Update = (id: Id, options: Options) => void
-
 export type Remove = (id: Id) => void
+export type RemoveAll = () => void
 
 export type Placement =
   | 'bottom-left'

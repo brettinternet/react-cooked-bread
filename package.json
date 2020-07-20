@@ -13,8 +13,10 @@
   },
   "scripts": {
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "setup": "lerna bootstrap --hoist && lerna link --force-local",
     "build": "lerna run build",
-    "start": "lerna run start",
+    "clean": "lerna run clean && lerna clean -y",
+    "start": "lerna run start --parallel",
     "test": "lerna run test",
     "publish": "lerna run publish",
     "commit": "git-cz"

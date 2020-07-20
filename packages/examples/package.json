@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "gatsby build --prefix-paths",
-    "start": "gatsby develop",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "start": "gatsby develop"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -29,8 +29,9 @@
     "gatsby-transformer-sharp": "^2.5.7",
     "prismjs": "^1.20.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-cooked-bread": "*",
+    "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "reflexbox": "^4.0.6",
     "typeface-source-sans-pro": "^1.1.5"

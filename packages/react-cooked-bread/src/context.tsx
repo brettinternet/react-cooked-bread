@@ -2,14 +2,14 @@ import React, { useContext, createContext } from 'react'
 import PropTypes from 'prop-types'
 
 import { noop } from './utils'
-import { Add, Update, Remove, Options, GenericObject } from './types'
+import { Add, Update, Remove, RemoveAll, ActiveToast, GenericObject } from './types'
 
 interface ContextProps {
   add: Add
   remove: Remove
-  removeAll: () => void
+  removeAll: RemoveAll
   update: Update
-  toasts: Options[]
+  toasts: ActiveToast[]
 }
 
 export const Context = createContext<ContextProps>({

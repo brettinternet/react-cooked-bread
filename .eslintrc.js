@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     {
-      files: ['packages/examples/**/*', '*.test*', 'rollup.config.ts'],
+      files: ['packages/examples/**/*', '*.test*', 'rollup.config.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',

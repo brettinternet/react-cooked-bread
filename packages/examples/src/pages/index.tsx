@@ -1,8 +1,11 @@
 import React from 'react'
+import { ToastProvider } from 'react-cooked-bread'
 
 import { Layout } from 'components/layout'
 import { Head } from 'components/head'
 import { Code } from 'components/code'
+import { Library } from 'components/library'
+import { Box } from 'reflexbox'
 
 const code = `interface SearchFunc {
   (source: string, subString: string): boolean;
@@ -39,6 +42,11 @@ const IndexPage = () => {
   return (
     <Layout>
       <Head title="docs" />
+      <Box mb={3}>
+        <ToastProvider>
+          <Library />
+        </ToastProvider>
+      </Box>
       <Code>{code}</Code>
     </Layout>
   )

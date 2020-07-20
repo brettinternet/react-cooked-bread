@@ -2,7 +2,7 @@
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
-Cooked bread, also known as toast, is a notification popup. Use our styles, customize yours, or bring your own custom components. We'll toast it for you.
+Cooked bread <sup>(...toast)</sup> is a notification popup. Use our styles, customize yours, or bring your own custom components. We'll toast it for you.
 
 [Demo]()
 

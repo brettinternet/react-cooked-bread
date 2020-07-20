@@ -1,6 +1,6 @@
 {
   "name": "react-cooked-bread",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Customizable Toasts for React",
   "keywords": [
     "react",
@@ -25,17 +25,15 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && npm run docs",
-    "predocs": "rimraf docs",
+    "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c && npm run docs",
+    "clean": "rimraf dist docs coverage",
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "rollup -c rollup.config.ts -w",
-    "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch",
-    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "publish:release": "semantic-release",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "publish:release": "semantic-release"
+    "start": "cross-env NODE_ENV=development rollup -c -w",
+    "test": "jest --coverage",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "test:watch": "jest --coverage --watch"
   },
   "jest": {
     "transform": {

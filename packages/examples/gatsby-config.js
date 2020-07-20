@@ -32,7 +32,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/bread-16x16.png`,
+        icon: `src/images/bread-512x512.png`,
       },
     },
     {
