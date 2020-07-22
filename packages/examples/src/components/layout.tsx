@@ -29,19 +29,20 @@ export const Layout: React.FC = ({ children }) => {
         siteMetadata {
           title
           repoUrl
+          version
         }
       }
     }
   `)
 
   const [themeType, setThemeType] = useStorage(LocalStorageKey.THEME_TYPE, systemThemeType)
-  const { title, repoUrl } = site.siteMetadata
+  const { title, repoUrl, version } = site.siteMetadata
 
   return (
     <ThemeProvider theme={getTheme(themeType)}>
       <AppContext.Provider value={{ themeType, setThemeType }}>
         <Global styles={getGlobalStyles} />
-        <Header siteTitle={title} repoUrl={repoUrl} />
+        <Header siteTitle={title} repoUrl={repoUrl} version={version} />
         <Flex
           as="main"
           flexGrow={1}

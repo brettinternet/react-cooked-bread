@@ -2,27 +2,23 @@ import React, { useContext, createContext } from 'react'
 import PropTypes from 'prop-types'
 
 import { noop } from './utils'
-import { Add, Update, Remove, RemoveAll, ActiveToast, GenericObject } from './types'
+import { Add, Update, Remove, RemoveAll, ActiveToast } from './types'
 
-interface ContextProps {
-  add: Add
-  remove: Remove
-  removeAll: RemoveAll
-  update: Update
+export interface ToastContextProps {
+  addToast: Add
+  removeToast: Remove
+  removeAllToasts: RemoveAll
+  updateToast: Update
   toasts: ActiveToast[]
 }
 
-export const Context = createContext<ContextProps>({
-  add: noop,
-  remove: noop,
-  removeAll: noop,
-  update: noop,
+export const Context = createContext<ToastContextProps>({
+  addToast: noop,
+  removeToast: noop,
+  removeAllToasts: noop,
+  updateToast: noop,
   toasts: [],
 })
-
-interface CustomerProps {
-  children: (context: ContextProps) => React.ReactNode
-}
 
 export const useToasts = () => {
   const context = useContext(Context)
@@ -31,25 +27,32 @@ export const useToasts = () => {
     throw Error('The `useToasts` hook must be called from a descendent of the toast provider.')
   }
 
-  const { add, remove, removeAll, update, toasts } = context
+  const { addToast, removeToast, removeAllToasts, updateToast, toasts } = context
   return {
-    addToast: add,
-    removeToast: remove,
-    removeAllToasts: removeAll,
-    updateToast: update,
+    addToast,
+    removeToast,
+    removeAllToasts,
+    updateToast,
     toasts,
   }
 }
 
-export const Consumer: React.FC<CustomerProps> = ({ children }) => (
+export interface ToastConsumerProps {
+  children: (context: ToastContextProps) => React.ReactNode
+}
+
+export const ToastConsumer: React.FC<ToastConsumerProps> = ({ children }) => (
   <Context.Consumer>{(context) => children(context)}</Context.Consumer>
 )
 
-Consumer.propTypes = {
+ToastConsumer.propTypes = {
   children: PropTypes.func.isRequired,
 }
 
-export const withContext = <T extends GenericObject>(Component: React.ComponentType<T>) =>
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const withToastContext = <T extends object = {}>(Component: React.ComponentType<T>) =>
   React.forwardRef((props: T, ref: React.Ref<HTMLElement>) => (
-    <Consumer>{(context) => <Component ref={ref} toastContext={context} {...props} />}</Consumer>
+    <ToastConsumer>
+      {(context) => <Component ref={ref} toastContext={context} {...props} />}
+    </ToastConsumer>
   ))

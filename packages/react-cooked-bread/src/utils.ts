@@ -1,5 +1,4 @@
-import { CSSProperties } from 'react'
-import { Styler } from './types'
+import { Styler, StylerMap, StylesObj, Styles } from './types'
 
 export const noop = (): void => undefined
 
@@ -8,7 +7,12 @@ export const noop = (): void => undefined
  */
 export const getId = (): string => Math.random().toString(36).substr(2, 6)
 
-export const getStylerCSS = <T>(styler: Styler<T> | undefined, props: T): CSSProperties =>
+export const getStylesMapCSS = <K extends string, P>(
+  styler: StylerMap<K, P> | undefined,
+  props: P
+): StylesObj<K> => (typeof styler === 'function' ? styler(props) : styler) || {}
+
+export const getStylesCSS = <P>(styler: Styler<P> | undefined, props: P): Styles =>
   (typeof styler === 'function' ? styler(props) : styler) || {}
 
 export const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
@@ -42,16 +46,4 @@ export class Timer {
   clear = (): void => {
     window.clearTimeout(this.timerId)
   }
-}
-
-export const containerClassName = 'react-cooked-bread__container'
-
-export const toastClassNames = {
-  rootOuterClassName: 'react-cooked-bread__toast__root-outer',
-  rootInnerClassName: 'react-cooked-bread__toast__root-inner',
-  iconWrapperClassName: 'react-cooked-bread__toast__icon-wrapper',
-  iconClassName: 'react-cooked-bread__toast__icon',
-  countdownClassName: 'react-cooked-bread__toast__countdown',
-  contentClassName: 'react-cooked-bread__toast__content',
-  closeButtonClassName: 'react-cooked-bread__toast__dismiss-button',
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToastProvider } from 'react-cooked-bread'
+import { ToastProvider, DefaultToastRoot, DefaultToastContent } from 'react-cooked-bread'
 
 import { Layout } from 'components/layout'
 import { Head } from 'components/head'
@@ -42,8 +42,8 @@ const IndexPage = () => {
   return (
     <Layout>
       <Head title="docs" />
-      <Box mb={3}>
-        <ToastProvider>
+      <Box mb={5}>
+        <ToastProvider toastRoot={DefaultToastRoot} toastContent={DefaultToastContent}>
           <Library />
         </ToastProvider>
       </Box>

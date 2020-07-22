@@ -1,16 +1,18 @@
 const path = require('path')
-const pkg = require('./package.json')
+const sitePkg = require('./package.json')
+const libPkg = require('../react-cooked-bread/package.json') // eslint-disable-line node/no-unpublished-require
 
-const pkgName = 'react-cooked-bread'
+const pkgName = libPkg.name
 
 module.exports = {
   pathPrefix: `/${pkgName}`,
   siteMetadata: {
     title: pkgName,
-    description: pkg.description,
-    author: pkg.author.split(' ').slice(0, 1),
-    homepage: pkg.homepage,
-    repoUrl: pkg.repository.url,
+    description: sitePkg.description,
+    author: sitePkg.author.split(' ').slice(0, 1),
+    homepage: sitePkg.homepage,
+    repoUrl: sitePkg.repository.url,
+    version: libPkg.version,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

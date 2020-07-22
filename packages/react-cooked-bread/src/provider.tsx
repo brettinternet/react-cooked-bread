@@ -5,28 +5,36 @@ import PropTypes from 'prop-types'
 
 import { Container as DefaultContainer, ContainerProps, ContainerStyler } from './container'
 import { Toaster } from './toaster'
-import { Toast as DefaultToast, ToastProps, ToastStyler } from './toast'
+import { ToastStyler, ToastComponentsProps } from './toast.types'
 import { getId, isBrowser } from './utils'
-import { Options, ActiveToast, Placement, Id, PropsWithRequiredChildren } from './types'
+import {
+  ToastOptions,
+  ActiveToast,
+  Placement,
+  Id,
+  PropsWithRequiredChildren,
+  placementsProps,
+  stylerProps,
+  childrenProps,
+} from './types'
 import { Context } from './context'
-import { placementsProps, stylerProps, toastStylerProps, childrenProps } from './prop-types'
 
-interface ProviderProps {
+export interface ToastProviderProps extends ToastComponentsProps {
+  container?: React.ComponentType<ContainerProps>
   defaultAutoDismiss?: boolean
   autoDismissTimeout?: number
-  toast?: React.ComponentType<ToastProps>
-  container?: React.ComponentType<ContainerProps>
   placement?: Placement
   transitionDuration?: number
   containerStyles?: ContainerStyler
   toastStyles?: ToastStyler
 }
 
-export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
+export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProps>> = ({
   children,
   defaultAutoDismiss = false,
   autoDismissTimeout = 5000,
-  toast: Toast = DefaultToast,
+  toastRoot: ToastRoot,
+  toastContent: ToastContent,
   container: Container = DefaultContainer,
   placement = 'top-right',
   transitionDuration = 220,
@@ -45,7 +53,7 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
     [toasts, hasToasts]
   )
 
-  const remove = useCallback(
+  const removeToast = useCallback(
     (id: Id | undefined) => {
       if (exists(id)) {
         setToasts(toasts.filter((t) => t.id !== id))
@@ -54,12 +62,12 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
     [toasts, exists]
   )
 
-  const removeAll = useCallback(() => {
+  const removeAllToasts = useCallback(() => {
     setToasts([])
   }, [])
 
-  const add = useCallback(
-    (content: React.ReactNode, options: Options = {}) => {
+  const addToast = useCallback(
+    (content: React.ReactNode, options: ToastOptions = {}) => {
       const id = options.id || getId()
       if (!exists(id)) {
         const newToast = { content, id, ...options }
@@ -70,8 +78,8 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
     [toasts, exists]
   )
 
-  const update = useCallback(
-    (id: Id, options: Options = {}) => {
+  const updateToast = useCallback(
+    (id: Id, options: ToastOptions = {}) => {
       if (exists(id)) {
         const index = toasts.findIndex((t) => t.id === id)
         const updatedToast = { ...toasts[index], ...options }
@@ -93,10 +101,11 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
                   type={type}
                   autoDismiss={autoDismiss === undefined ? defaultAutoDismiss : autoDismiss}
                   autoDismissTimeout={autoDismissTimeout}
-                  component={Toast}
+                  toastRoot={ToastRoot}
+                  toastContent={ToastContent}
                   content={content}
                   onDismiss={() => {
-                    remove(id)
+                    removeToast(id)
                     if (onDismiss) {
                       onDismiss(id)
                     }
@@ -121,11 +130,12 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
       hasToasts,
       defaultAutoDismiss,
       transitionDuration,
-      Toast,
       autoDismissTimeout,
       containerStyles,
       toastStyles,
-      remove,
+      removeToast,
+      ToastRoot,
+      ToastContent,
     ]
   )
 
@@ -134,10 +144,10 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
   return (
     <Context.Provider
       value={{
-        add,
-        remove,
-        removeAll,
-        update,
+        addToast,
+        removeToast,
+        removeAllToasts,
+        updateToast,
         toasts,
       }}
     >
@@ -151,14 +161,15 @@ export const Provider: React.FC<PropsWithRequiredChildren<ProviderProps>> = ({
   )
 }
 
-Provider.propTypes = {
+ToastProvider.propTypes = {
   defaultAutoDismiss: PropTypes.bool,
   autoDismissTimeout: PropTypes.number,
-  toast: PropTypes.func,
+  toastRoot: PropTypes.func.isRequired,
+  toastContent: PropTypes.func,
   container: PropTypes.func,
   placement: placementsProps,
   transitionDuration: PropTypes.number,
   containerStyles: stylerProps,
-  toastStyles: toastStylerProps,
+  toastStyles: stylerProps,
   children: childrenProps.isRequired,
 }

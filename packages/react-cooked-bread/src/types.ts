@@ -1,4 +1,15 @@
-import React from 'react'
+import { ReactNode, CSSProperties } from 'react'
+import PropTypes from 'prop-types'
+import {
+  TransitionStatus,
+  UNMOUNTED,
+  EXITED,
+  ENTERING,
+  ENTERED,
+  EXITING,
+} from 'react-transition-group/Transition'
+
+export { TransitionStatus }
 
 export type Id = string
 
@@ -10,7 +21,7 @@ export type ToastType = 'error' | 'info' | 'success' | 'warning'
  */
 export type GenericObject = Record<string, unknown>
 
-export type Options = {
+export type ToastOptions = {
   id?: Id
   type?: ToastType
   autoDismiss?: boolean
@@ -18,11 +29,11 @@ export type Options = {
 } & GenericObject
 
 export type ActiveToast = {
-  content: React.ReactNode
-} & Options
+  content: ReactNode
+} & ToastOptions
 
-export type Add = (content: React.ReactNode, options?: Options) => Id | void
-export type Update = (id: Id, options: Options) => void
+export type Add = (content: ReactNode, options?: ToastOptions) => Id | void
+export type Update = (id: Id, options: ToastOptions) => void
 export type Remove = (id: Id) => void
 export type RemoveAll = () => void
 
@@ -34,14 +45,37 @@ export type Placement =
   | 'top-center'
   | 'top-right'
 
-export type StyleObj = React.CSSProperties
-export type StyleFn<T> = (props: T) => React.CSSProperties
+export type Styles = CSSProperties | undefined | null
 
-export type Styler<T = undefined> = StyleObj | StyleFn<T> | null
+type PropsFn<P, T> = (props: P) => T
+export type StylesObj<K extends string> = Partial<Record<K, Styles>>
 
-/**
- * TS wants children declared when used in prop-types
- */
+export type Styler<P = undefined> = CSSProperties | PropsFn<P, CSSProperties> | null
+export type StylerMap<K extends string, P = undefined> = StylesObj<K> | PropsFn<P, StylesObj<K>>
+
 export type PropsWithRequiredChildren<P> = P & {
-  children: React.ReactNode
+  children: ReactNode
 }
+
+export const childrenProps = PropTypes.oneOfType([
+  PropTypes.arrayOf(PropTypes.node),
+  PropTypes.node,
+])
+
+const placements: Placement[] = [
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
+  'top-left',
+  'top-center',
+  'top-right',
+]
+export const placementsProps = PropTypes.oneOf(placements)
+
+const toastTypes: ToastType[] = ['error', 'info', 'success', 'warning']
+export const toastTypesProps = PropTypes.oneOf(toastTypes)
+
+const transitionStatuses: TransitionStatus[] = [UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING]
+export const transitionStatusProps = PropTypes.oneOf(transitionStatuses)
+
+export const stylerProps = PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired

@@ -1,32 +1,24 @@
-import React, { ComponentType, useState, useEffect, useCallback, useRef } from 'react'
-import { TransitionStatus } from 'react-transition-group/Transition'
+import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react'
 
-import { ToastProps, ToastStyler } from './toast'
-import { Timer } from './utils'
-import { ToastType, Placement } from './types'
-
-export interface ToasterProps {
-  component: ComponentType<ToastProps>
-  type?: ToastType
-  content: React.ReactNode
-  autoDismiss: boolean
-  autoDismissTimeout: number
-  onDismiss: () => void
-  onMouseEnter?: (ev: React.MouseEvent<HTMLElement>) => void
-  onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void
-  placement: Placement
-  transitionDuration: number
-  transitionState: TransitionStatus
-  styler: ToastStyler | undefined
-}
+import { ToasterProps } from './toast.types'
+import { Timer, getStylesMapCSS } from './utils'
 
 export const Toaster: React.FC<ToasterProps> = ({
   children,
+  toastRoot: ToastRoot,
+  toastContent: ToastContent = Fragment,
+  type = 'info',
   autoDismiss = false,
   autoDismissTimeout,
+  content,
+  placement,
+  transitionDuration,
+  transitionState,
   onDismiss,
-  component: Toast,
-  ...props
+  styler,
+  onMouseEnter,
+  onMouseLeave,
+  ...unknownProps
 }) => {
   const [isRunning, setRunning] = useState(autoDismiss)
   const timeout = useRef<Timer>()
@@ -54,17 +46,41 @@ export const Toaster: React.FC<ToasterProps> = ({
     }
   }, [autoDismiss])
 
+  const { root: rootStyles, ...contentStyles } = getStylesMapCSS(styler, {
+    ...unknownProps,
+    content,
+    type,
+    autoDismiss,
+    autoDismissTimeout,
+    isRunning,
+    placement,
+    transitionDuration,
+    transitionState,
+  })
+
+  const sharedProps = {
+    ...unknownProps,
+    type,
+    onDismiss,
+    content,
+    autoDismiss,
+    autoDismissTimeout,
+    isRunning,
+    placement,
+    transitionDuration,
+    transitionState,
+  }
+
   return (
-    <Toast
-      autoDismiss={autoDismiss}
-      autoDismissTimeout={autoDismissTimeout}
-      onDismiss={onDismiss}
-      isRunning={isRunning}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      {...props}
+    <ToastRoot
+      {...sharedProps}
+      onMouseEnter={onMouseEnter || handleMouseEnter}
+      onMouseLeave={onMouseLeave || handleMouseLeave}
+      styles={rootStyles}
     >
-      {children}
-    </Toast>
+      <ToastContent {...sharedProps} styles={contentStyles}>
+        {children}
+      </ToastContent>
+    </ToastRoot>
   )
 }

@@ -12,9 +12,10 @@ import { useApp } from 'utils/app.context'
 interface HeaderProps {
   siteTitle: string
   repoUrl: string
+  version: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl }) => {
+export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version }) => {
   const { themeType, setThemeType } = useApp()
 
   const isDarkTheme = themeType === ThemeType.DARK
@@ -32,12 +33,15 @@ export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl }) => {
               })}
             >
               {siteTitle}
-              <Box as="sup" fontSize={['1rem']} ml={1}>
+              <Box as="sup" fontSize={['1rem']} ml={1} mr={1}>
                 toasts
               </Box>
             </Link>
           </Box>
         </Box>
+        <Flex alignItems="center" mr={4}>
+          <small>v{version}</small>
+        </Flex>
         <Flex as="nav" alignItems="center" mr={3}>
           <a href={repoUrl}>
             <GithubSvg height={24} width={24} />

@@ -71,13 +71,12 @@ There are only two components rendered to the DOM. The first is the container th
 
 ```
 .react-cooked-bread__container
-  .react-cooked-bread__toast__root-outer
-    .react-cooked-bread__toast__root-inner
-  .react-cooked-bread__toast__icon-wrapper
-    .react-cooked-bread__toast__countdown
-    .react-cooked-bread__toast__icon
-  .react-cooked-bread__toast__content
-  .react-cooked-bread__toast__dismiss-button
+  .react-cooked-bread__toast__root
+    .react-cooked-bread__toast__icon-wrapper
+      .react-cooked-bread__toast__countdown
+      .react-cooked-bread__toast__icon
+    .react-cooked-bread__toast__content
+    .react-cooked-bread__toast__dismiss-button
 ```
 
 #### Stylers (recommended)
