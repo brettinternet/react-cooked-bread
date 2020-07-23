@@ -4,16 +4,16 @@ import { TransitionStatus } from 'react-transition-group/Transition'
 import { jsx } from '@emotion/core'
 
 import { colors } from '../styles'
-import { Placement } from '../types'
+import { PlacementOption } from '../types'
 import { ToastRootProps, toastRootPropTypes } from '../toast.types'
 
 export const gutter = 8
 export const borderRadius = 4
 export const toastWidth = 360
 
-export const rootClassName = 'react-cooked-bread__toast__root'
+const rootClassName = 'react-cooked-bread__toast__root'
 
-const getTranslate = (placement: Placement): string | undefined => {
+const getTranslate = (placement: PlacementOption): string | undefined => {
   const pos = placement.split('-')
   const position = pos[1] === 'center' ? pos[0] : pos[1]
   const translateMap: Record<string, string> = {
@@ -26,11 +26,13 @@ const getTranslate = (placement: Placement): string | undefined => {
   return translateMap[position]
 }
 
-const toastStates = (placement: Placement): Record<TransitionStatus, React.CSSProperties> => ({
+const toastStates = (
+  placement: PlacementOption
+): Record<TransitionStatus, React.CSSProperties> => ({
   entering: { transform: getTranslate(placement), transitionProperty: 'none' },
   entered: { transform: 'translate3d(0,0,0)' },
-  exiting: { transform: 'scale(0.66)', opacity: 0 },
-  exited: { transform: 'scale(0.66)', opacity: 0 },
+  exiting: { transform: 'scale(0.80)', opacity: 0 },
+  exited: { transform: 'scale(0.80)', opacity: 0 },
   unmounted: {},
 })
 

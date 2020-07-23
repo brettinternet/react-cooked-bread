@@ -17,11 +17,17 @@ export const getStylesCSS = <P>(styler: Styler<P> | undefined, props: P): Styles
 
 export const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
 
+export enum TimerState {
+  READY,
+  RUNNING,
+  PAUSED,
+  COMPLETED,
+}
 export class Timer {
   private timerId: number | undefined
   private startDate: number | undefined
   private remaining: number
-  isPaused: boolean | undefined
+  state: TimerState = TimerState.READY
 
   constructor(private readonly callback: () => void, delay: number) {
     this.remaining = delay
@@ -35,22 +41,24 @@ export class Timer {
     this.clear()
     if (this.remaining > 0) {
       this.startDate = Date.now()
-      this.timerId = window.setTimeout(this.callback, this.remaining)
-      this.isPaused = false
+      this.timerId = window.setTimeout(() => {
+        this.callback()
+        this.state = TimerState.COMPLETED
+      }, this.remaining)
+      this.state = TimerState.RUNNING
     }
   }
 
   pause = (): void => {
     if (this.startDate) {
       this.clear()
-      this.isPaused = true
+      this.state = TimerState.PAUSED
       this.remaining -= Date.now() - this.startDate
     }
   }
 
   clear = (): void => {
     if (this.timerId) {
-      this.isPaused = undefined
       window.clearTimeout(this.timerId)
     }
   }

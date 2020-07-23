@@ -94,6 +94,20 @@ export const Library: React.FC = () => {
           </button>
         </Box>
 
+        <Box mr={3}>
+          <button
+            disabled={!toasts.length}
+            onClick={() => {
+              const { id } = toasts[0]
+              if (id) {
+                removeToast(id)
+              }
+            }}
+          >
+            Remove Last
+          </button>
+        </Box>
+
         <div>Active toasts: {toasts.length}</div>
       </Flex>
     </Box>

@@ -3,9 +3,10 @@ import React, { PropsWithChildren } from 'react'
 import { jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
-import { Placement, Styler, childrenProps, placementsProps, stylerProps } from './types'
+import { Styler, childrenProps, placementsProps, stylerProps, PlacementOption } from './types'
 import { gutter } from './toast-root'
 import { getStylesCSS } from './utils'
+import { scrollStyles } from './styles'
 
 export const containerClassName = 'react-cooked-bread__container'
 
@@ -20,7 +21,7 @@ const placementsCSS = {
 
 interface ContainerValueProps {
   hasToasts: boolean
-  placement: Placement
+  placement: PlacementOption
 }
 
 export type ContainerStyler = Styler<ContainerValueProps> | undefined
@@ -43,18 +44,21 @@ export const Container: React.FC<PropsWithChildren<ContainerProps>> = ({
     className={containerClassName}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
-    css={{
-      boxSizing: 'border-box',
-      maxHeight: '100%',
-      overflowX: 'hidden',
-      overflowY: 'auto',
-      padding: gutter,
-      pointerEvents: hasToasts ? 'auto' : 'none',
-      position: 'fixed',
-      zIndex: 1000,
-      ...placementsCSS[placement],
-      ...getStylesCSS(styler, { hasToasts, placement }),
-    }}
+    css={[
+      scrollStyles,
+      {
+        boxSizing: 'border-box',
+        maxHeight: '100%',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        padding: gutter,
+        pointerEvents: hasToasts ? 'auto' : 'none',
+        position: 'fixed',
+        zIndex: 1000,
+        ...placementsCSS[placement],
+        ...getStylesCSS(styler, { hasToasts, placement }),
+      },
+    ]}
   >
     {children}
   </div>

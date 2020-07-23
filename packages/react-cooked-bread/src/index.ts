@@ -15,4 +15,12 @@ export {
   ToastConsumerProps,
   ToastContextProps,
 } from './context'
-export { ToastType, Id, ToastOptions, ActiveToast, Placement, TransitionStatus } from './types'
+export {
+  ToastType,
+  Id,
+  ToastOptions,
+  ActiveToast,
+  Placement,
+  PlacementOption,
+  TransitionStatus,
+} from './types'

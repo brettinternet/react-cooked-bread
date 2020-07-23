@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { TransitionStatus } from 'react-transition-group/Transition'
 
 import {
-  Placement,
+  PlacementOption,
   ToastType,
   StylerMap,
   GenericObject,
@@ -19,7 +19,7 @@ interface ToasterValueProps extends GenericObject {
   content: React.ReactNode
   autoDismiss: boolean
   autoDismissTimeout: number
-  placement: Placement
+  placement: PlacementOption
   transitionDuration: number
   transitionState: TransitionStatus
 }
@@ -61,6 +61,7 @@ export interface ToastComponentsProps {
 
 export interface ToasterProps extends ToastComponentsProps, SharedToastProps, ToasterValueProps {
   type: ToastType | undefined
+  pause: boolean
   styler: ToastStyler | undefined
   onMouseEnter?: (ev: React.MouseEvent<HTMLElement>) => void
   onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void

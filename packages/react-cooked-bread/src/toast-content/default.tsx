@@ -9,7 +9,7 @@ import { ToastContentProps, toastContentPropTypes } from '../toast.types'
 
 import { gutter, borderRadius } from '../toast-root/default'
 
-export const toastClassNames = {
+const toastClassNames = {
   iconWrapperClassName: 'react-cooked-bread__toast__icon-wrapper',
   iconClassName: 'react-cooked-bread__toast__icon',
   countdownClassName: 'react-cooked-bread__toast__countdown',

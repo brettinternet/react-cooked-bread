@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react'
 
 import { ToasterProps } from './toast.types'
-import { Timer, getStylesMapCSS } from './utils'
+import { Timer, getStylesMapCSS, TimerState } from './utils'
 
 export const Toaster: React.FC<ToasterProps> = ({
   children,
@@ -14,6 +14,7 @@ export const Toaster: React.FC<ToasterProps> = ({
   placement,
   transitionDuration,
   transitionState,
+  isPaused,
   onDismiss,
   styler,
   onMouseEnter,
@@ -21,30 +22,40 @@ export const Toaster: React.FC<ToasterProps> = ({
   ...unknownProps
 }) => {
   const [isRunning, setRunning] = useState(autoDismiss)
-  const timeout = useRef<Timer>()
+  const timer = useRef<Timer>()
 
   useEffect(() => {
-    if (autoDismiss && !timeout.current) {
+    if (autoDismiss && !timer.current) {
       setRunning(true)
-      timeout.current = new Timer(onDismiss, autoDismissTimeout)
+      timer.current = new Timer(onDismiss, autoDismissTimeout)
     }
   }, [autoDismiss, autoDismissTimeout, onDismiss])
 
-  useEffect(() => timeout.current?.clear, [])
+  useEffect(() => timer.current?.clear, [])
 
-  const handleMouseEnter = useCallback(() => {
-    if (autoDismiss) {
-      timeout.current?.pause()
+  useEffect(() => {
+    if (isPaused) {
+      timer.current?.pause()
       setRunning(false)
-    }
-  }, [autoDismiss])
-
-  const handleMouseLeave = useCallback(() => {
-    if (autoDismiss) {
-      timeout.current?.start()
+    } else if (timer.current?.state === TimerState.PAUSED) {
+      timer.current.start()
       setRunning(true)
     }
-  }, [autoDismiss])
+  }, [isPaused])
+
+  const handleMouseEnter = useCallback(() => {
+    if (autoDismiss && !isPaused) {
+      timer.current?.pause()
+      setRunning(false)
+    }
+  }, [autoDismiss, isPaused])
+
+  const handleMouseLeave = useCallback(() => {
+    if (autoDismiss && !isPaused) {
+      timer.current?.start()
+      setRunning(true)
+    }
+  }, [autoDismiss, isPaused])
 
   const { root: rootStyles, ...contentStyles } = getStylesMapCSS(styler, {
     ...unknownProps,

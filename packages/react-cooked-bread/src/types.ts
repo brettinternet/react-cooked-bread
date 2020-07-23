@@ -37,7 +37,16 @@ export type Update = (id: Id, options: ToastOptions) => void
 export type Remove = (id: Id) => void
 export type RemoveAll = () => void
 
-export type Placement =
+export enum Placement {
+  BOTTOM_LEFT = 'bottom-left',
+  BOTTOM_CENTER = 'bottom-center',
+  BOTTOM_RIGHT = 'bottom-right',
+  TOP_LEFT = 'top-left',
+  TOP_CENTER = 'top-center',
+  TOP_RIGHT = 'top-right',
+}
+export type PlacementOption =
+  | Placement
   | 'bottom-left'
   | 'bottom-center'
   | 'bottom-right'
@@ -62,13 +71,13 @@ export const childrenProps = PropTypes.oneOfType([
   PropTypes.node,
 ])
 
-const placements: Placement[] = [
-  'bottom-left',
-  'bottom-center',
-  'bottom-right',
-  'top-left',
-  'top-center',
-  'top-right',
+const placements: PlacementOption[] = [
+  Placement.BOTTOM_LEFT,
+  Placement.BOTTOM_CENTER,
+  Placement.BOTTOM_RIGHT,
+  Placement.TOP_LEFT,
+  Placement.TOP_CENTER,
+  Placement.TOP_RIGHT,
 ]
 export const placementsProps = PropTypes.oneOf(placements)
 
