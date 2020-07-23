@@ -27,16 +27,22 @@ export type ContainerStyler = Styler<ContainerValueProps> | undefined
 
 export type ContainerProps = ContainerValueProps & {
   styler: ContainerStyler
+  onMouseEnter?: (ev: React.MouseEvent<HTMLElement>) => void
+  onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void
 }
 
 export const Container: React.FC<PropsWithChildren<ContainerProps>> = ({
   children,
   hasToasts,
   placement,
+  onMouseEnter,
+  onMouseLeave,
   styler,
 }) => (
   <div
     className={containerClassName}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
     css={{
       boxSizing: 'border-box',
       maxHeight: '100%',

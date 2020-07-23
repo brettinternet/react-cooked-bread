@@ -21,8 +21,9 @@ export class Timer {
   private timerId: number | undefined
   private startDate: number | undefined
   private remaining: number
+  isPaused: boolean | undefined
 
-  constructor(private callback: () => void, delay: number) {
+  constructor(private readonly callback: () => void, delay: number) {
     this.remaining = delay
 
     if (isBrowser) {
@@ -31,19 +32,26 @@ export class Timer {
   }
 
   start = (): void => {
-    this.startDate = Date.now()
-    clearTimeout(this.timerId)
-    this.timerId = window.setTimeout(this.callback, this.remaining)
+    this.clear()
+    if (this.remaining > 0) {
+      this.startDate = Date.now()
+      this.timerId = window.setTimeout(this.callback, this.remaining)
+      this.isPaused = false
+    }
   }
 
   pause = (): void => {
     if (this.startDate) {
-      window.clearTimeout(this.timerId)
+      this.clear()
+      this.isPaused = true
       this.remaining -= Date.now() - this.startDate
     }
   }
 
   clear = (): void => {
-    window.clearTimeout(this.timerId)
+    if (this.timerId) {
+      this.isPaused = undefined
+      window.clearTimeout(this.timerId)
+    }
   }
 }

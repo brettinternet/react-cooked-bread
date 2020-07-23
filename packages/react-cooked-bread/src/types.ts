@@ -78,4 +78,4 @@ export const toastTypesProps = PropTypes.oneOf(toastTypes)
 const transitionStatuses: TransitionStatus[] = [UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING]
 export const transitionStatusProps = PropTypes.oneOf(transitionStatuses)
 
-export const stylerProps = PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired
+export const stylerProps = PropTypes.oneOfType([PropTypes.object, PropTypes.func])

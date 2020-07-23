@@ -60,6 +60,9 @@ export const Menu: React.FC<MenuProps> = ({ pathPrefix }) => {
           </Flex>
         </Flex>
       </a>
+      <Link to="/hints" css={anchorStyles} activeStyle={activeAnchorStyles}>
+        <Box py={2}>Hints</Box>
+      </Link>
     </Box>
   )
 }

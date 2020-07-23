@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import PropTypes from 'prop-types'
@@ -44,99 +44,76 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   const [toasts, setToasts] = useState<ActiveToast[]>([])
   const hasToasts = Boolean(toasts.length)
 
-  const exists = useCallback(
-    (id: Id | undefined) => {
-      if (id && hasToasts) {
-        return Boolean(toasts.filter((t) => t.id === id).length)
-      }
-    },
-    [toasts, hasToasts]
-  )
+  const exists = (id: Id | undefined) => {
+    if (id && hasToasts) {
+      return Boolean(toasts.filter((t) => t.id === id).length)
+    }
+  }
 
-  const removeToast = useCallback(
-    (id: Id | undefined) => {
-      if (exists(id)) {
-        setToasts(toasts.filter((t) => t.id !== id))
-      }
-    },
-    [toasts, exists]
-  )
+  const removeToast = (id: Id | undefined) => {
+    if (exists(id)) {
+      setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id))
+    }
+  }
 
   const removeAllToasts = useCallback(() => {
     setToasts([])
   }, [])
 
-  const addToast = useCallback(
-    (content: React.ReactNode, options: ToastOptions = {}) => {
-      const id = options.id || getId()
-      if (!exists(id)) {
-        const newToast = { content, id, ...options }
-        setToasts([...toasts, newToast])
-        return id
-      }
-    },
-    [toasts, exists]
-  )
+  const addToast = (content: React.ReactNode, options: ToastOptions = {}) => {
+    const id = options.id || getId()
+    if (!exists(id)) {
+      const newToast = { content, id, ...options }
+      setToasts((prevToasts) => [...prevToasts, newToast])
+      return id
+    }
+  }
 
-  const updateToast = useCallback(
-    (id: Id, options: ToastOptions = {}) => {
-      if (exists(id)) {
-        const index = toasts.findIndex((t) => t.id === id)
-        const updatedToast = { ...toasts[index], ...options }
-        setToasts([...toasts.slice(0, index), updatedToast, ...toasts.slice(index + 1)])
-      }
-    },
-    [toasts, exists]
-  )
+  const updateToast = (id: Id, options: ToastOptions = {}) => {
+    if (exists(id)) {
+      const index = toasts.findIndex((t) => t.id === id)
+      const updatedToast = { ...toasts[index], ...options }
+      setToasts((prevToasts) => [
+        ...prevToasts.slice(0, index),
+        updatedToast,
+        ...prevToasts.slice(index + 1),
+      ])
+    }
+  }
 
-  const CookedLoaf = useMemo(
-    () => (
-      <Container placement={placement} hasToasts={hasToasts} styler={containerStyles}>
-        <TransitionGroup>
-          {toasts.map(({ id, type, autoDismiss, onDismiss, content, ...unknownConsumerProps }) => (
-            <Transition key={id} appear mountOnEnter timeout={transitionDuration} unmountOnExit>
-              {(transitionState) => (
-                <Toaster
-                  key={id}
-                  type={type}
-                  autoDismiss={autoDismiss === undefined ? defaultAutoDismiss : autoDismiss}
-                  autoDismissTimeout={autoDismissTimeout}
-                  toastRoot={ToastRoot}
-                  toastContent={ToastContent}
-                  content={content}
-                  onDismiss={() => {
-                    removeToast(id)
-                    if (onDismiss) {
-                      onDismiss(id)
-                    }
-                  }}
-                  placement={placement}
-                  transitionDuration={transitionDuration}
-                  transitionState={transitionState}
-                  styler={toastStyles}
-                  {...unknownConsumerProps}
-                >
-                  {content}
-                </Toaster>
-              )}
-            </Transition>
-          ))}
-        </TransitionGroup>
-      </Container>
-    ),
-    [
-      toasts,
-      placement,
-      hasToasts,
-      defaultAutoDismiss,
-      transitionDuration,
-      autoDismissTimeout,
-      containerStyles,
-      toastStyles,
-      removeToast,
-      ToastRoot,
-      ToastContent,
-    ]
+  const cookedLoaf = (
+    <Container placement={placement} hasToasts={hasToasts} styler={containerStyles}>
+      <TransitionGroup>
+        {toasts.map(({ id, type, autoDismiss, onDismiss, content, ...unknownConsumerProps }) => (
+          <Transition key={id} appear mountOnEnter timeout={transitionDuration} unmountOnExit>
+            {(transitionState) => (
+              <Toaster
+                key={id}
+                toastRoot={ToastRoot}
+                toastContent={ToastContent}
+                type={type}
+                autoDismiss={autoDismiss === undefined ? defaultAutoDismiss : autoDismiss}
+                autoDismissTimeout={autoDismissTimeout}
+                content={content}
+                onDismiss={() => {
+                  removeToast(id)
+                  if (onDismiss) {
+                    onDismiss(id)
+                  }
+                }}
+                placement={placement}
+                transitionDuration={transitionDuration}
+                transitionState={transitionState}
+                styler={toastStyles}
+                {...unknownConsumerProps}
+              >
+                {content}
+              </Toaster>
+            )}
+          </Transition>
+        ))}
+      </TransitionGroup>
+    </Container>
   )
 
   const portalTarget = isBrowser && document.body
@@ -153,7 +130,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
     >
       {children}
       {portalTarget ? (
-        createPortal(CookedLoaf, portalTarget)
+        createPortal(cookedLoaf, portalTarget)
       ) : (
         <Container placement={placement} hasToasts={hasToasts} styler={containerStyles} />
       )}

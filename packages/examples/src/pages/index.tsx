@@ -43,7 +43,11 @@ const IndexPage = () => {
     <Layout>
       <Head title="docs" />
       <Box mb={5}>
-        <ToastProvider toastRoot={DefaultToastRoot} toastContent={DefaultToastContent}>
+        <ToastProvider
+          toastRoot={DefaultToastRoot}
+          toastContent={DefaultToastContent}
+          pauseAllOnHover
+        >
           <Library />
         </ToastProvider>
       </Box>

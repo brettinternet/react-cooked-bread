@@ -27,10 +27,10 @@ export const Toaster: React.FC<ToasterProps> = ({
     if (autoDismiss && !timeout.current) {
       setRunning(true)
       timeout.current = new Timer(onDismiss, autoDismissTimeout)
-
-      return timeout.current?.clear
     }
-  }, [autoDismiss, onDismiss, autoDismissTimeout])
+  }, [autoDismiss, autoDismissTimeout, onDismiss])
+
+  useEffect(() => timeout.current?.clear, [])
 
   const handleMouseEnter = useCallback(() => {
     if (autoDismiss) {
