@@ -19,7 +19,7 @@
     "start": "lerna run start --parallel",
     "test": "lerna run test",
     "deploy": "gh-pages -d packages/examples/public",
-    "version": "lerna version --conventional-commits --create-release github",
+    "version": "lerna version --conventional-commits --create-release github -y",
     "prepublish": "ts-node bin/pre-publish",
     "publish": "lerna run publish from-git -y",
     "commit": "git-cz"
