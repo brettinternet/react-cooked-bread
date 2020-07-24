@@ -28,7 +28,6 @@
     "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c",
     "clean": "rimraf dist docs coverage",
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "publish:release": "semantic-release",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": "cross-env NODE_ENV=development rollup -c -w",
     "test": "jest",
@@ -86,7 +85,6 @@
     "rimraf": "^2.6.2",
     "rollup": "^2.22.0",
     "rollup-plugin-typescript2": "^0.27.1",
-    "semantic-release": "^15.9.16",
     "ts-jest": "^23.10.2",
     "typedoc": "^0.17.8",
     "typescript": "^3.9.7"
