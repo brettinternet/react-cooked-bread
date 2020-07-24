@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core'
 
 import { ThemeType } from 'utils/theme'
 import { headerHeight as height } from 'utils/styles'
-import GithubSvg from 'images/github.svg'
+import GithubSvg from 'assets/github.svg'
 import { useApp } from 'utils/app.context'
 
 interface HeaderProps {

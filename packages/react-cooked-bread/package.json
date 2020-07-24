@@ -89,6 +89,6 @@
     "semantic-release": "^15.9.16",
     "ts-jest": "^23.10.2",
     "typedoc": "^0.17.8",
-    "typescript": "^3.0.3"
+    "typescript": "^3.9.7"
   }
 }

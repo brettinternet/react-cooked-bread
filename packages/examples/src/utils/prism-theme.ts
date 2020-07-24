@@ -1,8 +1,8 @@
 import { css } from '@emotion/core'
-import { ThemeType } from 'utils/theme'
+import { ThemeType, Theme } from 'utils/theme'
 
-export const getPrismCSS = (themeType: ThemeType) => {
-  switch (themeType) {
+export const getPrismStyles = (theme: Theme) => {
+  switch (theme.themeType) {
     case ThemeType.DARK:
       return css`
         code[class*='language-'],

@@ -32,7 +32,7 @@ export type ContainerProps = ContainerValueProps & {
   onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void
 }
 
-export const Container: React.FC<PropsWithChildren<ContainerProps>> = ({
+export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
   children,
   hasToasts,
   placement,
@@ -64,7 +64,7 @@ export const Container: React.FC<PropsWithChildren<ContainerProps>> = ({
   </div>
 )
 
-Container.propTypes = {
+ToastContainer.propTypes = {
   hasToasts: PropTypes.bool.isRequired,
   placement: placementsProps.isRequired,
   styler: stylerProps,

@@ -1,9 +1,12 @@
 import { breakpoints } from 'utils/styles'
+import { isBrowser } from 'utils/window'
 
 const colors = {
   white: 'white',
   black: 'black',
   yellowDark: 'darkgoldenrod',
+  linen: '#f5f2f0',
+  charcoal: '#272822',
 }
 
 export enum ThemeType {
@@ -18,6 +21,8 @@ const getColors = (themeType: ThemeType): typeof colors => {
         white: colors.black,
         black: colors.white,
         yellowDark: 'darkgoldenrod',
+        linen: colors.charcoal,
+        charcoal: colors.linen,
       }
     case ThemeType.LIGHT:
     default:
@@ -29,6 +34,7 @@ const semanticColors = {
   fg: colors.black,
   bg: colors.white,
   bread: colors.yellowDark,
+  code: colors.linen,
 }
 
 const getSemanticColors = (themeType: ThemeType): typeof semanticColors => {
@@ -38,6 +44,7 @@ const getSemanticColors = (themeType: ThemeType): typeof semanticColors => {
         bg: colors.black,
         fg: colors.white,
         bread: colors.yellowDark,
+        code: colors.charcoal,
       }
     case ThemeType.LIGHT:
     default:
@@ -46,6 +53,7 @@ const getSemanticColors = (themeType: ThemeType): typeof semanticColors => {
 }
 
 export const getTheme = (themeType: ThemeType) => ({
+  themeType,
   breakpoints: breakpoints.map((n) => `${n}px`),
   space: [2, 4, 8, 16, 32, 64, 128, 256, 512],
   colors: {
@@ -57,24 +65,4 @@ export const getTheme = (themeType: ThemeType) => ({
 export type Theme = ReturnType<typeof getTheme>
 
 export const darkModePreferred =
-  window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-
-export const getGlobalStyles = (theme: Theme) => ({
-  'html, body': {
-    height: '100%',
-  },
-  body: {
-    margin: 0,
-    transition: 'color 150ms, background 150ms',
-    background: theme.colors.bg,
-    color: theme.colors.fg,
-    fontFamily: 'Source Sans Pro, sans-serif',
-  },
-  a: {
-    color: 'inherit',
-    transition: 'opacity 150ms',
-    ':hover': {
-      opacity: 0.7,
-    },
-  },
-})
+  isBrowser && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches

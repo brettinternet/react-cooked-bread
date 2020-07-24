@@ -1,12 +1,35 @@
 /** @jsx jsx */
 import React from 'react'
-import { Box, Flex } from 'reflexbox'
+import { Box } from 'reflexbox'
 import { Link } from 'gatsby'
 import { jsx, Interpolation } from '@emotion/core'
 import PropTypes from 'prop-types'
 
 import { menuMaxWidth as maxWidth } from 'utils/styles'
-import NewWindowSvg from 'images/arrow-up-right.svg'
+import { TypesLink } from 'components/types-link'
+
+const links = [
+  {
+    to: '/quick-start',
+    name: 'Quick Start',
+  },
+  {
+    to: '/provider',
+    name: 'Provider',
+  },
+  {
+    to: '/hook',
+    name: 'Hook',
+  },
+  {
+    to: '/consumer',
+    name: 'Consumer',
+  },
+  {
+    to: '/extend',
+    name: 'Extend',
+  },
+]
 
 const anchorStyles: Interpolation = {
   textDecoration: 'none',
@@ -20,11 +43,7 @@ const anchorStyles: Interpolation = {
 
 const activeAnchorStyles = { color: 'tomato' }
 
-interface MenuProps {
-  pathPrefix: string
-}
-
-export const Menu: React.FC<MenuProps> = ({ pathPrefix }) => {
+export const Menu: React.FC = () => {
   return (
     <Box
       as="menu"
@@ -33,36 +52,12 @@ export const Menu: React.FC<MenuProps> = ({ pathPrefix }) => {
       width={['auto', 'auto', 'auto', 'auto', 1 / 2, 1]}
       css={{ maxWidth, minWidth: 120 }}
     >
-      <Link to="/" css={anchorStyles} activeStyle={activeAnchorStyles}>
-        <Box py={2}>Quick Start</Box>
-      </Link>
-      <Link to="/provider" css={anchorStyles} activeStyle={activeAnchorStyles}>
-        <Box py={2}>Provider</Box>
-      </Link>
-      <Link to="/hook" css={anchorStyles} activeStyle={activeAnchorStyles}>
-        <Box py={2}>Hook</Box>
-      </Link>
-      <Link to="/consumer" css={anchorStyles} activeStyle={activeAnchorStyles}>
-        <Box py={2}>Consumer</Box>
-      </Link>
-      <Link
-        to="/customize"
-        css={(theme) => ({ ...anchorStyles, color: theme.colors.bread })}
-        activeStyle={activeAnchorStyles}
-      >
-        <Box py={2}>Customize</Box>
-      </Link>
-      <a href={`${pathPrefix}/types`} css={anchorStyles}>
-        <Flex alignItems="center" py={2}>
-          Types
-          <Flex alignItems="center" css={{ transform: 'scale(0.5)' }}>
-            <NewWindowSvg />
-          </Flex>
-        </Flex>
-      </a>
-      <Link to="/hints" css={anchorStyles} activeStyle={activeAnchorStyles}>
-        <Box py={2}>Hints</Box>
-      </Link>
+      {links.map(({ to, name }) => (
+        <Link key={to} to={to} css={anchorStyles} activeStyle={activeAnchorStyles}>
+          <Box py={2}>{name}</Box>
+        </Link>
+      ))}
+      <TypesLink css={anchorStyles} flexProps={{ py: 2 }} />
     </Box>
   )
 }

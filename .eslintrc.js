@@ -24,7 +24,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    // '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/restrict-plus-operands': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     'react/prop-types': 'off',

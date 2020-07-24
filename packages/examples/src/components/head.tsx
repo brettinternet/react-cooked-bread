@@ -4,10 +4,10 @@ import { Helmet, MetaProps } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 interface HeadProps {
+  title: string
   description?: string
   lang?: string
   meta?: MetaProps[]
-  title: string
 }
 
 interface HeadQuery {

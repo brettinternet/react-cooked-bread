@@ -13,28 +13,27 @@ module.exports = {
     homepage: sitePkg.homepage,
     repoUrl: sitePkg.repository.url,
     version: libPkg.version,
+    editPagesRepoUrl: sitePkg.repository.url + '/edit/master/packages/examples/src/pages',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `assets`,
+        path: `${__dirname}/src/assets`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: pkgName,
+        short_name: pkgName,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/bread-512x512.png`,
+        icon: `src/assets/bread-512x512.png`,
       },
     },
     {
@@ -49,7 +48,7 @@ module.exports = {
       options: {
         components: path.join(__dirname, 'src/components'),
         pages: path.join(__dirname, 'src/pages'),
-        images: path.join(__dirname, 'src/images'),
+        assets: path.join(__dirname, 'src/assets'),
         utils: path.join(__dirname, 'src/utils'),
       },
     },
@@ -57,9 +56,20 @@ module.exports = {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
-          include: /images/,
+          include: /assets/,
         },
       },
     },
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        extensions: ['.mdx', '.md'],
+        rehypePlugins: [require('rehype-slug'), require('@mapbox/rehype-prism')],
+        defaultLayouts: {
+          default: require.resolve('./src/components/layout.tsx'),
+        },
+      },
+    },
+    'gatsby-plugin-catch-links',
   ],
 }

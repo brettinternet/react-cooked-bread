@@ -5,7 +5,7 @@ import { Transition, TransitionGroup } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import { jsx } from '@emotion/core'
 
-import { Container as DefaultContainer, ContainerProps, ContainerStyler } from './container'
+import { ToastContainer as DefaultContainer, ContainerProps, ContainerStyler } from './container'
 import { Toaster } from './toaster'
 import { ToastStyler, ToastComponentsProps } from './toast.types'
 import { getId, isBrowser, getStylesCSS } from './utils'

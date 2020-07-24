@@ -1,4 +1,4 @@
-export { Container as ToastContainer } from './container'
+export { ToastContainer } from './container'
 export { DefaultToastRoot } from './toast-root'
 export { DefaultToastContent } from './toast-content'
 export {
