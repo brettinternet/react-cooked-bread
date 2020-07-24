@@ -34,4 +34,4 @@ npm start
 
 Rewritten from [react-toast-notifications](https://github.com/jossmac/react-toast-notifications). Contributions are welcome.
 
-In order to abide by [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), please use `npm run commit` on your changes before pushing to your fork and opening a PR. This will use [commitizen](https://github.com/commitizen/cz-cli) to prompt for information regarding your changeset.
+In order to abide by [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), please use `npm run commit` to commit your changes before pushing to your fork and opening a PR. This will use [commitizen](https://github.com/commitizen/cz-cli) to prompt for information regarding your changeset.
