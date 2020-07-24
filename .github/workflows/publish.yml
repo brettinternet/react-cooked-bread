@@ -49,6 +49,9 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
+      - name: Deploy site
+        run: npm run deploy
+
       - name: Show changed
         run: ./node_modules/.bin/lerna changed
 
@@ -71,6 +74,3 @@ jobs:
         run: npm run publish:github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy site
-        run: npm run deploy
