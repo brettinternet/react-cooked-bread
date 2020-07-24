@@ -28,4 +28,4 @@ npm start
 
 ## Contributors
 
-Forked from `react-toast-notifications`. Contributions are welcome.
+Rewritten from [react-toast-notifications](https://github.com/jossmac/react-toast-notifications). Contributions are welcome.
