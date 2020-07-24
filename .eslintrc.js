@@ -31,7 +31,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['packages/examples/**/*.js'],
+      files: ['packages/examples/**/*.js', 'bin'],
       extends: ['plugin:node/recommended'],
       parserOptions: {
         tsconfigRootDir: __dirname,
@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     {
-      files: ['packages/examples/**/*', '*.test*', 'rollup.config.js'],
+      files: ['packages/examples/**/*', '*.test*', 'rollup.config.js', 'bin/**/*'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',

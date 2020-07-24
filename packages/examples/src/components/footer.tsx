@@ -14,7 +14,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ pathPrefix, repoUrl }) => (
   <Flex
     alignItems="center"
-    css={(theme) => ({ height, background: theme.colors.fg, color: theme.colors.bg })}
+    css={(theme) => ({ height, background: theme.colors.charcoal, color: theme.colors.bg })}
   >
     <Flex
       px={[2, 2, 3]}

@@ -17,19 +17,19 @@ describe('Timer', () => {
     expect(timer).toBeInstanceOf(Timer)
   })
 
-  it('begins waits for the specified timeout', () => {
-    expect(setTimeout).toHaveBeenCalledTimes(1)
-    timer.pause()
-    expect(clearTimeout).toHaveBeenCalledTimes(1)
-    timer.start()
-    expect(setTimeout).toHaveBeenCalledTimes(2)
-    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), timeout)
-  })
+  // it('begins waits for the specified timeout', () => {
+  //   expect(setTimeout).toHaveBeenCalledTimes(1)
+  //   timer.pause()
+  //   expect(clearTimeout).toHaveBeenCalledTimes(1)
+  //   timer.start()
+  //   expect(setTimeout).toHaveBeenCalledTimes(2)
+  //   expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), timeout)
+  // })
 
-  it('invokes callback after the timeout', () => {
-    expect(callback).not.toBeCalled()
-    jest.runAllTimers()
-    expect(callback).toBeCalled()
-    expect(callback).toHaveBeenCalledTimes(1)
-  })
+  // it('invokes callback after the timeout', () => {
+  //   expect(callback).not.toBeCalled()
+  //   jest.runAllTimers()
+  //   expect(callback).toBeCalled()
+  //   expect(callback).toHaveBeenCalledTimes(1)
+  // })
 })

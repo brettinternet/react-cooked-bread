@@ -31,9 +31,9 @@
     "publish:release": "semantic-release",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": "cross-env NODE_ENV=development rollup -c -w",
-    "test": "jest --coverage",
+    "test": "jest",
     "test:prod": "npm run lint && npm run test -- --no-cache",
-    "test:watch": "jest --coverage --watch"
+    "test:watch": "jest --watch"
   },
   "jest": {
     "transform": {
