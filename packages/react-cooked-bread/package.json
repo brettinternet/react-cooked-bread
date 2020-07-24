@@ -26,9 +26,8 @@
   },
   "scripts": {
     "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c",
-    "postbuild": "npm run docs",
     "clean": "rimraf dist docs coverage",
-    "docs": "typedoc --out docs --target es6 --theme minimal --mode library src",
+    "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "publish:release": "semantic-release",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": "cross-env NODE_ENV=development rollup -c -w",
