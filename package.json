@@ -18,12 +18,15 @@
     "clean": "lerna run clean && lerna clean -y",
     "start": "lerna run start --parallel",
     "test": "lerna run test",
-    "publish": "lerna run publish",
+    "version": "lerna run version",
+    "prepublish": "ts-node bin/pre-publish",
+    "publish": "lerna run publish from-git -y",
     "commit": "git-cz"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-push": "npm run test"
     }
   },
