@@ -1,6 +1,6 @@
 # 🍞 react-cooked-bread <sup>toasts!</sup>
 
-![CI](https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg)
+![CI](https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg) ![Publish](https://github.com/brettinternet/react-cooked-bread/workflows/Publish/badge.svg)
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
