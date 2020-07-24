@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+env:
+  CI: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,13 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install
-        run: npm ci
+        run: npm run setup
 
       - name: Lint
         run: npm run lint
@@ -35,5 +38,3 @@ jobs:
 
       - name: Build
         run: npm run build --if-present
-        env:
-          CI: true

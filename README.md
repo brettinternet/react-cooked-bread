@@ -1,24 +1,26 @@
-# react-cooked-bread <sup>toasts!</sup>
+# 🍞 react-cooked-bread <sup>toasts!</sup>
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
-Cooked bread <sup>(...toast)</sup> is a notification popup. Use our styles, style them differently, or bring your own custom components. We'll toast it for you.
+Cooked bread <sup>(...toast)</sup> is a notification popup. Use our styles, style them uniquely, or bring your own custom components. We'll toast it for you.
 
-[Demo](https://brettinternet.github.io/react-cooked-bread/)
+- [Demo](https://brettinternet.github.io/react-cooked-bread/)
+- [Documentation](https://brettinternet.github.io/react-cooked-bread/quick-start)
+- [View code](./packages/react-cooked-bread)
 
-## Install
+## 🥐 Install
 
 ```sh
 npm i --save react-cooked-bread
 ```
 
-## Usage
+## 🥖 Usage
 
 > Small notification windows slide upward into view, [like toast popping out of a toaster](https://en.wikipedia.org/wiki/Pop-up_notification)
 
-View the _very_ brief [Quick Start Guide](https://brettinternet.github.io/react-cooked-bread/quick-start)
+View the [Quick Start Guide](https://brettinternet.github.io/react-cooked-bread/quick-start) to get toast notifications in your React app within 60 seconds.
 
-## Develop
+## 🥯 Develop
 
 ```sh
 npm run setup
@@ -26,6 +28,8 @@ npm run setup
 npm start
 ```
 
-## Contributors
+## 🥪 Contributors
 
 Rewritten from [react-toast-notifications](https://github.com/jossmac/react-toast-notifications). Contributions are welcome.
+
+In order to abide by [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), please use `npm run commit` on your changes before pushing to your fork and opening a PR. This will use [commitizen](https://github.com/commitizen/cz-cli) to prompt for information regarding your changeset.
