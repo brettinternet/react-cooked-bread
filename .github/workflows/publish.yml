@@ -47,10 +47,10 @@ jobs:
         run: npm run test
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
 
       - name: Deploy site
-        run: npm run deploy -u $GITHUB_ACTOR@users.noreply.github.com
+        run: npm run deploy -- -u $GITHUB_ACTOR@users.noreply.github.com
 
       - name: Show changed
         run: ./node_modules/.bin/lerna changed
