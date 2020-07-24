@@ -50,7 +50,7 @@ jobs:
         run: npm run build --if-present
 
       - name: Deploy site
-        run: npm run deploy
+        run: npm run deploy -u $GITHUB_ACTOR@users.noreply.github.com
 
       - name: Show changed
         run: ./node_modules/.bin/lerna changed
