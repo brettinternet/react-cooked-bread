@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Box, Flex } from 'reflexbox'
 import { jsx } from '@emotion/core'
 
-import { appWidth as maxWidth } from 'utils/styles'
+import { footerHeight as height, appWidth as maxWidth } from 'utils/styles'
 import { Link } from 'gatsby'
 
 interface FooterProps {
@@ -13,7 +13,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ repoUrl }) => (
-  <Flex alignItems="center">
+  <Flex alignItems="center" css={{ height }}>
     <Flex
       px={[2, 2, 3]}
       mx="auto"
