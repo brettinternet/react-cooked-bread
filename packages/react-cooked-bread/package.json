@@ -63,10 +63,12 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-transition-group": "^4.4.1"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.x.x",
+    "react": ">= 16.8.x",
+    "react-dom": ">= 16.8.x"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
