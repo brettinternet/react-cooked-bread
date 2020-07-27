@@ -9,9 +9,6 @@ on:
       - master
     types: [closed]
 
-env:
-  CI: true
-
 jobs:
   publish:
     if: "!contains(github.event.head_commit.message, 'skipci')"
@@ -51,6 +48,8 @@ jobs:
 
       - name: Deploy site
         run: npm run deploy -- -u $GITHUB_ACTOR@users.noreply.github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show changed
         run: ./node_modules/.bin/lerna changed
