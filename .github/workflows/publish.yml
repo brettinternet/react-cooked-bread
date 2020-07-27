@@ -35,7 +35,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install
-        run: npm i -g lerna && npm run setup
+        run: npm ci && npm run setup
 
       - name: Lint
         run: npm run lint
