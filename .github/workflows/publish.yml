@@ -47,7 +47,9 @@ jobs:
         run: npm run build
 
       - name: Deploy site
-        run: npm run deploy -- -u $GITHUB_ACTOR@users.noreply.github.com
+        run: |
+          git remote set-url origin $https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy -- -u $GITHUB_ACTOR@users.noreply.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
