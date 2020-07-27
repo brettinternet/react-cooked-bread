@@ -71,6 +71,8 @@ jobs:
           scope: '@brettinternet'
 
       - name: Publish (GitHub)
-        run: npm run publish:github
+        run: |
+          cd packages/react-cooked-bread
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
