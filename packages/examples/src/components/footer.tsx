@@ -4,18 +4,16 @@ import PropTypes from 'prop-types'
 import { Box, Flex } from 'reflexbox'
 import { jsx } from '@emotion/core'
 
-import { footerHeight as height, appWidth as maxWidth } from 'utils/styles'
+import { appWidth as maxWidth } from 'utils/styles'
+import { Link } from 'gatsby'
 
 interface FooterProps {
   pathPrefix: string
   repoUrl: string
 }
 
-export const Footer: React.FC<FooterProps> = ({ pathPrefix, repoUrl }) => (
-  <Flex
-    alignItems="center"
-    css={(theme) => ({ height, background: theme.colors.charcoal, color: theme.colors.bg })}
-  >
+export const Footer: React.FC<FooterProps> = ({ repoUrl }) => (
+  <Flex alignItems="center">
     <Flex
       px={[2, 2, 3]}
       mx="auto"
@@ -26,9 +24,9 @@ export const Footer: React.FC<FooterProps> = ({ pathPrefix, repoUrl }) => (
       }}
     >
       <Box mr={3}>
-        <a href={`${pathPrefix}/types`} css={{ textDecoration: 'none', fontWeight: 'bold' }}>
-          Types
-        </a>
+        <Link to="/quick-start" css={{ textDecoration: 'none', fontWeight: 'bold' }}>
+          Quick Start
+        </Link>
       </Box>
       <Box>
         <a href={repoUrl} css={{ textDecoration: 'none', fontWeight: 'bold' }}>

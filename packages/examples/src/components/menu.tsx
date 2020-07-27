@@ -6,7 +6,7 @@ import { jsx, Interpolation } from '@emotion/core'
 import PropTypes from 'prop-types'
 
 import { menuMaxWidth as maxWidth } from 'utils/styles'
-import { TypesLink } from 'components/types-link'
+// import { TypesLink } from 'components/types-link'
 
 const links = [
   {
@@ -57,7 +57,7 @@ export const Menu: React.FC = () => {
           <Box py={2}>{name}</Box>
         </Link>
       ))}
-      <TypesLink css={anchorStyles} flexProps={{ py: 2 }} />
+      {/* <TypesLink css={anchorStyles} flexProps={{ py: 2 }} /> */}
     </Box>
   )
 }

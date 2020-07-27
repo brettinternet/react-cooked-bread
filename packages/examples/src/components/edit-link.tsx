@@ -3,9 +3,11 @@ import { Location } from '@reach/router'
 import { Box } from 'reflexbox'
 import { useStaticQuery, graphql } from 'gatsby'
 
-const getHref = (base: string, location: Window['location']) => {
+const getPageUrl = (base: string, location: Window['location']) => {
   if (location.pathname !== '/') {
-    return base + location.pathname.replace(/\/+$/, '') + '.mdx'
+    const pathnameFolders = location.pathname.replace(/\/+$/, '').split('/')
+    const pageName = pathnameFolders[pathnameFolders.length - 1]
+    return `${base}/${pageName}.mdx`
   }
 }
 
@@ -23,7 +25,7 @@ export const EditLink: React.FC = () => {
   return (
     <Location>
       {({ location }) => {
-        const href = getHref(site.siteMetadata.editPagesRepoUrl, location)
+        const href = getPageUrl(site.siteMetadata.editPagesRepoUrl, location)
         if (href) {
           return (
             <Box my={5}>

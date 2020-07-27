@@ -10,6 +10,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <Head title="docs" />
+      <h1>Demo</h1>
       <Box my={4}>
         <ToastProvider toastRoot={DefaultToastRoot} toastContent={DefaultToastContent}>
           <Library />
