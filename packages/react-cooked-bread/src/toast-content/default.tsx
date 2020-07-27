@@ -4,7 +4,7 @@ import { jsx, keyframes } from '@emotion/core'
 
 import { colors } from '../styles'
 import { ToastType, Styles } from '../types'
-import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from '../icons'
+import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from './icons'
 import { ToastContentProps, toastContentPropTypes } from '../toast.types'
 
 import { gutter, borderRadius } from '../toast-root/default'
