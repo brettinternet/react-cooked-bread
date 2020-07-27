@@ -54,9 +54,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Show changed
-        run: ./node_modules/.bin/lerna changed
-
       - name: Release
         run: npm run version
         env:
