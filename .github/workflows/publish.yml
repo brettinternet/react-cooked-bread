@@ -35,7 +35,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install
-        run: npm ci && npm run setup
+        run: npm i -g lerna && npm run setup
 
       - name: Lint
         run: npm run lint
@@ -51,6 +51,8 @@ jobs:
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           npm run deploy -- -u "$GITHUB_ACTOR@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show changed
         run: ./node_modules/.bin/lerna changed
