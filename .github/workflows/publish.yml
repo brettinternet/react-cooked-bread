@@ -68,6 +68,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           registry-url: 'https://npm.pkg.github.com'
+          scope: @brettinternet
 
       - name: Publish (GitHub)
         run: npm run publish:github
