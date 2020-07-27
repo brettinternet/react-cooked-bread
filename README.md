@@ -8,7 +8,7 @@ Cooked bread <sup>(...toast)</sup> is a notification popup. Use our styles, styl
 
 - [Demo](https://brettinternet.github.io/react-cooked-bread/)
 - [Documentation](https://brettinternet.github.io/react-cooked-bread/quick-start)
-- [View code](./packages/react-cooked-bread)
+- [View code](./packages/react-cooked-bread/src)
 
 ## 🥐 Install
 
