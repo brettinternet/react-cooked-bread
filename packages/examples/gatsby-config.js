@@ -64,7 +64,8 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md'],
-        rehypePlugins: [require('rehype-slug'), require('@mapbox/rehype-prism')],
+        gatsbyRemarkPlugins: ['gatsby-remark-autolink-headers'],
+        rehypePlugins: [require('@mapbox/rehype-prism')],
         defaultLayouts: {
           default: require.resolve('./src/components/layout.tsx'),
         },

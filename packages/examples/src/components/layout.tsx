@@ -26,7 +26,6 @@ import { useStorage } from 'utils/storage.hook'
 import { LocalStorageKey } from 'utils/storage'
 import { getPrismStyles } from 'utils/prism-theme'
 import { Head } from 'components/head'
-import { TypesLink } from 'components/types-link'
 
 export const Layout: React.FC = ({ children }) => {
   const { site } = useStaticQuery(graphql`
@@ -96,7 +95,7 @@ interface MDXLayoutProps extends PageProps {
 const MDXLayout: React.FC<MDXLayoutProps> = ({ children, pageContext }) => (
   <Layout>
     <Head title={pageContext.frontmatter.title} />
-    <MDXProvider components={{ TypesLink }}>
+    <MDXProvider>
       {children}
       <EditLink />
     </MDXProvider>

@@ -36,21 +36,44 @@ export const getGlobalStyles = (theme: Theme) =>
       }
     }
 
-    :not(pre) > code {
-      background: ${theme.colors.code};
-      padding: 2px 4px;
-      border-radius: 0.3rem;
-    }
-
-    table {
-      width: 100%;
-      th {
-        text-align: left;
+    article {
+      :not(pre) > code {
+        background: ${theme.colors.code};
+        padding: 2px 4px;
+        border-radius: 0.3rem;
       }
 
-      td,
-      th {
-        padding: 0.4rem;
+      table {
+        width: 100%;
+        th {
+          text-align: left;
+        }
+
+        td,
+        th {
+          padding: 0.4rem;
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        a.anchor.before {
+          position: absolute;
+          padding-right: 0.25rem;
+          transform: translateX(-100%);
+
+          svg {
+            visibility: hidden;
+          }
+        }
+
+        &:hover a.anchor.before svg {
+          visibility: visible;
+        }
       }
     }
   `

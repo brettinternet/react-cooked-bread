@@ -36,7 +36,6 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "reflexbox": "^4.0.6",
-    "rehype-slug": "^3.0.0",
     "typeface-source-sans-pro": "^1.1.5"
   },
   "devDependencies": {
@@ -44,6 +43,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
     "@types/reflexbox": "^4.0.1",
+    "gatsby-remark-autolink-headers": "^2.3.11",
     "typescript": "^3.9.7"
   },
   "version": "0.1.11"
