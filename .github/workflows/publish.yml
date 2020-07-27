@@ -17,16 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          # source: https://github.com/lerna/lerna/issues/2542
+          # source: https://github.com/lerna/lerna/issues/2542, https://stackoverflow.com/a/60184319/6817437
           fetch-depth: '0'
 
       - name: Setup Git
         run: |
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
-      - name: Fetch tags
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -63,16 +61,14 @@ jobs:
         run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Setup (GH package registry)
-        uses: actions/setup-node@v1
-        with:
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@brettinternet'
-
-      - name: Publish (GitHub)
-        run: |
-          cd packages/react-cooked-bread
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #
+      # - name: Setup (GH package registry)
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     registry-url: 'https://npm.pkg.github.com'
+      # - name: Publish (GitHub)
+      #   run: |
+      #     cd packages/react-cooked-bread
+      #     npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
