@@ -70,6 +70,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Publish (GitHub)
-        run: npm run publish:github
+        run: |
+          cat .npmrc
+          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
+          npm run publish:github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
