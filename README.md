@@ -2,9 +2,17 @@
 
 [![CI](https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg)](https://github.com/brettinternet/react-cooked-bread/actions?query=workflow%3ACI) [![Build](https://github.com/brettinternet/react-cooked-bread/workflows/Publish/badge.svg)](https://github.com/brettinternet/react-cooked-bread/actions?query=workflow%3APublish) [![NPM](https://img.shields.io/npm/v/react-cooked-bread)](https://www.npmjs.com/package/react-cooked-bread) [![Release](https://img.shields.io/github/v/release/brettinternet/react-cooked-bread)](https://github.com/brettinternet/react-cooked-bread/releases)
 
+### What
+
+> Small notification windows slide upward into view, [like toast popping out of a toaster](https://en.wikipedia.org/wiki/Pop-up_notification)
+
+Cooked bread <sup>(...toast)</sup> is a notification popup.
+
+### Why
+
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
-Cooked bread <sup>(...toast)</sup> is a notification popup. Use our styles, style them uniquely, or bring your own custom components. We'll toast it for you.
+TypeScript, extendability, good options and defaults. Use our styles, style them uniquely, or bring your own custom components.
 
 - [Demo](https://brettinternet.github.io/react-cooked-bread/)
 - [Documentation](https://brettinternet.github.io/react-cooked-bread/quick-start)
@@ -17,8 +25,6 @@ npm i --save react-cooked-bread
 ```
 
 ## 🥖 Usage
-
-> Small notification windows slide upward into view, [like toast popping out of a toaster](https://en.wikipedia.org/wiki/Pop-up_notification)
 
 View the [Quick Start Guide](https://brettinternet.github.io/react-cooked-bread/quick-start) to get toast notifications in your React app within 60 seconds.
 
