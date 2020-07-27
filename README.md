@@ -1,6 +1,6 @@
 # 🍞 react-cooked-bread <sup>toasts!</sup>
 
-![CI](https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg) ![Build](https://github.com/brettinternet/react-cooked-bread/workflows/Publish/badge.svg) ![NPM](https://img.shields.io/npm/v/react-cooked-bread) ![Release](https://img.shields.io/github/v/release/brettinternet/react-cooked-bread)
+[![CI](https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg)](https://github.com/brettinternet/react-cooked-bread/actions?query=workflow%3ACI) [![Build](https://github.com/brettinternet/react-cooked-bread/workflows/Publish/badge.svg)](https://github.com/brettinternet/react-cooked-bread/actions?query=workflow%3APublish) [![NPM](https://img.shields.io/npm/v/react-cooked-bread)](https://www.npmjs.com/package/react-cooked-bread) [![Release](https://img.shields.io/github/v/release/brettinternet/react-cooked-bread)](https://github.com/brettinternet/react-cooked-bread/releases)
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
