@@ -46,5 +46,5 @@
     "gatsby-remark-autolink-headers": "^2.3.11",
     "typescript": "^3.9.7"
   },
-  "version": "0.1.12"
+  "version": "0.1.13"
 }
