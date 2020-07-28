@@ -49,10 +49,15 @@ ToastConsumer.propTypes = {
   children: PropTypes.func.isRequired,
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const withToastContext = <T extends object = {}>(Component: React.ComponentType<T>) =>
+export interface WithToastContextProps {
+  toastContext: ToastContextProps
+}
+
+export const withToastContext = <T extends WithToastContextProps>(
+  Component: React.ComponentType<T>
+) =>
   React.forwardRef((props: T, ref: React.Ref<HTMLElement>) => (
     <ToastConsumer>
-      {(context) => <Component ref={ref} toastContext={context} {...props} />}
+      {(context) => <Component ref={ref} {...props} toastContext={context} />}
     </ToastConsumer>
   ))

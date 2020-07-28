@@ -12,6 +12,7 @@ export {
   useToasts,
   ToastConsumer,
   withToastContext,
+  WithToastContextProps,
   ToastConsumerProps,
   ToastContextProps,
 } from './context'
