@@ -1,5 +1,6 @@
 {
   "name": "examples",
+  "version": "0.1.13",
   "private": true,
   "description": "Customizable Toasts for React",
   "author": "brett <brettinternet@gmail.com>",
@@ -45,6 +46,5 @@
     "@types/reflexbox": "^4.0.1",
     "gatsby-remark-autolink-headers": "^2.3.11",
     "typescript": "^3.9.7"
-  },
-  "version": "0.1.13"
+  }
 }
