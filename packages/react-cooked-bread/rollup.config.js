@@ -1,8 +1,8 @@
-import typescript from 'rollup-plugin-typescript2'
-import analyze from 'rollup-plugin-analyzer'
-import visualizer from 'rollup-plugin-visualizer'
-import { writeFile } from 'fs'
-import { join } from 'path'
+const typescript = require('rollup-plugin-typescript2')
+const analyze = require('rollup-plugin-analyzer')
+const visualizer = require('rollup-plugin-visualizer')
+const { writeFile } = require('fs')
+const { join } = require('path')
 
 const pkg = require('./package.json')
 
@@ -15,7 +15,7 @@ const writeTo = (analysisString) => {
 /**
  * @type {import('rollup').RollupOptions}
  */
-const config = {
+module.exports = {
   // CommonJS (for Node) and ES module (for bundlers) build
   input: 'src/index.ts',
   output: [
@@ -41,8 +41,6 @@ const config = {
     }),
   ],
 }
-
-export default config
 
 // import resolve from '@rollup/plugin-node-resolve'
 // import commonjs from '@rollup/plugin-commonjs'

@@ -31,7 +31,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['packages/examples/**/*.js', 'bin'],
+      files: ['packages/examples/**/*.js', 'bin', 'rollup.config.js'],
       extends: ['plugin:node/recommended'],
       parserOptions: {
         tsconfigRootDir: __dirname,
