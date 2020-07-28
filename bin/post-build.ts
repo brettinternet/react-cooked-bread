@@ -1,7 +1,7 @@
 import { join, basename } from 'path'
 import { copySync } from 'fs-extra'
 
-const docBuildRootDir = join(__dirname, '..', 'packages', 'examples', 'public')
+const docBuildRootDir = join(__dirname, '..', 'packages', 'docs', 'public')
 
 const bundleChartPath = join(__dirname, '..', 'bundle-analysis.txt')
 const bundleGraphPath = join(__dirname, '..', 'bundle-analysis.html')
