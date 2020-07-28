@@ -20,7 +20,7 @@
     "start": "lerna run start --parallel",
     "test": "lerna run test",
     "deploy": "gh-pages -d packages/examples/public",
-    "version": "lerna version --conventional-commits --create-release github --yes",
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes",
     "prepublish": "ts-node bin/pre-publish",
     "publish": "lerna publish from-git --yes",
     "publish:github": "lerna publish from-package --yes --registry https://npm.pkg.github.com",
