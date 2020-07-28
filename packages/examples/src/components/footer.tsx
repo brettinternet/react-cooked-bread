@@ -2,17 +2,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Flex } from 'reflexbox'
-import { jsx } from '@emotion/core'
+import { jsx, ObjectInterpolation } from '@emotion/core'
 
 import { footerHeight as height, appWidth as maxWidth } from 'utils/styles'
 import { Link } from 'gatsby'
+
+const linkStyles: ObjectInterpolation<undefined> = { textDecoration: 'none', fontWeight: 'bold' }
 
 interface FooterProps {
   pathPrefix: string
   repoUrl: string
 }
 
-export const Footer: React.FC<FooterProps> = ({ repoUrl }) => (
+export const Footer: React.FC<FooterProps> = ({ repoUrl, pathPrefix }) => (
   <Flex alignItems="center" css={{ height }}>
     <Flex
       px={[2, 2, 3]}
@@ -24,15 +26,20 @@ export const Footer: React.FC<FooterProps> = ({ repoUrl }) => (
       }}
     >
       <Box mr={3}>
-        <Link to="/quick-start" css={{ textDecoration: 'none', fontWeight: 'bold' }}>
+        <Link to="/quick-start" css={linkStyles}>
           Quick Start
         </Link>
       </Box>
-      <Box>
-        <a href={repoUrl} css={{ textDecoration: 'none', fontWeight: 'bold' }}>
-          GitHub
+      <Box mr={3}>
+        <a href={`${pathPrefix}/bundle-analysis`} css={linkStyles}>
+          Bundle Analysis
         </a>
       </Box>
+      <div>
+        <a href={repoUrl} css={linkStyles}>
+          GitHub
+        </a>
+      </div>
     </Flex>
   </Flex>
 )
