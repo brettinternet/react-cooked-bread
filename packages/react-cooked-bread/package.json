@@ -90,5 +90,6 @@
     "ts-jest": "^23.10.2",
     "typedoc": "^0.17.8",
     "typescript": "^3.9.7"
-  }
+  },
+  "gitHead": "faf9707f410bffb25ac1168c2ff5339d6e000db0"
 }
