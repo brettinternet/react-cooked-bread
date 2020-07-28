@@ -1,13 +1,6 @@
 {
-  "name": "examples",
+  "name": "docs",
   "private": true,
-  "description": "Customizable Toasts for React",
-  "author": "brett <brettinternet@gmail.com>",
-  "homepage": "https://github.com/brettinternet/react-cooked-bread#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/brettinternet/react-cooked-bread"
-  },
   "scripts": {
     "build": "gatsby build --prefix-paths",
     "clean": "gatsby clean",

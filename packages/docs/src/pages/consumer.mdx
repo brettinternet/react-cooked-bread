@@ -1,0 +1,37 @@
+---
+title: 'Consumer'
+---
+
+# Consumer
+
+With less boilerplate and succinct readability, the [hook](/hook) is the recommended way to consume the [Toast Context Props](/hook#props). If you're new to hooks, consider this [introduction to hooks](https://reactjs.org/docs/hooks-intro.html).
+
+## Functional Component
+
+The functional component `ToastConsumer` offers a way to use a functional children prop to use the [Context Props](/hook#props).
+
+```tsx
+import { ToastConsumer } from 'react-cooked-bread'
+
+const Component = () => (
+  <ToastConsumer>
+    {(context) => context.toasts.map(({ id, content }) => <div key={id}>{content}</div>)}
+  </ToastConsumer>
+)
+```
+
+## Higher-Order Component
+
+The higher-order component `withToastContext` provides `toastContext` as a [Context Props](/hook#props) object to your component.
+
+```tsx
+import { withToastContext, WithToastContextProps } from 'react-cooked-bread'
+
+const Component: React.FC<WithToastContextProps> = ({ toastContext }) => {
+  const { addToast } = toastContext
+
+  // ...
+}
+
+const ComponentWithToast = withToastContext(Component)
+```

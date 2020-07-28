@@ -9,7 +9,13 @@ import { getRandomPhrase } from 'utils/content'
 
 const toastTypes: ToastType[] = ['success', 'info', 'warning', 'error']
 
-export const Library: React.FC = () => {
+interface LibraryProps {
+  full?: boolean
+}
+
+export const Library: React.FC<LibraryProps> = ({
+  full = false
+}) => {
   const [toastType, setToastType] = useState<ToastType>('success')
   const [autoDismiss, setAutoDismiss] = useState(true)
   const { addToast, removeToast, removeAllToasts, toasts } = useToasts()
@@ -51,7 +57,7 @@ export const Library: React.FC = () => {
           </button>
         </Box>
 
-        <Box mr={3}>
+        {full && <Box mr={3}>
           <input
             type="checkbox"
             id="toast-option-auto-dismiss"
@@ -65,10 +71,10 @@ export const Library: React.FC = () => {
             }}
           />
           <label htmlFor="toast-option-auto-dismiss">Auto dismiss</label>
-        </Box>
+        </Box>}
       </Flex>
 
-      <Flex alignItems="center">
+      {full && <Flex alignItems="center">
         <Box mr={3}>
           <button
             disabled={!toasts.length}
@@ -109,7 +115,7 @@ export const Library: React.FC = () => {
         </Box>
 
         <div>Active toasts: {toasts.length}</div>
-      </Flex>
+      </Flex>}
     </Box>
   )
 }

@@ -4,17 +4,27 @@ title: 'Extend'
 
 # Extend
 
+## Components
+
 Perhaps most commonly, you'll want to use your own component.
 
-```js
-<ToastProvider container={MySpecialOverlay} toast={MyCustomMessageBox}>
+```tsx
+<ToastProvider
+  container={MySpecialOverlay}
+  toastRoot={FancySlideAnimation}
+  toastContent={OurCompanyMessageBox}
+>
 ```
 
-### Custom styles
+## Styles
 
-You may also choose to use the default components and modify the default styles.
+You may choose to use the default components and modify the default styles.
 
-#### Classes
+### Stylers
+
+This is the recommended way to custom styles for existing components. See [how to use a styler in the provider](/provider#stylers). With stylers, you can either pass in a style object or a function to dynamically change the styles based on the component state.
+
+### Classes
 
 There are only two components rendered to the DOM. The first is the container that holds all the toasts in an absolute position over the viewport. Next is the toast component which is made up of just a few elements. Here they are:
 

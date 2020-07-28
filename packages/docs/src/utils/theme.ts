@@ -5,8 +5,11 @@ const colors = {
   white: 'white',
   black: 'black',
   yellowDark: 'darkgoldenrod',
-  linen: '#f5f2f0',
-  charcoal: '#272822',
+  yellowLight: 'lightgoldenrodyellow',
+  linen: 'antiquewhite',
+  grayDark: '#272822',
+  grayLight: 'dimgray',
+  whiteAlt: 'ivory',
 }
 
 export enum ThemeType {
@@ -20,9 +23,12 @@ const getColors = (themeType: ThemeType): typeof colors => {
       return {
         white: colors.black,
         black: colors.white,
-        yellowDark: 'darkgoldenrod',
-        linen: colors.charcoal,
-        charcoal: colors.linen,
+        yellowDark: colors.yellowLight,
+        yellowLight: colors.yellowDark,
+        linen: colors.grayDark,
+        grayDark: colors.linen,
+        grayLight: colors.whiteAlt,
+        whiteAlt: colors.grayLight,
       }
     case ThemeType.LIGHT:
     default:
@@ -33,8 +39,7 @@ const getColors = (themeType: ThemeType): typeof colors => {
 const semanticColors = {
   fg: colors.black,
   bg: colors.white,
-  bread: colors.yellowDark,
-  code: colors.linen,
+  bgCode: colors.linen,
 }
 
 const getSemanticColors = (themeType: ThemeType): typeof semanticColors => {
@@ -43,8 +48,7 @@ const getSemanticColors = (themeType: ThemeType): typeof semanticColors => {
       return {
         bg: colors.black,
         fg: colors.white,
-        bread: colors.yellowDark,
-        code: colors.charcoal,
+        bgCode: colors.grayDark,
       }
     case ThemeType.LIGHT:
     default:

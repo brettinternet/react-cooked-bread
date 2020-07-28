@@ -4,14 +4,12 @@ title: 'Provider'
 
 # Provider
 
-You can choose to either use default components we've created (and more components to choose from soon!) or you can add your own.
-
-> **<ins>Note</ins>**: You must add a `toastRoot`, but you may optionally add `toastContent` (Although it'll look ugly without it, unless you add your own!)
+The `ToastProvider` controls the pop-up overlay, some common settings, and the state for our toasts. Add the toast provider to a top-level position in your app. All consumers must be descendants of the provider.
 
 ```tsx
 import { DefaultToastRoot, DefaultToastContent } from 'react-cooked-bread'
 
-const MyApp = () => (
+const App = () => (
   <ToastProvider
     toastRoot={DefaultToastRoot} // Required
     toastContent={DefaultToastContent} // Recommended, unless you customize `DefaultToastRoot`
@@ -20,6 +18,10 @@ const MyApp = () => (
   </ToastProvider>
 )
 ```
+
+You can choose to either use default components we've created (and more components to choose from soon!) or you can add your own.
+
+> You must pass a component to `toastRoot`, but you may optionally add `toastContent` (Although it'll look ugly without it, unless you add your own!)
 
 We give you the responsibility to add the components to the provider so that if you prefer custom components, you don't have to include unused code.
 

@@ -1,0 +1,133 @@
+---
+title: 'Hook'
+---
+
+# Hook
+
+Invoke `useToasts` hook in a functional component to extract helpers to create, modify, view and remove toasts.
+
+```js
+import { useToasts } from 'react-cooked-bread'
+
+const Component = () => {
+  const { addToast, removeToast, removeAllToasts, updateToast, toasts } = useToasts()
+
+  useEffect(() => {
+    if (error) {
+      addToast(error.message, {
+        type: 'error',
+      })
+    }
+  }, [error, addToast])
+
+  // ...
+}
+```
+
+This is the recommended method of consumption.
+
+## Props
+
+### Prop descriptions
+
+| Property                                | Type     | Description                            |
+| --------------------------------------- | -------- | -------------------------------------- |
+| [`addToast`](#add-toast)                | Function | Create a toast and add it to the queue |
+| [`removeToast`](#remove-toast)          | Function | Remove a specific toast by `id`        |
+| [`removeAllToasts`](#remove-all-toasts) | Function | Remove all toasts                      |
+| [`updateToast`](#update-toast)          | Function | Update a specific toast by `id`        |
+| [`toasts`](#update-toast)               | Array    | A list of active toast properties      |
+
+#### Add Toast
+
+##### Usage
+
+```ts
+const newToastId = addToast(content: ReactNode, {
+  type: 'success',
+  autoDismiss: true,
+  onDismiss: () => {
+    console.log('bye!')
+  }
+})
+
+if (!newToastId) {
+  throw Error('Toast creation failed!')
+}
+```
+
+##### TypeScript
+
+```ts
+(content: ReactNode, options: ToastOptions) => string | void
+```
+
+#### Remove Toast
+
+##### Usage
+
+```ts
+removeToast(id)
+```
+
+##### TypeScript
+
+```ts
+(id: string) => void
+```
+
+#### Remove All Toasts
+
+##### Usage
+
+```ts
+removeAllToasts()
+```
+
+##### TypeScript
+
+```ts
+() => void
+```
+
+#### Update Toast
+
+##### Usage
+
+```ts
+updateToast(id, {
+  autoDismiss: false,
+})
+```
+
+##### TypeScript
+
+```ts
+(id: string, options: ToastOptions) => void
+```
+
+#### Toasts
+
+##### Usage
+
+```tsx
+<>
+  {toasts.map(({ id, content, type, autoDismiss }) => (
+    <div key={id} className={`${type}-toast`}>
+      {content}
+      {autoDismiss && <Timer />}
+    </div>
+  ))}
+</>
+```
+
+##### TypeScript
+
+```ts
+type ActiveToast = {
+  id: Id
+  type: ToastType
+  autoDismiss?: boolean
+  content: ReactNode
+}
+```

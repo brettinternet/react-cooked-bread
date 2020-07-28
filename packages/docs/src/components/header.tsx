@@ -5,17 +5,24 @@ import { Flex, Box } from 'reflexbox'
 import { jsx } from '@emotion/core'
 
 import { ThemeType } from 'utils/theme'
-import { headerHeight as height } from 'utils/styles'
+import { headerHeight as height, createMediaQuery, breakpoints } from 'utils/styles'
 import GithubSvg from 'assets/github.svg'
 import { useApp } from 'utils/app.context'
+
+const hideMobileStyles = {
+  [createMediaQuery(breakpoints[2], true)]: {
+    display: 'none',
+  },
+}
 
 interface HeaderProps {
   siteTitle: string
   repoUrl: string
   version: string
+  npmLink: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version }) => {
+export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version, npmLink }) => {
   const { themeType, setThemeType } = useApp()
 
   const isDarkTheme = themeType === ThemeType.DARK
@@ -23,8 +30,8 @@ export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version }) =
   return (
     <Flex as="header" alignItems="center" css={{ height }}>
       <Flex width={1} px={[2, 2, 3]} mx="auto">
-        <Box mr="auto">
-          <Box as="h1" fontSize={['1.4rem', '1.4rem', '1.4rem', '2rem']} css={{ margin: 0 }}>
+        <Flex alignItems="center" mr="auto">
+          <Box as="h1" fontSize={['1rem', '1.4rem', '1.4rem', '2rem']} css={{ margin: 0 }}>
             <Link
               to="/"
               css={(theme) => ({
@@ -33,19 +40,30 @@ export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version }) =
               })}
             >
               {siteTitle}
-              <Box as="sup" fontSize={['1rem']} ml={1} mr={1}>
+              <Box as="sup" fontSize={['1rem']} ml={1} mr={1} css={hideMobileStyles}>
                 toasts
               </Box>
             </Link>
           </Box>
-        </Box>
-        <Flex alignItems="center" mr={4}>
-          <small>v{version}</small>
         </Flex>
-        <Flex as="nav" alignItems="center" mr={3}>
-          <a href={repoUrl}>
-            <GithubSvg height={24} width={24} />
-          </a>
+        <Flex as="nav" alignItems="center">
+          <Flex alignItems="center" mr={[3, 3, 3, 4]}>
+            <a
+              href={npmLink}
+              target="_blank"
+              rel="noreferrer noopener"
+              css={{ textDecoration: 'none' }}
+            >
+              <Box p={1}>
+                <small>v{version}</small>
+              </Box>
+            </a>
+          </Flex>
+          <Box mr={3} css={hideMobileStyles}>
+            <a href={repoUrl}>
+              <GithubSvg height={24} width={24} />
+            </a>
+          </Box>
         </Flex>
         <Flex alignItems="center">
           <Box
