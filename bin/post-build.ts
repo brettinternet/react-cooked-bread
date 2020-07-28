@@ -1,9 +1,14 @@
-import { join } from 'path'
+import { join, basename } from 'path'
 import { copySync } from 'fs-extra'
 
-const pkg = require('../package.json')
+const docBuildRootDir = join(__dirname, '..', 'packages', 'examples', 'public')
 
-const typedocsBuildPath = join(__dirname, '..', 'packages', pkg.name, 'docs')
-const docBuildPath = join(__dirname, '..', 'packages', 'examples', 'public', 'types')
+const bundleChartPath = join(__dirname, '..', 'bundle-analysis.txt')
+const bundleGraphPath = join(__dirname, '..', 'bundle-analysis.html')
 
-copySync(typedocsBuildPath, docBuildPath)
+const staticFiles = [bundleChartPath, bundleGraphPath]
+staticFiles.forEach((path) => {
+  const fileName = basename(path)
+  const dest = join(docBuildRootDir, fileName)
+  copySync(path, dest)
+})

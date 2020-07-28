@@ -84,7 +84,9 @@
     "jest-config": "^23.6.0",
     "rimraf": "^2.6.2",
     "rollup": "^2.22.0",
+    "rollup-plugin-analyzer": "^3.3.0",
     "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-visualizer": "^4.0.4",
     "ts-jest": "^23.10.2",
     "typedoc": "^0.17.8",
     "typescript": "^3.9.7"

@@ -44,6 +44,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: bundle-analyze-txt
+          path: bundle-analyze.txt
+
         # source: https://github.com/tschaub/gh-pages/issues/345#issuecomment-608243163
       - name: Deploy site
         run: |

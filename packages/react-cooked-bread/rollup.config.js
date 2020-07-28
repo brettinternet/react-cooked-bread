@@ -1,13 +1,23 @@
-const typescript = require('rollup-plugin-typescript2')
+import typescript from 'rollup-plugin-typescript2'
+import analyze from 'rollup-plugin-analyzer'
+import visualizer from 'rollup-plugin-visualizer'
+import { writeFile } from 'fs'
+import { join } from 'path'
+
 const pkg = require('./package.json')
-const input = 'src/index.ts'
+
+const bundleChartPath = join(__dirname, '..', '..', 'bundle-analysis.txt')
+const bundleGraphPath = join(__dirname, '..', '..', 'bundle-analysis.html')
+const writeTo = (analysisString) => {
+  writeFile(bundleChartPath, analysisString, (err) => err && console.error(err))
+}
 
 /**
  * @type {import('rollup').RollupOptions}
  */
 const config = {
   // CommonJS (for Node) and ES module (for bundlers) build
-  input,
+  input: 'src/index.ts',
   output: [
     { file: pkg.main, format: 'cjs', sourcemap: true },
     { file: pkg.module, format: 'es', sourcemap: true },
@@ -20,7 +30,16 @@ const config = {
     '@emotion/core',
     'prop-types',
   ],
-  plugins: [typescript({ useTsconfigDeclarationDir: true })],
+  plugins: [
+    typescript({ useTsconfigDeclarationDir: true }),
+    analyze({ writeTo }),
+    visualizer({
+      filename: bundleGraphPath,
+      template: 'sunburst',
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
 }
 
 export default config
