@@ -4,11 +4,11 @@ title: 'Consumer'
 
 # Consumer
 
-With less boilerplate and succinct readability, the [hook](/hook) is the recommended way to consume the [Toast Context Props](/hook#props). If you're new to hooks, consider this [introduction to hooks](https://reactjs.org/docs/hooks-intro.html).
+With less boilerplate and succinct readability, the [hook](/hook) is the recommended way to consume the [Toast Context Props](/hook#props). If you're new to hooks, consider this [introduction to hooks](https://reactjs.org/docs/hooks-intro.html). The following consumption methods are considered aging patterns.
 
-## Functional Component
+## Function as a Child
 
-The functional component `ToastConsumer` offers a way to use a functional children prop to use the [Context Props](/hook#props).
+The [function as a child](https://reactjs.org/docs/render-props.html#using-props-other-than-render) component `ToastConsumer` offers a way to use a render function as a children prop and make use of the [Context Props](/hook#props). Some may consider this method [an anti-pattern](https://americanexpress.io/faccs-are-an-antipattern/).
 
 ```tsx
 import { ToastConsumer } from 'react-cooked-bread'
