@@ -39,7 +39,7 @@
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
@@ -60,6 +60,14 @@
     },
     "collectCoverageFrom": [
       "src/*.{js,ts}"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.test.json"
+      }
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom"
     ]
   },
   "dependencies": {
@@ -74,21 +82,25 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "@types/jest": "^23.3.2",
-    "@types/node": "^10.17.27",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/react": "^10.4.7",
+    "@testing-library/react-hooks": "^3.4.1",
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.27",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-transition-group": "^4.4.0",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
-    "jest": "^23.6.0",
-    "jest-config": "^23.6.0",
+    "jest": "^26.1.0",
+    "jest-config": "^26.1.0",
+    "react-test-renderer": "^16.13.1",
     "rimraf": "^2.6.2",
     "rollup": "^2.22.0",
     "rollup-plugin-analyzer": "^3.3.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "rollup-plugin-visualizer": "^4.0.4",
-    "ts-jest": "^23.10.2",
+    "ts-jest": "^26.1.4",
     "typedoc": "^0.17.8",
     "typescript": "^3.9.7"
   },
