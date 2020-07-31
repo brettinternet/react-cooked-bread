@@ -31,19 +31,19 @@ The provider should wrap any components that need to consume or create toasts.
 
 ### Prop descriptions
 
-| Property                | Type                    | Default                    | Description                                                                            | Required |
-| ----------------------- | ----------------------- | -------------------------- | -------------------------------------------------------------------------------------- | -------- |
-| `toastRoot`             | Node                    |                            | Toast wrapper, this animates transitions with `React-Transition-Group`                 | ✔        |
-| `toastContent`          | Node                    |                            | Inner toast content, includes icons, close button, text and colors                     | \*       |
-| `container`             | Node                    | `ToastContainer`           | Wrapper component that places the toasts fixed in the viewport                         |          |
-| `defaultAutoDismiss`    | boolean                 | `false`                    | Whether by default, all new toasts should dismiss by a timer (`addToast` may override) |          |
-| `autoDismissTimeout`    | number                  | `5000`                     | How long a toast with `autoDismiss` should persist in milliseconds                     |          |
-| `placement`             | [Placement](#placement) | `bottom-right`             | Where in the viewport the container should place the toasts                            |          |
-| `transitionDuration`    | number                  | `220`                      | Transition duration for `React-Transition-Group` transition element                    |          |
-| `pauseAllOnHover`       | boolean                 | `false`                    | Whether all toasts should pause if mouse moves over any of the toasts                  |          |
-| `containerStyles`       | [Styler](#stylers)      | container CSS              | Override styles for container element                                                  |          |
-| `transitionGroupStyles` | [Styler](#stylers)      | transition group CSS       | Override styles for transition group wrapper                                           |          |
-| `toastStyles`           | [Styler](#stylers)      | toast root and content CSS | Override styles for toast elements                                                     |          |
+| Property                | Type                      | Default                    | Description                                                                            | Required |
+| ----------------------- | ------------------------- | -------------------------- | -------------------------------------------------------------------------------------- | -------- |
+| `toastRoot`             | Node                      |                            | Toast wrapper, this animates transitions with `React-Transition-Group`                 | ✔        |
+| `toastContent`          | Node                      |                            | Inner toast content, includes icons, close button, text and colors                     | \*       |
+| `container`             | Node                      | `ToastContainer`           | Wrapper component that places the toasts fixed in the viewport                         |          |
+| `defaultAutoDismiss`    | boolean                   | `false`                    | Whether by default, all new toasts should dismiss by a timer (`addToast` may override) |          |
+| `autoDismissTimeout`    | number                    | `5000`                     | How long a toast with `autoDismiss` should persist in milliseconds                     |          |
+| `placement`             | [Placement](#placement)   | `bottom-right`             | Where in the viewport the container should place the toasts                            |          |
+| `transitionDuration`    | number                    | `220`                      | Transition duration for `React-Transition-Group` transition element                    |          |
+| `pauseAllOnHover`       | boolean                   | `false`                    | Whether all toasts should pause if mouse moves over any of the toasts                  |          |
+| `containerStyles`       | [Styler](/extend#stylers) | container CSS              | Override styles for container element                                                  |          |
+| `transitionGroupStyles` | [Styler](/extend#stylers) | transition group CSS       | Override styles for transition group wrapper                                           |          |
+| `toastStyles`           | [Styler](/extend#stylers) | toast root and content CSS | Override styles for toast elements                                                     |          |
 
 <small>*Not required, but recommended</small>
 
@@ -53,53 +53,7 @@ The provider should wrap any components that need to consume or create toasts.
 
 ### Stylers
 
-> A `Styler` is an object or a function with prop arguments that returns an object.
-
-##### Style object
-
-With a `React.CSSProperties` style object:
-
-```tsx
-<ToastProvider
-  containerStyles={{
-    padding: '1rem'
-  }}
-  toastStyles={{
-    root: {
-      backgroundColor: 'hotpink'
-    },
-    content: {
-      color: 'dodgerblue'
-    }
-  }}
->
-```
-
-##### Style function
-
-Or a function that receives an argument with props for that components, that returns a `React.CSSProperties` style object:
-
-```tsx
-<ToastProvider
-  containerStyles={({ hasToasts }) => ({
-    backgroundColor: hasToasts ? 'hotpink' : 'transparent'
-  })}
-  toastStyles={({ type, isRunning }) => ({
-    root: {
-      backgroundColor: type === 'error' ? 'tomato' : 'mediumseagreen'
-    },
-    counddown: {
-      animationPlayState: isRunning ? 'running' : 'paused'
-    }
-  })}
-  transitionGroupStyles={{
-    display: 'flex',
-    flexDirection: 'column-reverse',
-  }}
->
-```
-
-Then, [Emotion](https://github.com/emotion-js/emotion) creates those styles into a CSS class assigned to the element.
+See [how to use a styler](/extend#stylers). With stylers, you can either pass in a style object or a function to dynamically change the styles based on the component state.
 
 ### TypeScript
 

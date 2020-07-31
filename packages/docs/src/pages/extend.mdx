@@ -16,13 +16,78 @@ Perhaps most commonly, you'll want to use your own component.
 >
 ```
 
-## Styles
+### Default Components
 
-You may choose to use the default components and modify the default styles.
+Discovering how the default components work can help you determine when and how to extend these components. We're working on additional default components for toast-root (animation wrapper) and toast-content (look and feel).
+
+#### [ToastContainer](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/container.tsx)
+
+This is always rendered by the [ToastProvider](/provider) and positions the toast according to the defined placement. There is a child `div` that is rendered by this wrapper which is from the `React-Transition-Group` parent.
+
+#### [ToastRoot](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/toast-root/default.tsx)
+
+[React-Trasition-Group](https://github.com/reactjs/react-transition-group) animates the render of each toast and applies the styles to this element. For unique enter/exit styles, recreate this component and pass it to the `ToastProvider`.
+
+#### [ToastContent](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/toast-content/default.tsx)
+
+Custom React elements make up the stylized toast within this component: icons, buttons, text wrappers, the animated bar when `autoDismiss` is enabled.
+
+## CSS
+
+You may choose to use the default components and modify the default styles. Stylers are passed to the different styles props on the [ToastProvider](/provider): `containerStyles`, `transitionGroupStyles`, `toastStyles`.
 
 ### Stylers
 
-This is the recommended way to custom styles for existing components. See [how to use a styler in the provider](/provider#stylers). With stylers, you can either pass in a style object or a function to dynamically change the styles based on the component state.
+This is the recommended way to custom styles for existing components.
+
+> A `Styler` is an _object_ or a _function_ with prop arguments that returns an object.
+
+#### Style object
+
+With a `React.CSSProperties` style object:
+
+```tsx
+<ToastProvider
+  containerStyles={{
+    padding: '1rem'
+  }}
+  // toastStyles styler is unique because it styles multiple components
+  toastStyles={{
+    root: {
+      backgroundColor: 'hotpink'
+    },
+    content: {
+      color: 'dodgerblue'
+    }
+  }}
+>
+```
+
+#### Style function
+
+Or a function that receives an argument with props for that components, that returns a `React.CSSProperties` style object:
+
+```tsx
+<ToastProvider
+  containerStyles={({ hasToasts }) => ({
+    backgroundColor: hasToasts ? 'hotpink' : 'transparent'
+  })}
+  toastStyles={({ type, isRunning }) => ({
+    root: {
+      backgroundColor: type === 'error' ? 'tomato' : 'mediumseagreen'
+    },
+    counddown: {
+      animationPlayState: isRunning ? 'running' : 'paused'
+    }
+  })}
+  transitionGroupStyles={{
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  }}
+>
+```
+
+Then, [Emotion](https://github.com/emotion-js/emotion) creates those styles into a CSS class assigned to the element.
 
 ### Classes
 

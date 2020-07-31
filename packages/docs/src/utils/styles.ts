@@ -67,6 +67,9 @@ export const getGlobalStyles = (theme: Theme) =>
           transform: translateX(-100%);
           color: ${theme.colors.fg};
           opacity: 1;
+          display: flex;
+          align-items: center;
+          height: 100%;
 
           svg {
             visibility: hidden;
@@ -76,6 +79,12 @@ export const getGlobalStyles = (theme: Theme) =>
 
         &:hover a.anchor.before svg {
           visibility: visible;
+        }
+
+        @media (pointer: coarse) {
+          a.anchor.before svg {
+            visibility: visible;
+          }
         }
       }
 

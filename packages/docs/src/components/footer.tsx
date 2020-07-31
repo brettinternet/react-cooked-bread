@@ -32,7 +32,7 @@ const badges = [
     title: 'View releases',
   },
   {
-    src: 'https://img.shields.io/bundlephobia/minzip/react-cooked-bread?label=bundle',
+    src: 'https://img.shields.io/badge/bundle-view-informational',
     alt: 'Bundle',
     href: 'https://brettinternet.com/react-cooked-bread/bundle-analysis',
     title: 'View bundle analysis',

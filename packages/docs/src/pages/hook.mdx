@@ -30,13 +30,13 @@ This is the recommended method of consumption.
 
 ### Prop descriptions
 
-| Property                                | Type     | Description                            |
-| --------------------------------------- | -------- | -------------------------------------- |
-| [`addToast`](#add-toast)                | Function | Create a toast and add it to the queue |
-| [`removeToast`](#remove-toast)          | Function | Remove a specific toast by `id`        |
-| [`removeAllToasts`](#remove-all-toasts) | Function | Remove all toasts                      |
-| [`updateToast`](#update-toast)          | Function | Update a specific toast by `id`        |
-| [`toasts`](#update-toast)               | Array    | A list of active toast properties      |
+| Property                                | Type     | Description                                                    |
+| --------------------------------------- | -------- | -------------------------------------------------------------- |
+| [`addToast`](#add-toast)                | Function | Create a toast and add it to the queue, returns the toast `id` |
+| [`removeToast`](#remove-toast)          | Function | Remove a specific toast by `id`                                |
+| [`removeAllToasts`](#remove-all-toasts) | Function | Remove all toasts                                              |
+| [`updateToast`](#update-toast)          | Function | Update a specific toast by `id`                                |
+| [`toasts`](#update-toast)               | Array    | A list of active toast properties                              |
 
 #### Add Toast
 
@@ -50,10 +50,6 @@ const newToastId = addToast(content: ReactNode, {
     console.log('bye!')
   }
 })
-
-if (!newToastId) {
-  throw Error('Toast creation failed!')
-}
 ```
 
 ##### TypeScript
