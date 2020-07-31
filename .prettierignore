@@ -4,4 +4,4 @@ public
 dist
 node_modules
 coverage
-docs
+packages/react-cooked-bread/docs
