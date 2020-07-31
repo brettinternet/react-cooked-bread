@@ -31,7 +31,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['packages/examples/**/*.js', 'bin', 'rollup.config.js'],
+      files: ['packages/docs/**/*.js', 'bin', 'rollup.config.js'],
       extends: ['plugin:node/recommended'],
       parserOptions: {
         tsconfigRootDir: __dirname,
@@ -44,13 +44,21 @@ module.exports = {
       },
     },
     {
-      files: ['packages/examples/**/*', '*.test*', 'rollup.config.js', 'bin/**/*'],
+      files: ['packages/docs/**/*', '*.test*', 'rollup.config.js', 'bin/**/*'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
+      },
+    },
+    {
+      files: ['*.test.*'],
+      plugins: ['testing-library'],
+      extends: ['plugin:testing-library/recommended'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
       },
     },
   ],

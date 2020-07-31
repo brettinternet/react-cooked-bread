@@ -30,7 +30,7 @@ export type ContainerProps = ContainerValueProps & {
   styler: ContainerStyler
   onMouseEnter?: (ev: React.MouseEvent<HTMLElement>) => void
   onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void
-}
+} & React.HTMLProps<HTMLDivElement>
 
 export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
   children,
@@ -39,6 +39,7 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
   onMouseEnter,
   onMouseLeave,
   styler,
+  ...divProps
 }) => (
   <div
     className={containerClassName}
@@ -59,6 +60,7 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
         ...getStylesCSS(styler, { hasToasts, placement }),
       },
     ]}
+    {...divProps}
   >
     {children}
   </div>

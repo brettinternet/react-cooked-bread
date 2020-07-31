@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core'
 
 import { colors } from '../styles'
 import { PlacementOption } from '../types'
-import { ToastRootProps, toastRootPropTypes } from '../toast.types'
+import { ToastRootProps, toastRootPropTypes } from '../toast-types'
 
 export const gutter = 8
 export const borderRadius = 4
@@ -42,6 +42,7 @@ export const DefaultToastRoot: React.FC<ToastRootProps> = ({
   placement,
   transitionDuration,
   transitionState,
+  autoDismiss,
   onMouseEnter,
   onMouseLeave,
   styles,
@@ -49,6 +50,7 @@ export const DefaultToastRoot: React.FC<ToastRootProps> = ({
   return (
     <div
       className={`${rootClassName} ${rootClassName}--${type}`}
+      role={autoDismiss ? 'alert' : 'alertdialog'}
       css={{
         overflow: 'hidden',
         backgroundColor: colors[type].bg,

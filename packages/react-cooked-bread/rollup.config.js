@@ -1,15 +1,15 @@
 const typescript = require('rollup-plugin-typescript2')
 const analyze = require('rollup-plugin-analyzer')
 const visualizer = require('rollup-plugin-visualizer')
-const { writeFile } = require('fs')
-const { join } = require('path')
+const fs = require('fs')
+const path = require('path')
 
 const pkg = require('./package.json')
 
-const bundleChartPath = join(__dirname, '..', '..', 'bundle-analysis.txt')
-const bundleGraphPath = join(__dirname, '..', '..', 'bundle-analysis.html')
+const bundleChartPath = path.join(__dirname, '..', '..', 'bundle-analysis.txt')
+const bundleGraphPath = path.join(__dirname, '..', '..', 'bundle-analysis.html')
 const writeTo = (analysisString) => {
-  writeFile(bundleChartPath, analysisString, (err) => err && console.error(err))
+  fs.writeFile(bundleChartPath, analysisString, (err) => err && console.error(err))
 }
 
 /**

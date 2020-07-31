@@ -1,4 +1,4 @@
-import { Timer } from '../src/utils'
+import { Timer } from './utils'
 
 describe('Timer', () => {
   let callback: () => void

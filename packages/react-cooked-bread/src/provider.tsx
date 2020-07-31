@@ -7,13 +7,10 @@ import { jsx } from '@emotion/core'
 
 import { ToastContainer as DefaultContainer, ContainerProps, ContainerStyler } from './container'
 import { Toaster } from './toaster'
-import { ToastStyler, ToastComponentsProps } from './toast.types'
-import { getId, isBrowser, getStylesCSS } from './utils'
+import { ToastStyler, ToastComponentsProps } from './toast-types'
+import { isBrowser, getStylesCSS } from './utils'
 import {
-  ToastOptions,
-  ActiveToast,
   PlacementOption,
-  Id,
   PropsWithRequiredChildren,
   placementsProps,
   stylerProps,
@@ -21,6 +18,7 @@ import {
   Styler,
 } from './types'
 import { Context } from './context'
+import { useActiveToasts } from './active-toasts-hook'
 
 const transitionGroupClassName = 'react-cooked-bread__toast__transition-group'
 
@@ -55,46 +53,15 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   transitionGroupStyles,
   toastStyles,
 }) => {
-  const [toasts, setToasts] = useState<ActiveToast[]>([])
-  const [pause, setPause] = useState(false)
-  const hasToasts = !!toasts.length
-
-  const exists = (id: Id | undefined) => {
-    if (id && hasToasts) {
-      return !!toasts.filter((t) => t.id === id).length
-    }
-  }
-
-  const removeToast = (id: Id | undefined) => {
-    if (exists(id)) {
-      setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id))
-    }
-  }
-
-  const removeAllToasts = useCallback(() => {
-    setToasts([])
-  }, [])
-
-  const addToast = (content: React.ReactNode, options: ToastOptions = {}) => {
-    const id = options.id || getId()
-    if (!exists(id)) {
-      const newToast = { content, id, ...options }
-      setToasts((prevToasts) => [...prevToasts, newToast])
-      return id
-    }
-  }
-
-  const updateToast = (id: Id, options: ToastOptions = {}) => {
-    if (exists(id)) {
-      const index = toasts.findIndex((t) => t.id === id)
-      const updatedToast = { ...toasts[index], ...options }
-      setToasts((prevToasts) => [
-        ...prevToasts.slice(0, index),
-        updatedToast,
-        ...prevToasts.slice(index + 1),
-      ])
-    }
-  }
+  const [isPaused, setPause] = useState(false)
+  const {
+    toasts,
+    addToast,
+    removeToast,
+    removeAllToasts,
+    updateToast,
+    hasToasts,
+  } = useActiveToasts()
 
   const handleMouseEnter = useCallback(() => {
     if (pauseAllOnHover) {
@@ -150,7 +117,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
                   placement={placement}
                   transitionDuration={transitionDuration}
                   transitionState={transitionState}
-                  pause={pause}
+                  isPaused={isPaused}
                   onDismiss={() => {
                     removeToast(id)
                     if (onDismiss) {

@@ -3,7 +3,6 @@ import React from 'react'
 import { Box } from 'reflexbox'
 import { Link } from 'gatsby'
 import { jsx, Interpolation } from '@emotion/core'
-import PropTypes from 'prop-types'
 
 import { menuMaxWidth as maxWidth } from 'utils/styles'
 // import { TypesLink } from 'components/types-link'
@@ -48,6 +47,7 @@ export const Menu: React.FC = () => {
     <Box
       as="menu"
       mt={3}
+      mb={4}
       px={[2, 2, 3]}
       width={['auto', 'auto', 'auto', 'auto', 1 / 2, 1]}
       css={{ maxWidth, minWidth: 120 }}
@@ -60,8 +60,4 @@ export const Menu: React.FC = () => {
       {/* <TypesLink css={anchorStyles} flexProps={{ py: 2 }} /> */}
     </Box>
   )
-}
-
-Menu.propTypes = {
-  pathPrefix: PropTypes.string.isRequired,
 }

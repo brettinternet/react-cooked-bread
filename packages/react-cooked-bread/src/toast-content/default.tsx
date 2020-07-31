@@ -3,9 +3,9 @@ import React, { Fragment } from 'react'
 import { jsx, keyframes } from '@emotion/core'
 
 import { colors } from '../styles'
-import { ToastType, Styles } from '../types'
+import { ToastTypeOption, Styles } from '../types'
 import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from './icons'
-import { ToastContentProps, toastContentPropTypes } from '../toast.types'
+import { ToastContentProps, toastContentPropTypes } from '../toast-types'
 
 import { gutter, borderRadius } from '../toast-root/default'
 
@@ -34,6 +34,7 @@ interface CloseButtonProps {
 const CloseButton: React.FC<CloseButtonProps> = ({ children, onClick, styles = {} }) => (
   <button
     className={toastClassNames.closeButtonClassName}
+    aria-label="close"
     css={{
       cursor: 'pointer',
       appearance: 'none',
@@ -60,6 +61,8 @@ type TextProps = {
 const Text: React.FC<TextProps> = ({ children, styles = {} }) => (
   <div
     className={toastClassNames.textClassName}
+    role="document"
+    tabIndex={0}
     css={{
       flexGrow: 1,
       fontSize: 14,
@@ -108,7 +111,7 @@ const Countdown: React.FC<CountdownProps> = ({
 )
 
 interface IconProps {
-  type: ToastType
+  type: ToastTypeOption
   autoDismiss: boolean
   autoDismissTimeout: number
   isRunning: boolean
