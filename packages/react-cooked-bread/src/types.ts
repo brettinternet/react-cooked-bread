@@ -13,7 +13,13 @@ export { TransitionStatus }
 
 export type Id = string
 
-export type ToastType = 'error' | 'info' | 'success' | 'warning'
+export enum ToastType {
+  ERROR = 'error',
+  INFO = 'info',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+}
+export type ToastTypeOption = ToastType | 'error' | 'info' | 'success' | 'warning'
 
 /**
  * Allow custom props if users don't wish to
@@ -21,19 +27,27 @@ export type ToastType = 'error' | 'info' | 'success' | 'warning'
  */
 export type GenericObject = Record<string, unknown>
 
-export type ToastOptions = {
+export type AddToastOptions = {
   id?: Id
-  type?: ToastType
+  type?: ToastTypeOption
   autoDismiss?: boolean
   onDismiss?: (id: string | undefined) => void
 } & GenericObject
 
-export type ActiveToast = {
-  content: ReactNode
-} & ToastOptions
+export type UpdateToastOptions = {
+  content?: ReactNode
+} & AddToastOptions
 
-export type Add = (content: ReactNode, options?: ToastOptions) => Id | void
-export type Update = (id: Id, options: ToastOptions) => void
+export type ActiveToast = {
+  id: string
+  content: ReactNode
+  type: ToastTypeOption
+  autoDismiss?: boolean
+  onDismiss?: (id: string | undefined) => void
+} & GenericObject
+
+export type Add = (content: ReactNode, options?: AddToastOptions) => Id
+export type Update = (id: Id, options: UpdateToastOptions) => void
 export type Remove = (id: Id) => void
 export type RemoveAll = () => void
 
@@ -81,7 +95,7 @@ const placements: PlacementOption[] = [
 ]
 export const placementsProps = PropTypes.oneOf(placements)
 
-const toastTypes: ToastType[] = ['error', 'info', 'success', 'warning']
+const toastTypes: ToastTypeOption[] = ['error', 'info', 'success', 'warning']
 export const toastTypesProps = PropTypes.oneOf(toastTypes)
 
 const transitionStatuses: TransitionStatus[] = [UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING]

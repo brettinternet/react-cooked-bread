@@ -6,7 +6,7 @@ export {
   ToastRootProps,
   toastRootPropTypes,
   toastContentPropTypes,
-} from './toast.types'
+} from './toast-types'
 export { ToastProvider, ToastProviderProps } from './provider'
 export {
   useToasts,
@@ -18,8 +18,10 @@ export {
 } from './context'
 export {
   ToastType,
+  ToastTypeOption,
   Id,
-  ToastOptions,
+  AddToastOptions,
+  UpdateToastOptions,
   ActiveToast,
   Placement,
   PlacementOption,
