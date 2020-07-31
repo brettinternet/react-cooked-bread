@@ -1,5 +1,7 @@
-import React, { useContext, createContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
+const { useContext, createContext } = React
 
 import { noop } from './utils'
 import { Add, Update, Remove, RemoveAll, ActiveToast } from './types'
@@ -13,7 +15,7 @@ export interface ToastContextProps {
 }
 
 export const Context = createContext<ToastContextProps>({
-  addToast: noop,
+  addToast: () => '',
   removeToast: noop,
   removeAllToasts: noop,
   updateToast: noop,
@@ -54,10 +56,13 @@ export interface WithToastContextProps {
 }
 
 export const withToastContext = <T extends WithToastContextProps>(
-  Component: React.ComponentType<T>
+  WrappedComponent: React.ComponentType<T>
 ) =>
-  React.forwardRef((props: T, ref: React.Ref<HTMLElement>) => (
+  React.forwardRef<React.Ref<HTMLElement>, Omit<T, keyof WithToastContextProps>>((props, ref) => (
     <ToastConsumer>
-      {(context) => <Component ref={ref} {...props} toastContext={context} />}
+      {(context) => (
+        // issue: https://github.com/microsoft/TypeScript/issues/28938
+        <WrappedComponent ref={ref} {...(props as T)} toastContext={context} />
+      )}
     </ToastConsumer>
   ))

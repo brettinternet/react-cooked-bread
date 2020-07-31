@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 
-import { ToasterProps } from './toast.types'
+import { ToasterProps } from './toast-types'
 import { Timer, getStylesMapCSS, TimerState } from './utils'
 
 export const Toaster: React.FC<ToasterProps> = ({
   children,
   toastRoot: ToastRoot,
-  toastContent: ToastContent = Fragment,
-  type = 'info',
+  toastContent: ToastContent,
+  type,
   autoDismiss = false,
   autoDismissTimeout,
   content,
@@ -89,9 +89,13 @@ export const Toaster: React.FC<ToasterProps> = ({
       onMouseLeave={onMouseLeave || handleMouseLeave}
       styles={rootStyles}
     >
-      <ToastContent {...sharedProps} styles={contentStyles}>
-        {children}
-      </ToastContent>
+      {ToastContent ? (
+        <ToastContent {...sharedProps} styles={contentStyles}>
+          {children}
+        </ToastContent>
+      ) : (
+        children
+      )}
     </ToastRoot>
   )
 }
