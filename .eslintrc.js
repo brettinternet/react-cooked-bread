@@ -53,5 +53,13 @@ module.exports = {
         '@typescript-eslint/no-unsafe-call': 'off',
       },
     },
+    {
+      files: ['*.test.*'],
+      plugins: ['testing-library'],
+      extends: ['plugin:testing-library/recommended'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
+    },
   ],
 }
