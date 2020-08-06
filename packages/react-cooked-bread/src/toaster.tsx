@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 
 import { ToasterProps } from './toast-types'
-import { Timer, getStylesMapCSS, TimerState } from './utils'
+import { Timer, getStylesMapCSS, TimerState, getStylesCSS } from './utils'
 
 export const Toaster: React.FC<ToasterProps> = ({
   children,
@@ -9,27 +9,37 @@ export const Toaster: React.FC<ToasterProps> = ({
   toastContent: ToastContent,
   type,
   autoDismiss = false,
-  autoDismissTimeout,
+  timeout,
   content,
   placement,
   transitionDuration,
   transitionState,
   isPaused,
   onDismiss,
-  styler,
-  onMouseEnter,
-  onMouseLeave,
+  rootStyles,
+  contentStyles,
+  id,
   ...unknownProps
 }) => {
   const [isRunning, setRunning] = useState(autoDismiss)
   const timer = useRef<Timer>()
 
   useEffect(() => {
-    if (autoDismiss && !timer.current) {
-      setRunning(true)
-      timer.current = new Timer(onDismiss, autoDismissTimeout)
+    if (
+      timer.current &&
+      timer.current.state !== TimerState.COMPLETED &&
+      timer.current.state !== TimerState.READY
+    ) {
+      timer.current.updateTimeout(timeout)
     }
-  }, [autoDismiss, autoDismissTimeout, onDismiss])
+  }, [timeout])
+
+  useEffect(() => {
+    if (timeout && autoDismiss && !timer.current) {
+      setRunning(true)
+      timer.current = new Timer(onDismiss, timeout)
+    }
+  }, [autoDismiss, timeout, onDismiss])
 
   useEffect(() => timer.current?.clear, [])
 
@@ -57,40 +67,33 @@ export const Toaster: React.FC<ToasterProps> = ({
     }
   }, [autoDismiss, isPaused])
 
-  const { root: rootStyles, ...contentStyles } = getStylesMapCSS(styler, {
+  const styleProps = {
     ...unknownProps,
-    content,
+    id,
     type,
-    autoDismiss,
-    autoDismissTimeout,
-    isRunning,
-    placement,
-    transitionDuration,
-    transitionState,
-  })
-
-  const sharedProps = {
-    ...unknownProps,
-    type,
-    onDismiss,
     content,
     autoDismiss,
-    autoDismissTimeout,
+    timeout,
     isRunning,
     placement,
     transitionDuration,
     transitionState,
   }
 
+  const sharedProps = {
+    ...styleProps,
+    onDismiss,
+  }
+
   return (
     <ToastRoot
       {...sharedProps}
-      onMouseEnter={onMouseEnter || handleMouseEnter}
-      onMouseLeave={onMouseLeave || handleMouseLeave}
-      styles={rootStyles}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      styles={getStylesCSS(rootStyles, styleProps)}
     >
       {ToastContent ? (
-        <ToastContent {...sharedProps} styles={contentStyles}>
+        <ToastContent {...sharedProps} styles={getStylesMapCSS(contentStyles, styleProps)}>
           {children}
         </ToastContent>
       ) : (
