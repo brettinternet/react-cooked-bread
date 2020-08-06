@@ -1,4 +1,5 @@
 const typescript = require('rollup-plugin-typescript2')
+const cleanup = require('rollup-plugin-cleanup')
 const analyze = require('rollup-plugin-analyzer')
 const visualizer = require('rollup-plugin-visualizer')
 const fs = require('fs')
@@ -32,6 +33,9 @@ module.exports = {
   ],
   plugins: [
     typescript({ useTsconfigDeclarationDir: true }),
+    cleanup({
+      extensions: ['js', 'jsx', 'ts', 'tsx'],
+    }),
     analyze({ writeTo }),
     visualizer({
       filename: bundleGraphPath,
