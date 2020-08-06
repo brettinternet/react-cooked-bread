@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.2.0...react-cooked-bread@0.3.0) (2020-08-06)
+
+
+### Bug Fixes
+
+* hoc component display name and static hoisting, add error handling for dev mode ([ac5f4a1](https://github.com/brettinternet/react-cooked-bread/commit/ac5f4a18d7b1c2fe96317d636d665285a91ca78e))
+* scroll bar appearing for bottom center toasts ([62df51a](https://github.com/brettinternet/react-cooked-bread/commit/62df51a0d0ff3992b630bcc383d4efc529c652c5))
+
+
+### Features
+
+* add fade toast root option, add self-contained styles for components, clean up code style ([2977785](https://github.com/brettinternet/react-cooked-bread/commit/2977785e1ba0fdfe35c140709862a89027f70701))
+* add maxToasts, pauseOnFocusLoss, reverseColumn ([e278bcb](https://github.com/brettinternet/react-cooked-bread/commit/e278bcb6a1bf36aeb010f938a7c0e3849859cb18))
+* add new dependencies ([d5ea7e3](https://github.com/brettinternet/react-cooked-bread/commit/d5ea7e3f1a3ca4d84186568372d42261b9f04b32))
+* add timer update method, transition duration helper, display name helper ([ac5e05d](https://github.com/brettinternet/react-cooked-bread/commit/ac5e05dab5821494fe957877f68272e2507d7c6f))
+* add unique toast content components based on separate styles and presentation ([e16e217](https://github.com/brettinternet/react-cooked-bread/commit/e16e2171f6ced27df70ce6a843b42126c8dca113))
+* update exports with recent changes, add toast types for toast content and root improvements ([85223dc](https://github.com/brettinternet/react-cooked-bread/commit/85223dcb1f61e12686db62b4fcb9036081fd6394))
+* update toast fn can now update the toast timeout as long as it is unique ([2724f4d](https://github.com/brettinternet/react-cooked-bread/commit/2724f4dad9e4f4a9e1a7d2c7acc9eb585f3e7e46))
+
+
+### BREAKING CHANGES
+
+* There is no longer a DefaultToastRoot because we have now name
+* Default props applied to toasts and passed to the provider have been renamed to
+match the prop option provided to toast context props. Toast root and content styles have been
+separated into two separate props passed to the provider component. `addToast` now returns a string
+that is always defined. Toast options for toast creation and updates have properties that have been
+renamed and some props have been added to support some custom toast content components.
+`TransitionDuration` has been added as a toast option to override the Transition Group timeout prop.
+
+
+
+
+
 # [0.2.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.1.15...react-cooked-bread@0.2.0) (2020-07-31)
 
 ### Bug Fixes
