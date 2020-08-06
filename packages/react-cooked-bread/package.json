@@ -1,6 +1,6 @@
 {
   "name": "react-cooked-bread",
-  "version": "0.2.1",
+  "version": "0.2.0",
   "description": "Customizable Toasts for React",
   "keywords": [
     "react",
@@ -11,7 +11,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
-  "typings": "dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "hoist-non-react-statics": "^3.3.2",
     "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
@@ -85,6 +86,7 @@
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
     "@testing-library/react-hooks": "^3.4.1",
+    "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^26.0.7",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.43",
@@ -98,6 +100,7 @@
     "rimraf": "^2.6.2",
     "rollup": "^2.22.0",
     "rollup-plugin-analyzer": "^3.3.0",
+    "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-typescript2": "^0.27.1",
     "rollup-plugin-visualizer": "^4.0.4",
     "ts-jest": "^26.1.4",
