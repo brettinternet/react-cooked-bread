@@ -24,7 +24,7 @@ const Component = () => {
 }
 ```
 
-This is the recommended method of consumption.
+Occasionally, you may need to use a [higher-order component](/consumer#higher-order-component) instead to access the `ToastContextProps`.
 
 ## Props
 
@@ -43,7 +43,7 @@ This is the recommended method of consumption.
 ##### Usage
 
 ```ts
-const newToastId = addToast(content: ReactNode, {
+const newToastId: string = addToast(content: ReactNode, {
   type: 'success',
   autoDismiss: true,
   onDismiss: () => {
@@ -121,9 +121,14 @@ updateToast(id, {
 
 ```ts
 type ActiveToast = {
-  id: Id
-  type: ToastType
-  autoDismiss?: boolean
+  id: string
   content: ReactNode
+  type: ToastTypeOption
+  autoDismiss?: boolean
+  timeout?: number
+  transitionDuration?: TransitionDuration
+  onDismiss?: (id: string | undefined) => void
+  title?: string
+  subtitle?: string
 }
 ```

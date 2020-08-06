@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core'
 import { footerHeight as height } from 'utils/styles'
 import { newWindowProps } from 'utils/window'
 
-const badges = [
+const getBadges = (pathPrefix: string) => [
   {
     src: 'https://github.com/brettinternet/react-cooked-bread/workflows/CI/badge.svg',
     alt: 'CI',
@@ -34,12 +34,16 @@ const badges = [
   {
     src: 'https://img.shields.io/badge/bundle-view-informational',
     alt: 'Bundle',
-    href: 'https://brettinternet.com/react-cooked-bread/bundle-analysis',
+    href: `${pathPrefix}/bundle-analysis`,
     title: 'View bundle analysis',
   },
 ]
 
-export const Footer: React.FC = () => (
+interface FooterProps {
+  pathPrefix: string
+}
+
+export const Footer: React.FC<FooterProps> = ({ pathPrefix }) => (
   <Flex alignItems="center" css={{ height }}>
     <Flex
       px={[2, 2, 3]}
@@ -49,7 +53,7 @@ export const Footer: React.FC = () => (
       alignItems="center"
       flexWrap="wrap"
     >
-      {badges.map(({ href, src, alt, title }) => (
+      {getBadges(pathPrefix).map(({ href, src, alt, title }) => (
         <Box key={src} mr={3} mb={2}>
           <a href={href} css={{ textDecoration: 'none' }} title={title} {...newWindowProps}>
             <img src={src} alt={alt} />

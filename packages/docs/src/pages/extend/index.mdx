@@ -1,0 +1,172 @@
+---
+title: 'Extend'
+---
+
+# Extend
+
+## Components
+
+Perhaps most commonly, you'll want to use your own component.
+
+```tsx
+<ToastProvider
+  container={MySpecialOverlay}
+  toastRoot={FancySlideAnimation}
+  toastContent={OurCompanyMessageBox}
+>
+```
+
+### Default Components
+
+Discovering how the default components work can help you determine when and how to extend these components. We're working on additional default components for toast-root (animation wrapper) and toast-content (look and feel).
+
+#### [ToastContainer](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/container.tsx)
+
+This is always rendered by the [ToastProvider](/provider) and positions the toasts according to the defined placement. There is a child `div` that is rendered by this wrapper which is from the `React-Transition-Group` parent.
+
+##### Props
+
+```ts
+interface ContainerProps {
+  hasToasts: boolean
+  placement: PlacementOption
+  styler: ContainerStyler
+  onMouseEnter?: (ev: MouseEvent<HTMLElement>) => void
+  onMouseLeave?: (ev: MouseEvent<HTMLElement>) => void
+}
+```
+
+#### [ToastRoot](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/toast-root)
+
+[React-Trasition-Group](https://github.com/reactjs/react-transition-group) animates the render of each toast and applies the styles to this element. For unique enter/exit styles, recreate this component and pass it to the `ToastProvider`.
+
+##### Props
+
+```ts
+interface ToastRootProps {
+  content: ReactNode
+  autoDismiss: boolean
+  timeout: number
+  type: ToastTypeOption
+  placement: PlacementOption
+  transitionDuration: TransitionDuration
+  transitionState: TransitionStatus
+  id: string
+  title?: string
+  subtitle?: string
+  isRunning: boolean
+  onDismiss: () => void
+  onMouseEnter: (ev: MouseEvent<HTMLElement>) => void
+  onMouseLeave: (ev: MouseEvent<HTMLElement>) => void
+  styles: CSSProperties
+}
+```
+
+#### [ToastContent](https://github.com/brettinternet/react-cooked-bread/blob/master/packages/react-cooked-bread/src/toast-content)
+
+Custom React elements make up the stylized toast within this component: icons, buttons, text wrappers, the animated bar when `autoDismiss` is enabled.
+
+##### Props
+
+````ts
+interface ToastContentProps {
+  content: ReactNode
+  autoDismiss: boolean
+  timeout: number
+  type: ToastTypeOption
+  placement: PlacementOption
+  transitionDuration: TransitionDuration
+  transitionState: TransitionStatus
+  id: string
+  title?: string
+  subtitle?: string
+  isRunning: boolean
+  onDismiss: () => void
+  onMouseEnter: (ev: MouseEvent<HTMLElement>) => void
+  onMouseLeave: (ev: MouseEvent<HTMLElement>) => void
+  styles?: StylesObj<keyof typeof classNames>
+}
+
+## CSS
+
+You may choose to use the default components and modify the default styles. Stylers are passed to the different styles props on the [ToastProvider](/provider): `containerStyles`, `transitionGroupStyles`, `toastStyles`.
+
+### Stylers
+
+This is the recommended way to custom styles for existing components.
+
+> A `Styler` is an _object_ or a _function_ with prop arguments that returns an object.
+
+#### Style object
+
+With a `React.CSSProperties` style object:
+
+```tsx
+<ToastProvider
+  containerStyles={{
+    padding: '1rem'
+  }}
+  // the toastContentStyles prop is unique because it styles multiple components
+  toastContentStyles={{
+    wrapper: {
+      backgroundColor: 'hotpink'
+    },
+    text: {
+      color: 'dodgerblue'
+    }
+  }}
+>
+````
+
+#### Style function
+
+Or a function that receives an argument with props for that components, that returns a `React.CSSProperties` style object:
+
+```tsx
+<ToastProvider
+  containerStyles={({ hasToasts }) => ({
+    backgroundColor: hasToasts ? 'hotpink' : 'transparent'
+  })}
+  toastContentStyles={({ type, isRunning }) => ({
+    wrapper: {
+      backgroundColor: type === 'error' ? 'tomato' : 'mediumseagreen'
+    },
+    progress: {
+      animationPlayState: isRunning ? 'running' : 'paused'
+    }
+  })}
+  transitionGroupStyles={{
+    display: 'flex',
+    justifyContent: 'space-between',
+  }}
+>
+```
+
+Then, [Emotion](https://github.com/emotion-js/emotion) creates those styles into CSS classes assigned to the element.
+
+### Classes
+
+There are only two components rendered to the DOM. The first is the container that holds all the toasts in an absolute position over the viewport. Next is the toast component which is made up of just a few elements. Here they are:
+
+```sass
+.react-cooked-bread__container
+  .react-cooked-bread__toast__transition-group
+    .react-cooked-bread__toast__root
+      .react-cooked-bread__toast__wrapper
+        // other classes depend on which toastContent component you choose
+        // classnames are declared at the top of each component file
+```
+
+## Accessibility
+
+A note on accessibility from [Bootstrap](https://getbootstrap.com/docs/4.3/components/toasts/#accessibility):
+
+> Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and similar assistive technologies, you should wrap your toasts in an `aria-live` region. Changes to live regions (such as injecting/updating a toast component) are automatically announced by screen readers without needing to move the user’s focus or otherwise interrupt the user. Additionally, include aria-atomic="true" to ensure that the entire toast is always announced as a single (atomic) unit, rather than announcing what was changed (which could lead to problems if you only update part of the toast’s content, or if displaying the same toast content at a later point in time).
+>
+> Note that the live region needs to be present in the markup before the toast is generated or updated. If you dynamically generate both at the same time and inject them into the page, they will generally not be announced by assistive technologies.
+>
+> You also need to adapt the `role` and `aria-live` level depending on the content. If it’s an important message like an error, use `role="alert" aria-live="assertive"`, otherwise use `role="status" aria-live="polite"` attributes.
+>
+> As the content you’re displaying changes, be sure to update the delay timeout to ensure people have enough time to read the toast.
+
+When using `autoDismiss: false`, you must add a close button to allow users to dismiss the toast.

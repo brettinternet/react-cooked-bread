@@ -1,0 +1,13 @@
+---
+title: 'Troubleshoot'
+---
+
+# Troubleshoot
+
+#### Toasts aren't rendering
+
+Add the toast provider to a top-level position in your app. All consumers must be descendants of the provider. (see [Provider](/provider))
+
+#### Toasts are ugly (missing styles, no close button, no icons)
+
+If you're using the default components, make sure to pass `DefaultToastRoot` and `DefaultToastContent` into the `ToastProvider`. (see [Provider](/provider))

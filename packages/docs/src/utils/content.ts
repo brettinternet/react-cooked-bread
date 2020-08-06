@@ -1,3 +1,5 @@
+import { capitalize } from 'lodash'
+
 const sentences = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   'Vitae nunc sed velit dignissim sodales.',
@@ -21,6 +23,8 @@ const sentences = [
   'At tellus at urna condimentum mattis pellentesque. Scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam. Amet nisl purus in mollis nunc.',
 ]
 
-export const getRandomPhrase = () => {
-  return sentences[Math.floor(Math.random() * sentences.length)]
-}
+export const getRandom = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
+export const getRandomPhrase = () => getRandom(sentences)
+export const getRandomShortPhrase = () => getRandomPhrase().split(' ').slice(0, 2).join(' ')
+export const getRandomWord = () =>
+  capitalize(getRandom(getRandomPhrase().split(' '))).replace(/\./g, '')

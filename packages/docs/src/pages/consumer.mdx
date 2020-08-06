@@ -4,21 +4,9 @@ title: 'Consumer'
 
 # Consumer
 
-With less boilerplate and succinct readability, the [hook](/hook) is the recommended way to consume the [Toast Context Props](/hook#props). If you're new to hooks, consider this [introduction to hooks](https://reactjs.org/docs/hooks-intro.html). The following consumption methods are considered aging patterns.
+All consumers must be descendants of the [provider](/provider).
 
-## Function as a Child
-
-The [function as a child](https://reactjs.org/docs/render-props.html#using-props-other-than-render) component `ToastConsumer` offers a way to use a render function as a children prop and make use of the [Context Props](/hook#props). Some may consider this method [an anti-pattern](https://americanexpress.io/faccs-are-an-antipattern/).
-
-```tsx
-import { ToastConsumer } from 'react-cooked-bread'
-
-const Component = () => (
-  <ToastConsumer>
-    {(context) => context.toasts.map(({ id, content }) => <div key={id}>{content}</div>)}
-  </ToastConsumer>
-)
-```
+With less boilerplate and succinct readability, the [hook](/hook) is [the recommended way](https://medium.com/javascript-scene/do-react-hooks-replace-higher-order-components-hocs-7ae4a08b7b58) to consume the [Toast Context Props](/hook#props). If you're new to hooks, consider this [introduction to hooks](https://reactjs.org/docs/hooks-intro.html). The following consumption methods may be considered aging patterns.
 
 ## Higher-Order Component
 
@@ -29,9 +17,39 @@ import { withToastContext, WithToastContextProps } from 'react-cooked-bread'
 
 const Component: React.FC<WithToastContextProps> = ({ toastContext }) => {
   const { addToast } = toastContext
+  useEffect(async () => {
+    try {
+      const res = await fetch()
+      if (res.ok) {
+        addToast('Success')
+      }
+    } catch (err) {
+      addToast('Oops!', {
+        type: 'error',
+      })
+    }
+  }, [])
 
   // ...
 }
 
 const ComponentWithToast = withToastContext(Component)
+```
+
+## Function as a Child
+
+The [function as a child](https://reactjs.org/docs/render-props.html#using-props-other-than-render) component `ToastConsumer` offers a way to use a render function as a children prop and make use of the [Context Props](/hook#props). Some may consider this method [an anti-pattern](https://americanexpress.io/faccs-are-an-antipattern/).
+
+```tsx
+import { ToastConsumer } from 'react-cooked-bread'
+
+const Component = () => (
+  <ToastConsumer>
+    {(context) => (
+      <Notifications clear={context.removeAllToasts}>
+        {context.toasts.map(({ id, content }) => <div key={id}>{content}</div>)}}
+      </Notifications>
+    )
+  </ToastConsumer>
+)
 ```

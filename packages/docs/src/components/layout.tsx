@@ -26,6 +26,7 @@ import { useStorage } from 'utils/storage.hook'
 import { LocalStorageKey } from 'utils/storage'
 import { getPrismStyles } from 'utils/prism-theme'
 import { Head } from 'components/head'
+import { Note } from 'components/note'
 
 export const Layout: React.FC = ({ children }) => {
   const { site } = useStaticQuery(graphql`
@@ -76,7 +77,7 @@ export const Layout: React.FC = ({ children }) => {
             {children}
           </Box>
         </Flex>
-        <Footer />
+        <Footer pathPrefix={site.pathPrefix} />
       </AppContext.Provider>
     </ThemeProvider>
   )
@@ -97,7 +98,7 @@ interface MDXLayoutProps extends PageProps {
 const MDXLayout: React.FC<MDXLayoutProps> = ({ children, pageContext }) => (
   <Layout>
     <Head title={pageContext.frontmatter.title} />
-    <MDXProvider>
+    <MDXProvider components={{ Note }}>
       {children}
       <EditLink />
     </MDXProvider>
