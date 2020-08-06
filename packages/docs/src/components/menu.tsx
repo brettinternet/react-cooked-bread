@@ -5,9 +5,20 @@ import { Link } from 'gatsby'
 import { jsx, Interpolation } from '@emotion/core'
 
 import { menuMaxWidth as maxWidth } from 'utils/styles'
-// import { TypesLink } from 'components/types-link'
 
-const links = [
+const Ul: React.FC<{ sub?: boolean }> = ({ children, sub }) => (
+  <ul css={{ margin: 0, padding: 0, marginLeft: sub ? '1rem' : 0 }}>{children}</ul>
+)
+const Li: React.FC = ({ children }) => <li css={{ listStyle: 'none' }}>{children}</li>
+
+type SiteLink = {
+  to: string
+  name: string
+  subLinks?: SiteLink[]
+}
+
+const links: SiteLink[] = [
+  { to: '/', name: 'Demo' },
   {
     to: '/quick-start',
     name: 'Quick Start',
@@ -27,6 +38,16 @@ const links = [
   {
     to: '/extend',
     name: 'Extend',
+    subLinks: [
+      {
+        to: '/extend/examples',
+        name: 'Examples',
+      },
+    ],
+  },
+  {
+    to: '/troubleshoot',
+    name: 'Troubleshoot',
   },
 ]
 
@@ -50,14 +71,32 @@ export const Menu: React.FC = () => {
       mb={4}
       px={[2, 2, 3]}
       width={['auto', 'auto', 'auto', 'auto', 1 / 2, 1]}
-      css={{ maxWidth, minWidth: 120 }}
+      css={{ maxWidth, minWidth: 140 }}
     >
-      {links.map(({ to, name }) => (
-        <Link key={to} to={to} css={anchorStyles} activeStyle={activeAnchorStyles}>
-          <Box py={2}>{name}</Box>
-        </Link>
-      ))}
-      {/* <TypesLink css={anchorStyles} flexProps={{ py: 2 }} /> */}
+      <Ul>
+        {links.map(({ to, name, subLinks }) => (
+          <Li key={to}>
+            <Link to={to} css={anchorStyles} activeStyle={activeAnchorStyles}>
+              <Box py={2} px={[1, 1, 2]}>
+                {name}
+              </Box>
+            </Link>
+            {subLinks && (
+              <Ul sub>
+                {subLinks.map(({ to, name }) => (
+                  <Li key={to}>
+                    <Link to={to} css={anchorStyles} activeStyle={activeAnchorStyles}>
+                      <Box py={2} px={[1, 1, 2]}>
+                        {name}
+                      </Box>
+                    </Link>
+                  </Li>
+                ))}
+              </Ul>
+            )}
+          </Li>
+        ))}
+      </Ul>
     </Box>
   )
 }

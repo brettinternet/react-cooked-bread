@@ -1,1 +1,3 @@
-export * from './default'
+export * from './glossy'
+export * from './bootstrap'
+export * from './classic'

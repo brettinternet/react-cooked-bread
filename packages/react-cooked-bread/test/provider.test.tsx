@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
-import { renderWithProvider, setupPortals, MountCallback } from '../test/helpers'
-import { ToastProvider } from './provider'
-import { ToastContainer, ContainerProps } from './container'
-import { DefaultToastRoot } from './toast-root'
-import { ToastConsumer } from './context'
+import { renderWithProvider, setupPortals, MountCallback } from './helpers'
+import { ToastProvider } from '../src/provider'
+import { ToastContainer, ContainerProps } from '../src/container'
+import { SlideShrinkToastRoot } from '../src/toast-root'
+import { ToastConsumer } from '../src/context'
 
 describe('Provider', () => {
   jest.useFakeTimers()
@@ -18,7 +18,7 @@ describe('Provider', () => {
     const testId2 = 'container'
     render(
       <div data-testid={testId2}>
-        <ToastProvider toastRoot={DefaultToastRoot}>
+        <ToastProvider toastRoot={SlideShrinkToastRoot}>
           <div />
         </ToastProvider>
       </div>
@@ -36,14 +36,14 @@ describe('Provider', () => {
     )
 
     render(
-      <ToastProvider container={Container} toastRoot={DefaultToastRoot}>
+      <ToastProvider container={Container} toastRoot={SlideShrinkToastRoot}>
         <div />
       </ToastProvider>
     )
     expect(screen.getByTestId(testId1)).not.toBeEmptyDOMElement()
   })
 
-  test('should render an auto-dismissing and a persistent, dismissable toast', () => {
+  test('should render toasts', () => {
     const contents = ['Cheers!', 'Cheers?']
     renderWithProvider(
       <ToastConsumer>
@@ -52,12 +52,12 @@ describe('Provider', () => {
             callback={[
               () => {
                 context.addToast(contents[0], {
-                  autoDismiss: true,
+                  type: 'info',
                 })
               },
               () => {
                 context.addToast(contents[1], {
-                  autoDismiss: false,
+                  type: 'error',
                 })
               },
             ]}
@@ -65,11 +65,8 @@ describe('Provider', () => {
         )}
       </ToastConsumer>
     )
-    expect(screen.getByRole('alert')).toHaveTextContent(contents[0])
-    expect(screen.getByRole('alertdialog')).toHaveTextContent(contents[1])
-    screen.getAllByRole('document').forEach((el, i) => {
-      expect(el).toHaveTextContent(contents[i])
-    })
+    expect(screen.getByRole('status')).toHaveTextContent(contents[0])
+    expect(screen.getByRole('alert')).toHaveTextContent(contents[1])
   })
 
   test('should invoke an onDismiss callback and remove the toast when the close button is clicked', async () => {

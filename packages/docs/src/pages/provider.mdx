@@ -21,31 +21,42 @@ const App = () => (
 
 You can choose to either use default components we've created (and more components to choose from soon!) or you can add your own.
 
-> You must pass a component to `toastRoot`, but you may optionally add `toastContent` (Although it'll look ugly without it, unless you add your own!)
+<Note>
+  <p>
+    You must pass a component to <code>toastRoot</code> and you should provide a component to{' '}
+    <code>toastContent</code>.
+  </p>
+</Note>
 
-We give you the responsibility to add the components to the provider so that if you prefer custom components, you don't have to include unused code.
+We give you the responsibility to add the components to the provider. This way, if you prefer custom components, you don't have to include unused code.
 
-The provider should wrap any components that need to consume or create toasts.
+Remember, the provider should wrap any components that need to consume or create toasts.
 
 ## Props
 
 ### Prop descriptions
 
-| Property                | Type                      | Default                    | Description                                                                            | Required |
-| ----------------------- | ------------------------- | -------------------------- | -------------------------------------------------------------------------------------- | -------- |
-| `toastRoot`             | Node                      |                            | Toast wrapper, this animates transitions with `React-Transition-Group`                 | ✔        |
-| `toastContent`          | Node                      |                            | Inner toast content, includes icons, close button, text and colors                     | \*       |
-| `container`             | Node                      | `ToastContainer`           | Wrapper component that places the toasts fixed in the viewport                         |          |
-| `defaultAutoDismiss`    | boolean                   | `false`                    | Whether by default, all new toasts should dismiss by a timer (`addToast` may override) |          |
-| `autoDismissTimeout`    | number                    | `5000`                     | How long a toast with `autoDismiss` should persist in milliseconds                     |          |
-| `placement`             | [Placement](#placement)   | `bottom-right`             | Where in the viewport the container should place the toasts                            |          |
-| `transitionDuration`    | number                    | `220`                      | Transition duration for `React-Transition-Group` transition element                    |          |
-| `pauseAllOnHover`       | boolean                   | `false`                    | Whether all toasts should pause if mouse moves over any of the toasts                  |          |
-| `containerStyles`       | [Styler](/extend#stylers) | container CSS              | Override styles for container element                                                  |          |
-| `transitionGroupStyles` | [Styler](/extend#stylers) | transition group CSS       | Override styles for transition group wrapper                                           |          |
-| `toastStyles`           | [Styler](/extend#stylers) | toast root and content CSS | Override styles for toast elements                                                     |          |
+| Property                | Type                      | Default                    | Description                                                                                                                     | Required |
+| ----------------------- | ------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `toastRoot`             | Node                      |                            | Toast wrapper, this animates transitions with `React-Transition-Group`                                                          | ✔        |
+| `toastContent`          | Node                      |                            | Inner toast content, includes icons, close button, text and colors                                                              | \*       |
+| `container`             | Node                      | `ToastContainer`           | Wrapper component that places the toasts fixed in the viewport                                                                  |          |
+| `autoDismiss`           | boolean                   | `false`                    | A global default whether new toasts should dismiss by a timer (`addToast` may override)                                         |          |
+| `timeout`               | number                    | `5000`                     | A global default for how long a toast with `autoDismiss` should persist in milliseconds                                         |          |
+| `maxToasts`             | number                    |                            | The maximum number of toasts that should be in the queue at a given time, new toasts push old toasts out when this value is set |          |
+| `placement`             | [Placement](#placement)   | `bottom-right`             | Where in the viewport the container should place the toasts                                                                     |          |
+| `transitionDuration`    | TransitionDuration        | `{appear: 200, exit: 200}` | Transition timeout object or number for `React-Transition-Group` transition element                                             |          |
+| `reverseColumn`         | boolean                   | `false`                    | Reverses the toast item flex column container, typically good for when toasts are placed at the bottom                          |          |
+| `pauseAllOnHover`       | boolean                   | `false`                    | If all toasts should pause when mouse moves over any of the toasts                                                              |          |
+| `pauseOnFocusLoss`      | boolean                   | `false`                    | If all toasts should pause when browser window loses focus, is minimized or the user switches to another tab                    |          |
+| `containerStyles`       | [Styler](/extend#stylers) | container CSS              | Override styles for container element                                                                                           |          |
+| `transitionGroupStyles` | [Styler](/extend#stylers) | transition group CSS       | Override styles for `TransitionGroup` wrapper                                                                                   |          |
+| `toastRootStyles`       | [Styler](/extend#stylers) | toast root CSS             | Override styles for toast React Transition Group animation                                                                      |          |
+| `toastContentStyles`    | [Styler](/extend#stylers) | toast content CSS          | Override styles for toast elements                                                                                              |          |
 
-<small>*Not required, but recommended</small>
+<small>
+  *Not required, but <strong>strongly recommended</strong>
+</small>
 
 ### Placement
 
@@ -62,13 +73,17 @@ interface ToastProviderValueProps {
   toastRoot: ComponentType<ToastRootProps>
   toastContent?: ComponentType<ToastContentProps>
   container?: React.ComponentType<ContainerProps>
-  defaultAutoDismiss?: boolean
-  autoDismissTimeout?: number
-  placement?: PlacementOption
-  transitionDuration?: number
-  pauseAllOnHover?: boolean
   containerStyles?: ContainerStyler
   transitionGroupStyles?: TransitionGroupStyler
-  toastStyles?: ToastStyler
+  toastRootStyles?: ToastRootStyler
+  toastContentStyles?: ToastContentStyles
+  autoDismiss?: boolean
+  timeout?: number
+  placement?: PlacementOption
+  transitionDuration?: TransitionDuration
+  pauseAllOnHover?: boolean
+  reverseColumn?: boolean
+  pauseOnFocusLoss?: boolean
+  maxToasts?: number
 }
 ```

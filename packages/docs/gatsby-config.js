@@ -49,6 +49,7 @@ module.exports = {
         pages: path.join(__dirname, 'src/pages'),
         assets: path.join(__dirname, 'src/assets'),
         utils: path.join(__dirname, 'src/utils'),
+        'toast-content-examples': path.join(__dirname, 'src/toast-content-examples'),
       },
     },
     {

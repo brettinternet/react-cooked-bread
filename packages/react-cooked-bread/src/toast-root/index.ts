@@ -1,1 +1,2 @@
-export * from './default'
+export * from './slide-shrink'
+export * from './fade'

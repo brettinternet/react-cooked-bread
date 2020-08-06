@@ -1,6 +1,7 @@
 import { ReactNode, CSSProperties } from 'react'
 import PropTypes from 'prop-types'
 import {
+  TransitionProps,
   TransitionStatus,
   UNMOUNTED,
   EXITED,
@@ -8,6 +9,8 @@ import {
   ENTERED,
   EXITING,
 } from 'react-transition-group/Transition'
+
+export type TransitionDuration = Exclude<TransitionProps['timeout'], undefined>
 
 export { TransitionStatus }
 
@@ -31,7 +34,11 @@ export type AddToastOptions = {
   id?: Id
   type?: ToastTypeOption
   autoDismiss?: boolean
-  onDismiss?: (id: string | undefined) => void
+  timeout?: number
+  transitionDuration?: TransitionDuration
+  title?: string
+  subtitle?: string
+  onDismiss?: (id: Id | undefined) => void
 } & GenericObject
 
 export type UpdateToastOptions = {
@@ -39,11 +46,15 @@ export type UpdateToastOptions = {
 } & AddToastOptions
 
 export type ActiveToast = {
-  id: string
+  id: Id
   content: ReactNode
   type: ToastTypeOption
   autoDismiss?: boolean
-  onDismiss?: (id: string | undefined) => void
+  timeout?: number
+  transitionDuration?: TransitionDuration
+  onDismiss?: (id: Id | undefined) => void
+  title?: string
+  subtitle?: string
 } & GenericObject
 
 export type Add = (content: ReactNode, options?: AddToastOptions) => Id

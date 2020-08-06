@@ -24,6 +24,8 @@ const ids = {
 
 interface IconProps {
   className?: string
+  width?: number
+  height?: number
 }
 
 export const AlertIcon: React.FC<IconProps> = (props) => (

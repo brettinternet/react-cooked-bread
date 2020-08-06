@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { render, RenderOptions } from '@testing-library/react'
+import { config as transitionGroupConfig } from 'react-transition-group'
 
 import { ToastProvider } from '../src/provider'
-import { DefaultToastRoot } from '../src/toast-root'
-import { DefaultToastContent } from '../src/toast-content'
+import { SlideShrinkToastRoot } from '../src/toast-root'
+import { GlossyToastContent } from '../src/toast-content'
+
+transitionGroupConfig.disabled = true
 
 export const ProviderWrapper: React.FC = ({ children }) => (
-  <ToastProvider toastRoot={DefaultToastRoot} toastContent={DefaultToastContent}>
+  <ToastProvider toastRoot={SlideShrinkToastRoot} toastContent={GlossyToastContent}>
     {children}
   </ToastProvider>
 )

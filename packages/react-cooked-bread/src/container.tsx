@@ -3,12 +3,19 @@ import React, { PropsWithChildren } from 'react'
 import { jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
-import { Styler, childrenProps, placementsProps, stylerProps, PlacementOption } from './types'
-import { gutter } from './toast-root'
+import {
+  Styler,
+  childrenProps,
+  placementsProps,
+  stylerProps,
+  PlacementOption,
+  Placement,
+} from './types'
 import { getStylesCSS } from './utils'
 import { scrollStyles } from './styles'
+import { classNamePrefix } from './styles'
 
-export const containerClassName = 'react-cooked-bread__container'
+const containerClassName = `${classNamePrefix}__container`
 
 const placementsCSS = {
   'top-left': { top: 0, left: 0 },
@@ -51,8 +58,8 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
         boxSizing: 'border-box',
         maxHeight: '100%',
         overflowX: 'hidden',
-        overflowY: 'auto',
-        padding: gutter,
+        overflowY: placement === Placement.BOTTOM_CENTER ? 'hidden' : 'auto',
+        padding: '1rem',
         pointerEvents: hasToasts ? 'auto' : 'none',
         position: 'fixed',
         zIndex: 1000,

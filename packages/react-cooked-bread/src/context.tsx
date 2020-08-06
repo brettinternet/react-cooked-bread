@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import hoistNonReactStatics from 'hoist-non-react-statics'
+
+import { getDisplayName, error } from './utils'
 
 const { useContext, createContext } = React
 
@@ -26,7 +29,7 @@ export const useToasts = () => {
   const context = useContext(Context)
 
   if (!context) {
-    throw Error('The `useToasts` hook must be called from a descendent of the toast provider.')
+    error('The `useToasts` hook must be called from a descendent of the toast provider.')
   }
 
   const { addToast, removeToast, removeAllToasts, updateToast, toasts } = context
@@ -56,13 +59,25 @@ export interface WithToastContextProps {
 }
 
 export const withToastContext = <T extends WithToastContextProps>(
-  WrappedComponent: React.ComponentType<T>
-) =>
-  React.forwardRef<React.Ref<HTMLElement>, Omit<T, keyof WithToastContextProps>>((props, ref) => (
+  Component: React.ComponentType<T>
+) => {
+  const WrappedComponent = React.forwardRef<
+    React.Ref<HTMLElement>,
+    Omit<T, keyof WithToastContextProps>
+  >((props, ref) => (
     <ToastConsumer>
       {(context) => (
         // issue: https://github.com/microsoft/TypeScript/issues/28938
-        <WrappedComponent ref={ref} {...(props as T)} toastContext={context} />
+        <Component ref={ref} {...(props as T)} toastContext={context} />
       )}
     </ToastConsumer>
   ))
+
+  // source: https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
+  WrappedComponent.displayName = `withToastContext(${getDisplayName(Component)})`
+
+  // source: https://reactjs.org/docs/higher-order-components.html#static-methods-must-be-copied-over
+  hoistNonReactStatics(WrappedComponent, Component)
+
+  return WrappedComponent
+}

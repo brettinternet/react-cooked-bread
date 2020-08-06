@@ -1,6 +1,15 @@
 export { ToastContainer } from './container'
-export { DefaultToastRoot } from './toast-root'
-export { DefaultToastContent } from './toast-content'
+export {
+  SlideShrinkToastRoot as DefaultToastRoot,
+  SlideShrinkToastRoot,
+  FadeToastRoot,
+} from './toast-root'
+export {
+  GlossyToastContent as DefaultToastContent,
+  GlossyToastContent,
+  BootstrapToastContent,
+  ClassicToastContent,
+} from './toast-content'
 export {
   ToastContentProps,
   ToastRootProps,

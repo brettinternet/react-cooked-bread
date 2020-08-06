@@ -105,22 +105,33 @@ export const getGlobalStyles = (theme: Theme) =>
       }
 
       blockquote {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        font-size: 1.1rem;
-        display: flex;
-        flex-direction: row;
-        color: ${theme.colors.grayDark};
-        font-weight: bold;
-
-        p {
-          margin: 0;
-        }
-
-        &:before {
-          content: '🍞';
-          margin-right: 1rem;
-        }
+        border-left: 3px solid ${theme.colors.linen};
+        margin-left: 0;
+        padding-left: 2rem;
       }
+    }
+
+    button,
+    select,
+    input {
+      background: transparent;
+      color: ${theme.colors.fg};
+      border: 1px solid ${theme.colors.fg};
+      padding: 0.25rem 0.75rem;
+
+      &:disabled {
+        color: ${theme.colors.grayLight};
+        border-color: ${theme.colors.grayLight};
+        cursor: auto;
+      }
+    }
+
+    button,
+    select {
+      cursor: pointer;
+    }
+
+    select option {
+      background: ${theme.colors.bg};
     }
   `

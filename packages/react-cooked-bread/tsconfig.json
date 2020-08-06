@@ -3,7 +3,9 @@
   "compilerOptions": {
     "module": "es2015",
     "declarationDir": "dist/types",
-    "outDir": "dist/lib"
+    "declarationMap": true,
+    "outDir": "dist/lib",
+    "rootDir": "src"
   },
   "include": ["src"]
 }

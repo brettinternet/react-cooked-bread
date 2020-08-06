@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import PropTypes from 'prop-types'
@@ -7,8 +7,7 @@ import { jsx } from '@emotion/core'
 
 import { ToastContainer as DefaultContainer, ContainerProps, ContainerStyler } from './container'
 import { Toaster } from './toaster'
-import { ToastStyler, ToastComponentsProps } from './toast-types'
-import { isBrowser, getStylesCSS } from './utils'
+import { ToastComponentsProps, transitionDurationPropsType } from './toast-types'
 import {
   PlacementOption,
   PropsWithRequiredChildren,
@@ -16,18 +15,23 @@ import {
   stylerProps,
   childrenProps,
   Styler,
+  TransitionDuration,
 } from './types'
 import { Context } from './context'
 import { useActiveToasts } from './active-toasts-hook'
+import { isBrowser, getStylesCSS, getFocusEvents } from './utils'
 
 const transitionGroupClassName = 'react-cooked-bread__toast__transition-group'
 
 interface ToastProviderValueProps {
-  defaultAutoDismiss?: boolean
-  autoDismissTimeout?: number
+  autoDismiss?: boolean
+  timeout?: number
   placement?: PlacementOption
-  transitionDuration?: number
+  transitionDuration?: TransitionDuration
   pauseAllOnHover?: boolean
+  reverseColumn?: boolean
+  pauseOnFocusLoss?: boolean
+  maxToasts?: number
 }
 
 type TransitionGroupStyler = Styler<ToastProviderValueProps> | undefined
@@ -36,22 +40,25 @@ export interface ToastProviderProps extends ToastProviderValueProps, ToastCompon
   container?: React.ComponentType<ContainerProps>
   containerStyles?: ContainerStyler
   transitionGroupStyles?: TransitionGroupStyler
-  toastStyles?: ToastStyler
 }
 
 export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProps>> = ({
   children,
-  defaultAutoDismiss = false,
-  autoDismissTimeout = 5000,
+  autoDismiss: defaultAutoDismiss = false,
+  timeout: defaultTimeout = 5000,
   toastRoot: ToastRoot,
   toastContent: ToastContent,
   container: Container = DefaultContainer,
   placement = 'bottom-right',
-  transitionDuration = 220,
+  transitionDuration: defaultTransitionDuration = { appear: 200, exit: 200 },
   pauseAllOnHover,
   containerStyles,
   transitionGroupStyles,
-  toastStyles,
+  toastRootStyles,
+  toastContentStyles,
+  reverseColumn,
+  pauseOnFocusLoss,
+  maxToasts,
 }) => {
   const [isPaused, setPause] = useState(false)
   const {
@@ -61,7 +68,15 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
     removeAllToasts,
     updateToast,
     hasToasts,
-  } = useActiveToasts()
+  } = useActiveToasts(maxToasts)
+
+  useEffect(() => {
+    const { bind, unbind } = getFocusEvents(setPause)
+    if (pauseOnFocusLoss) {
+      bind()
+    }
+    return unbind
+  }, [pauseOnFocusLoss])
 
   const handleMouseEnter = useCallback(() => {
     if (pauseAllOnHover) {
@@ -86,33 +101,40 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
       <TransitionGroup
         className={transitionGroupClassName}
         css={{
+          ...(reverseColumn
+            ? {
+                display: 'flex',
+                flexDirection: 'column-reverse',
+              }
+            : {}),
           ...getStylesCSS(transitionGroupStyles, {
             placement,
             pauseAllOnHover,
-            defaultAutoDismiss,
-            autoDismissTimeout,
-            transitionDuration,
+            autoDismiss: defaultAutoDismiss,
+            timeout: defaultTimeout,
+            transitionDuration: defaultTransitionDuration,
           }),
         }}
       >
         {toasts.map(
           ({
             id,
-            type,
             autoDismiss = defaultAutoDismiss,
+            timeout = defaultTimeout,
+            transitionDuration = defaultTransitionDuration,
             onDismiss,
             content,
-            ...unknownConsumerProps
+            ...props
           }) => (
             <Transition key={id} appear mountOnEnter timeout={transitionDuration} unmountOnExit>
               {(transitionState) => (
                 <Toaster
                   key={id}
+                  id={id}
                   toastRoot={ToastRoot}
                   toastContent={ToastContent}
-                  type={type}
                   autoDismiss={autoDismiss}
-                  autoDismissTimeout={autoDismissTimeout}
+                  timeout={timeout}
                   content={content}
                   placement={placement}
                   transitionDuration={transitionDuration}
@@ -124,8 +146,9 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
                       onDismiss(id)
                     }
                   }}
-                  styler={toastStyles}
-                  {...unknownConsumerProps}
+                  rootStyles={toastRootStyles}
+                  contentStyles={toastContentStyles}
+                  {...props}
                 >
                   {content}
                 </Toaster>
@@ -160,16 +183,20 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
 }
 
 ToastProvider.propTypes = {
-  defaultAutoDismiss: PropTypes.bool,
-  autoDismissTimeout: PropTypes.number,
+  autoDismiss: PropTypes.bool,
+  timeout: PropTypes.number,
   toastRoot: PropTypes.func.isRequired,
   toastContent: PropTypes.func,
   container: PropTypes.func,
   placement: placementsProps,
-  transitionDuration: PropTypes.number,
+  transitionDuration: transitionDurationPropsType,
   pauseAllOnHover: PropTypes.bool,
   containerStyles: stylerProps,
   transitionGroupStyles: stylerProps,
-  toastStyles: stylerProps,
+  toastRootStyles: stylerProps,
+  toastContentStyles: stylerProps,
+  reverseColumn: PropTypes.bool,
+  pauseOnFocusLoss: PropTypes.bool,
+  maxToasts: PropTypes.number,
   children: childrenProps.isRequired,
 }
