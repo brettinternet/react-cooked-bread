@@ -18,6 +18,8 @@ TypeScript, extendability, good options and defaults. Use our styles, style them
 - [Documentation](https://brettinternet.github.io/react-cooked-bread/quick-start)
 - [View code](./packages/react-cooked-bread/src)
 
+This library is independent of a component library. The only dependencies are Emotion and React Transition Group.
+
 ## 🥐 Install
 
 ```sh
