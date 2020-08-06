@@ -13,32 +13,30 @@ import {
   toastTypesProps,
   transitionStatusProps,
   placementsProps,
+  Styler,
+  TransitionDuration,
 } from './types'
+import { GlossyStyleKeys, ClassicStyleKeys, BootstrapStyleKeys } from './toast-content'
 
 interface ToasterValueProps extends GenericObject {
   content: React.ReactNode
   autoDismiss: boolean
-  autoDismissTimeout: number
-  placement: PlacementOption
-  transitionDuration: number
-  transitionState: TransitionStatus
+  timeout: number
   type: ToastTypeOption
+  placement: PlacementOption
+  transitionDuration: TransitionDuration
+  transitionState: TransitionStatus
+  id: string
+  title?: string
+  subtitle?: string
 }
 
 interface ToastValueProps extends ToasterValueProps {
   isRunning: boolean
 }
 
-type ToastContentStylerMapKeys =
-  | 'content'
-  | 'closeButtonWrapper'
-  | 'closeButton'
-  | 'iconWrapper'
-  | 'icon'
-  | 'countdown'
-type ToastRootStylerMapKeys = ToastContentStylerMapKeys | 'root'
-
-export type ToastStyler = StylerMap<ToastRootStylerMapKeys, ToastValueProps>
+export type ToastRootStyler = Styler<ToastValueProps>
+export type ToastContentStyler<K extends string> = StylerMap<K, ToastValueProps>
 
 interface SharedToastProps {
   onDismiss: () => void
@@ -51,29 +49,40 @@ export interface ToastRootProps extends ToastValueProps, SharedToastProps {
 }
 
 export interface ToastContentProps extends ToastValueProps, SharedToastProps {
-  styles: StylesObj<ToastContentStylerMapKeys>
+  styles?: StylesObj<string>
 }
 
+/**
+ * @todo Can we infer styler type for style keys ("wrapper", "title", "text")
+ * from the `toastContent` component passed into `ToastProvider`?
+ */
+type ToastContentStyles =
+  | ToastContentStyler<GlossyStyleKeys>
+  | ToastContentStyler<ClassicStyleKeys>
+  | ToastContentStyler<BootstrapStyleKeys>
 export interface ToastComponentsProps {
   toastRoot: ComponentType<ToastRootProps>
   toastContent?: ComponentType<ToastContentProps>
+  toastRootStyles?: ToastRootStyler
+  toastContentStyles?: ToastContentStyles
 }
 
 export interface ToasterProps extends ToastComponentsProps, SharedToastProps, ToasterValueProps {
   isPaused: boolean
-  styler: ToastStyler | undefined
-  onMouseEnter?: (ev: React.MouseEvent<HTMLElement>) => void
-  onMouseLeave?: (ev: React.MouseEvent<HTMLElement>) => void
+  rootStyles: ToastComponentsProps['toastRootStyles'] | undefined
+  contentStyles: ToastContentStyles | undefined
 }
+
+export const transitionDurationPropsType = PropTypes.oneOfType([PropTypes.number, PropTypes.object])
 
 const sharedPropTypes = {
   children: childrenProps,
   type: toastTypesProps.isRequired,
   content: PropTypes.node.isRequired,
-  autoDismissTimeout: PropTypes.number.isRequired,
+  timeout: PropTypes.number.isRequired,
   isRunning: PropTypes.bool.isRequired,
   placement: placementsProps.isRequired,
-  transitionDuration: PropTypes.number.isRequired,
+  transitionDuration: transitionDurationPropsType.isRequired,
   transitionState: transitionStatusProps.isRequired,
   onDismiss: PropTypes.func.isRequired,
 }
@@ -87,12 +96,5 @@ export const toastRootPropTypes = {
 
 export const toastContentPropTypes = {
   ...sharedPropTypes,
-  styles: PropTypes.shape({
-    content: PropTypes.object,
-    closeButtonWrapper: PropTypes.object,
-    closeButton: PropTypes.object,
-    iconWrapper: PropTypes.object,
-    icon: PropTypes.object,
-    countdown: PropTypes.object,
-  }).isRequired,
+  styles: PropTypes.object.isRequired,
 }
