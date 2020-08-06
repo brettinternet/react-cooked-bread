@@ -1,4 +1,4 @@
-import { Styler, StylerMap, StylesObj, Styles } from './types'
+import { Styler, StylerMap, StylesObj, Styles, TransitionDuration, TransitionStatus } from './types'
 
 export const noop = (): void => undefined
 
@@ -29,8 +29,8 @@ export class Timer {
   private remaining: number
   state: TimerState = TimerState.READY
 
-  constructor(private readonly callback: () => void, delay: number) {
-    this.remaining = delay
+  constructor(private readonly callback: () => void, timeout: number) {
+    this.remaining = timeout
 
     if (isBrowser) {
       this.start()
@@ -57,9 +57,76 @@ export class Timer {
     }
   }
 
+  updateTimeout = (newTimeout: number): void => {
+    this.clear()
+    this.remaining = newTimeout
+    this.start()
+  }
+
   clear = (): void => {
     if (this.timerId) {
       window.clearTimeout(this.timerId)
     }
   }
 }
+
+/**
+ * @reference https://reactcommunity.org/react-transition-group/transition#Transition-prop-timeout
+ */
+export const getTransitionDuration = (
+  d: TransitionDuration,
+  transitionState: TransitionStatus
+): number => {
+  if (typeof d === 'object' && d !== null) {
+    switch (transitionState) {
+      case 'exiting':
+      case 'exited':
+        return d.exit || 0
+      default:
+        return d.appear || d.enter || 0
+    }
+  }
+
+  return d
+}
+
+export const getFocusEvents = (cb: (isBlurred: boolean) => void) => {
+  const handleFocus = () => {
+    cb(false)
+  }
+  const handleBlur = () => {
+    cb(true)
+  }
+  const handleVisibility = () => {
+    cb(document.hidden)
+  }
+
+  return {
+    bind: () => {
+      window.addEventListener('focus', handleFocus)
+      window.addEventListener('blur', handleBlur)
+      document.addEventListener('visibilitychange', handleVisibility)
+    },
+    unbind: () => {
+      window.removeEventListener('focus', handleFocus)
+      window.removeEventListener('blur', handleBlur)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    },
+  }
+}
+
+export const error =
+  process.env.NODE_ENV !== 'production'
+    ? (message: string) => {
+        if (typeof console !== 'undefined') {
+          console.error(message)
+        }
+        try {
+          throw Error(message)
+        } catch (err) {} // eslint-disable-line no-empty
+      }
+    : noop
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getDisplayName = (WrappedComponent: React.ComponentType<any>) =>
+  WrappedComponent.displayName || WrappedComponent.name || 'Component'
