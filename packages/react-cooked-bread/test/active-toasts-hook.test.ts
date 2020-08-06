@@ -1,17 +1,17 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { ToastType } from './types'
-import { useActiveToasts } from './active-toasts-hook'
+import { ToastType } from '../src/types'
+import { useActiveToasts } from '../src/active-toasts-hook'
 
 describe('useActiveToasts', () => {
   it('should have a default toast value', () => {
-    const { result } = renderHook(() => useActiveToasts())
+    const { result } = renderHook(() => useActiveToasts(0))
     expect(result.current.hasToasts).toBe(false)
     expect(result.current.toasts.length).toBe(0)
   })
 
   it('should add multiple toasts', () => {
-    const { result } = renderHook(() => useActiveToasts())
+    const { result } = renderHook(() => useActiveToasts(0))
     act(() => {
       result.current.addToast('Cheers!')
     })
@@ -23,20 +23,21 @@ describe('useActiveToasts', () => {
   })
 
   it('should remove toasts', () => {
-    const { result } = renderHook(() => useActiveToasts())
-    let toastId = ''
+    const { result } = renderHook(() => useActiveToasts(0))
+    let toastId: string | undefined
     act(() => {
       toastId = result.current.addToast('Cheers!')
     })
     act(() => {
-      result.current.removeToast(toastId)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current.removeToast(toastId!)
     })
     expect(result.current.hasToasts).toBe(false)
     expect(result.current.toasts.length).toBe(0)
   })
 
   it('should remove multiple toasts', () => {
-    const { result } = renderHook(() => useActiveToasts())
+    const { result } = renderHook(() => useActiveToasts(0))
     act(() => {
       result.current.addToast('Cheers!')
     })
@@ -51,12 +52,12 @@ describe('useActiveToasts', () => {
   })
 
   it('should update toast content and options', () => {
-    const { result } = renderHook(() => useActiveToasts())
+    const { result } = renderHook(() => useActiveToasts(0))
     const oldType = ToastType.WARNING
     const newType = ToastType.SUCCESS
     const oldContent = 'Cheers!'
     const newContent = 'Alrighty'
-    let toastId = ''
+    let toastId: string | undefined
     act(() => {
       toastId = result.current.addToast(oldContent, {
         type: oldType,
@@ -71,7 +72,8 @@ describe('useActiveToasts', () => {
     expect(result.current.toasts[0].type).toBe(oldType)
 
     act(() => {
-      result.current.updateToast(toastId, {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current.updateToast(toastId!, {
         content: newContent,
         type: newType,
         autoDismiss: true,
@@ -84,4 +86,31 @@ describe('useActiveToasts', () => {
     expect(result.current.toasts[0].content).toBe(newContent)
     expect(result.current.toasts[0].type).toBe(newType)
   })
+})
+
+it('should limit the number of active toasts', () => {
+  const { result } = renderHook(() => useActiveToasts(2))
+  act(() => {
+    result.current.addToast('Cheers!')
+  })
+  act(() => {
+    result.current.addToast('Cheers?')
+  })
+  act(() => {
+    result.current.addToast('Cheers again')
+  })
+  expect(result.current.toasts.length).toBe(2)
+})
+
+it('should prevent duplicate toasts with the same custom ID', () => {
+  const { result } = renderHook(() => useActiveToasts(2))
+  let a: string | undefined, b: string | undefined
+  act(() => {
+    a = result.current.addToast('Cheers!')
+  })
+  act(() => {
+    b = result.current.addToast('Cheers?')
+  })
+  expect(a).not.toEqual(b)
+  expect(result.current.toasts.length).toBe(2)
 })

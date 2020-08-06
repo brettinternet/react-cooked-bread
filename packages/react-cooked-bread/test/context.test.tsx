@@ -9,9 +9,9 @@ import {
   withToastContext,
   WithToastContextProps,
   useToasts,
-} from './context'
-import { noop, getId } from './utils'
-import { ToastType } from './types'
+} from '../src/context'
+import { noop, getId } from '../src/utils'
+import { ToastType } from '../src/types'
 
 describe('ToastConsumer', () => {
   beforeAll(() => {

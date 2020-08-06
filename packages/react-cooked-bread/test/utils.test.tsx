@@ -1,4 +1,5 @@
-import { Timer } from './utils'
+import React from 'react'
+import { Timer, getDisplayName } from '../src/utils'
 
 describe('Timer', () => {
   let callback: () => void
@@ -32,4 +33,11 @@ describe('Timer', () => {
   //   expect(callback).toBeCalled()
   //   expect(callback).toHaveBeenCalledTimes(1)
   // })
+})
+
+describe('getDisplayName', () => {
+  it("should return a component's display name", () => {
+    const FancyComponent = () => <div />
+    expect(getDisplayName(FancyComponent)).toBe('FancyComponent')
+  })
 })
