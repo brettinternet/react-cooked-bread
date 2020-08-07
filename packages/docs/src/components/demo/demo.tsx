@@ -11,7 +11,7 @@ type DemoProps = {
   getContent: ToastCreatorProps['getContent']
 }
 
-export const Demo: React.FC<DemoProps> = ({ providerProps, ...creatorProps }) => {
+export const Demo: React.FC<DemoProps> = ({ children, providerProps, ...creatorProps }) => {
   const [placement, setPlacement] = useState<PlacementOption>(Placement.BOTTOM_RIGHT)
   const [pauseAllOnHover, setPauseAllOnHover] = useState(false)
   const [pauseOnFocusLoss, setPauseOnFocusLoss] = useState(false)
@@ -28,8 +28,9 @@ export const Demo: React.FC<DemoProps> = ({ providerProps, ...creatorProps }) =>
       {...providerProps}
     >
       <ToastCreator {...creatorProps} placement={placement} setPlacement={setPlacement}>
-        <Flex alignItems="center" mb={3}>
-          <Flex mr={3}>
+        {children}
+        <Flex alignItems="center" flexWrap="wrap" mb={3}>
+          <Flex mr={3} mb={3}>
             <input
               type="checkbox"
               id="toast-option-pause-all-on-hover"
@@ -44,7 +45,7 @@ export const Demo: React.FC<DemoProps> = ({ providerProps, ...creatorProps }) =>
             <label htmlFor="toast-option-pause-all-on-hover">pauseAllOnHover</label>
           </Flex>
 
-          <Flex mr={3}>
+          <Flex mr={3} mb={3}>
             <input
               type="checkbox"
               id="toast-option-pause-on-focus-loss"
@@ -59,7 +60,7 @@ export const Demo: React.FC<DemoProps> = ({ providerProps, ...creatorProps }) =>
             <label htmlFor="toast-option-pause-on-focus-loss">pauseOnFocusLoss</label>
           </Flex>
 
-          <Flex mr={3}>
+          <Flex mr={3} mb={3}>
             <input
               type="checkbox"
               id="toast-option-reverse-container"
@@ -74,7 +75,7 @@ export const Demo: React.FC<DemoProps> = ({ providerProps, ...creatorProps }) =>
             <label htmlFor="toast-option-reverse-container">reverseColumn</label>
           </Flex>
 
-          <Flex alignItems="center" mr={3}>
+          <Flex alignItems="center" mr={3} mb={3}>
             <Box mr={2}>
               <label htmlFor="toast-option-max-toasts">maxToasts:</label>
             </Box>

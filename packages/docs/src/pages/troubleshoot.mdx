@@ -6,8 +6,8 @@ title: 'Troubleshoot'
 
 #### Toasts aren't rendering
 
-Add the toast provider to a top-level position in your app. All consumers must be descendants of the provider. (see [Provider](/provider))
+Add the toast provider to a top-level position in your app. All consumers must be descendants of the provider (see [Provider](/provider)).
 
 #### Toasts are ugly (missing styles, no close button, no icons)
 
-If you're using the default components, make sure to pass `DefaultToastRoot` and `DefaultToastContent` into the `ToastProvider`. (see [Provider](/provider))
+Make sure you have passed the required props to `ToastProvider`. If you'd like to use components provided by this library, you'll need to import components such as `SlideShrinkToastRoot` and `GlossyToastContent` to the `ToastProvider` (see [Provider](/provider) or [Quick Start](/quick-start)).

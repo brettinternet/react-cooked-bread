@@ -109,6 +109,10 @@ export const getGlobalStyles = (theme: Theme) =>
         margin-left: 0;
         padding-left: 2rem;
       }
+
+      table {
+        margin-bottom: 2rem;
+      }
     }
 
     button,

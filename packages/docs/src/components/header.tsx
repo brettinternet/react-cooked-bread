@@ -18,11 +18,9 @@ const hideMobileStyles = {
 interface HeaderProps {
   siteTitle: string
   repoUrl: string
-  version: string
-  npmLink: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version, npmLink }) => {
+export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl }) => {
   const { themeType, setThemeType } = useApp()
 
   const isDarkTheme = themeType === ThemeType.DARK
@@ -47,18 +45,6 @@ export const Header: React.FC<HeaderProps> = ({ siteTitle, repoUrl, version, npm
           </Box>
         </Flex>
         <Flex as="nav" alignItems="center">
-          <Flex alignItems="center" mr={[3, 3, 3, 4]}>
-            <a
-              href={npmLink}
-              target="_blank"
-              rel="noreferrer noopener"
-              css={{ textDecoration: 'none' }}
-            >
-              <Box p={1}>
-                <small>v{version}</small>
-              </Box>
-            </a>
-          </Flex>
           <Box mr={3} css={hideMobileStyles}>
             <a href={repoUrl}>
               <GithubSvg height={24} width={24} />

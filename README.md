@@ -12,7 +12,7 @@ Cooked bread <sup>(...toast)</sup> is a notification popup.
 
 > I f\*ing love toast, what absolute genius took a bite of bread and was like "cook it again", unreal - [Josh](https://twitter.com/LoserCrew/status/1039294149667770368?s=20)
 
-TypeScript, extendability, good options and defaults. Use our styles, style them uniquely, or bring your own custom components.
+TypeScript, extendability, good options and defaults. We needed an option that made it easy to bring your own component. Use our styles, style them uniquely, or use your own component.
 
 - [Demo](https://brettinternet.github.io/react-cooked-bread/)
 - [Documentation](https://brettinternet.github.io/react-cooked-bread/quick-start)

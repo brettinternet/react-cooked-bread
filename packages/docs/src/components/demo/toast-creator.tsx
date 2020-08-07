@@ -42,8 +42,8 @@ export const ToastCreator: React.FC<ToastCreatorProps> = ({
       addToast(content, {
         autoDismiss,
         type,
-        title: includeTitle && getRandomShortPhrase(),
-        subtitle: includeTitle && includeSubtitle && getRandomWord(),
+        title: includeTitle ? getRandomShortPhrase() : undefined,
+        subtitle: includeTitle && includeSubtitle ? getRandomWord() : undefined,
         ...(getToastProps ? getToastProps(content) : {}),
       })
     },
@@ -51,115 +51,121 @@ export const ToastCreator: React.FC<ToastCreatorProps> = ({
   )
 
   return (
-    <Box mx="auto">
-      <Flex alignItems="center" mb={3} flexWrap="wrap">
-        {toastTypes.map((type) => (
-          <Box key={type} mr={2} mb={3}>
-            <button
-              onClick={() => {
-                createToast(type)
+    <div>
+      <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']} mb={3}>
+        <Flex alignItems="center" flexWrap="wrap" pr={[0, 0, 0, 0, 0, 3]}>
+          {toastTypes.map((type) => (
+            <Box key={type} mr={2} mb={3}>
+              <button
+                onClick={() => {
+                  createToast(type)
+                }}
+                css={{
+                  background: actionColors[type],
+                  color: 'black',
+                }}
+              >
+                {capitalize(type)}
+              </button>
+            </Box>
+          ))}
+        </Flex>
+
+        <Flex alignItems="center" pl={[0, 0, 0, 0, 0, 3]}>
+          <Flex mr={3} mb={3}>
+            <input
+              type="checkbox"
+              id="toast-option-auto-dismiss"
+              checked={autoDismiss}
+              onChange={(ev: React.FormEvent<HTMLInputElement>) => {
+                setAutoDismiss(ev.currentTarget.checked)
               }}
               css={{
-                background: actionColors[type],
-                color: 'black',
+                marginRight: '0.5rem',
               }}
-            >
-              {capitalize(type)}
-            </button>
-          </Box>
-        ))}
-      </Flex>
-
-      <Flex alignItems="center" mb={3}>
-        <Flex mr={3}>
-          <input
-            type="checkbox"
-            id="toast-option-auto-dismiss"
-            checked={autoDismiss}
-            onChange={(ev: React.FormEvent<HTMLInputElement>) => {
-              setAutoDismiss(ev.currentTarget.checked)
-            }}
-            css={{
-              marginRight: '0.5rem',
-            }}
-          />
-          <label htmlFor="toast-option-auto-dismiss">autoDismiss</label>
+            />
+            <label htmlFor="toast-option-auto-dismiss">autoDismiss</label>
+          </Flex>
         </Flex>
       </Flex>
 
       {children}
 
-      <Box my={4}>
-        <PlacementSelect
-          placement={placement}
-          setPlacement={(newPlacement) => {
-            toasts.forEach(({ id }) => {
-              if (placements.includes(id as PlacementOption)) {
-                updateToast(id, {
-                  transitionDuration: 0,
-                })
-                setTimeout(() => {
-                  removeToast(id)
-                })
-              }
-            })
-            setTimeout(() => {
-              addToast(newPlacement, {
-                id: newPlacement,
-                autoDismiss,
-                type: 'info',
+      <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']} mb={4}>
+        <Box mb={[3, 3, 3, 3, 3, 0]} pr={[0, 0, 0, 0, 0, 3]}>
+          <PlacementSelect
+            placement={placement}
+            setPlacement={(newPlacement) => {
+              toasts.forEach(({ id }) => {
+                if (placements.includes(id as PlacementOption)) {
+                  updateToast(id, {
+                    transitionDuration: 0,
+                  })
+                  setTimeout(() => {
+                    removeToast(id)
+                  })
+                }
               })
-              setPlacement(newPlacement)
-            })
-          }}
-        />
-      </Box>
-
-      <Box mb={2}>Active toasts: {toasts.length}</Box>
-
-      <Flex alignItems="center" flexWrap="wrap">
-        <Box mr={2} mb={3}>
-          <button
-            disabled={!toasts.length}
-            onClick={() => {
-              removeAllToasts()
+              setTimeout(() => {
+                addToast(newPlacement, {
+                  id: newPlacement,
+                  autoDismiss,
+                  type: 'info',
+                })
+                setPlacement(newPlacement)
+              })
             }}
-            css={{
-              padding: '0.25rem 0.75rem',
-            }}
-          >
-            Remove All
-          </button>
+          />
         </Box>
 
-        <Box mr={2} mb={3}>
-          <button
-            disabled={!toasts.length}
-            onClick={() => {
-              const { id } = toasts[toasts.length - 1]
-              if (id) {
-                removeToast(id)
-              }
-            }}
-          >
-            Remove Recent
-          </button>
-        </Box>
+        <Box pl={[0, 0, 0, 0, 0, 3]}>
+          <Box mb={2}>Active toasts: {toasts.length}</Box>
 
-        <Box mr={2} mb={3}>
-          <button
-            disabled={!toasts.length}
-            onClick={() => {
-              const { id } = toasts[0]
-              if (id) {
-                removeToast(id)
-              }
-            }}
-          >
-            Remove Last
-          </button>
+          <Flex alignItems="center" flexWrap="wrap">
+            <Box mr={2} mb={3}>
+              <button
+                disabled={!toasts.length}
+                onClick={() => {
+                  removeAllToasts()
+                }}
+                css={{
+                  padding: '0.25rem 0.75rem',
+                }}
+              >
+                Remove All
+              </button>
+            </Box>
+
+            <Box mr={2} mb={3}>
+              <button
+                disabled={!toasts.length}
+                onClick={() => {
+                  const { id } = toasts[toasts.length - 1]
+                  if (id) {
+                    removeToast(id)
+                  }
+                }}
+              >
+                Remove Recent
+              </button>
+            </Box>
+
+            <Box mr={2} mb={3}>
+              <button
+                disabled={!toasts.length}
+                onClick={() => {
+                  const { id } = toasts[0]
+                  if (id) {
+                    removeToast(id)
+                  }
+                }}
+              >
+                Remove Last
+              </button>
+            </Box>
+          </Flex>
         </Box>
       </Flex>
-    </Box>
+    </div>
   )
 }

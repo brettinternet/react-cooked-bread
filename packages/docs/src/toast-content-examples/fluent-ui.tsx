@@ -98,3 +98,42 @@ export const getFluentUiToastProps = (content: React.ReactNode) => {
     ),
   }
 }
+
+export const fluentUiToastOptions = {
+  options: {
+    isMultiline: true,
+    truncated: false,
+    actions: [
+      {
+        text: 'Cats',
+        onClick: () => {
+          console.log('Cats')
+        },
+      },
+      {
+        text: 'Dogs',
+        onClick: () => {
+          console.log('Dogs')
+        },
+      },
+    ],
+  },
+  str: `
+      // custom props
+      isMultiline: true,
+      truncated: false,
+      actions: [
+        {
+          text: 'Cats',
+          onClick: () => {
+            console.log('Cats')
+          },
+        },
+        {
+          text: 'Dogs',
+          onClick: () => {
+            console.log('Dogs')
+          },
+        },
+      ],`,
+}

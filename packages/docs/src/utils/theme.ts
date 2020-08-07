@@ -10,6 +10,10 @@ const colors = {
   grayDark: '#272822',
   grayLight: 'dimgray',
   whiteAlt: 'ivory',
+  success: '#dff6dd',
+  info: '#deecf9',
+  warning: '#fff4ce',
+  error: '#fde7e9',
 }
 
 export enum ThemeType {
@@ -29,6 +33,10 @@ const getColors = (themeType: ThemeType): typeof colors => {
         grayDark: colors.linen,
         grayLight: colors.whiteAlt,
         whiteAlt: colors.grayLight,
+        success: colors.success,
+        info: colors.info,
+        warning: colors.warning,
+        error: colors.error,
       }
     case ThemeType.LIGHT:
     default:
