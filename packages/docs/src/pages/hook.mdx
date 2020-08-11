@@ -40,6 +40,8 @@ Occasionally, you may need to use a [higher-order component](/consumer#higher-or
 
 #### Add Toast
 
+Create a new toast
+
 ##### Usage
 
 ```ts
@@ -55,10 +57,23 @@ const newToastId: string = addToast(content: ReactNode, {
 ##### TypeScript
 
 ```tsx
-;(content: ReactNode, options: AddToastOptions) => string
+type AddToast = (content: ReactNode, options: AddToastOptions) => string
+
+type AddToastOptions = {
+  id?: Id
+  type?: ToastTypeOption
+  autoDismiss?: boolean
+  timeout?: number
+  transitionDuration?: TransitionDuration
+  title?: string
+  subtitle?: string
+  onDismiss?: (id: Id | undefined) => void
+}
 ```
 
 #### Remove Toast
+
+Remove a toast by its ID
 
 ##### Usage
 
@@ -69,10 +84,12 @@ removeToast(id)
 ##### TypeScript
 
 ```ts
-(id: string) => void
+type RemoveToast = (id: string) => void
 ```
 
 #### Remove All Toasts
+
+Removes all active toasts
 
 ##### Usage
 
@@ -83,10 +100,12 @@ removeAllToasts()
 ##### TypeScript
 
 ```ts
-() => void
+type RemoveAllToasts = () => void
 ```
 
 #### Update Toast
+
+This helper function works like a patch update. Updated fields are merged with the existing options.
 
 ##### Usage
 
@@ -99,12 +118,18 @@ updateToast(id, {
 ##### TypeScript
 
 ```ts
-(id: string, options: UpdateToastOptions) => void
+type UpdateToast = (id: string, options: UpdateToastOptions) => void
+
+interface UpdateToastOptions extends AddToastOptions {
+  content?: ReactNode
+}
 ```
 
 #### Toasts
 
-##### Usage
+A collection of active toasts
+
+##### Example
 
 ```tsx
 <>
