@@ -17,7 +17,6 @@ const writeTo = (analysisString) => {
  * @type {import('rollup').RollupOptions}
  */
 module.exports = {
-  // CommonJS (for Node) and ES module (for bundlers) build
   input: 'src/index.ts',
   output: [
     { file: pkg.main, format: 'cjs', sourcemap: true },
@@ -45,19 +44,3 @@ module.exports = {
     }),
   ],
 }
-
-// import resolve from '@rollup/plugin-node-resolve'
-// import commonjs from '@rollup/plugin-commonjs'
-// import camelCase from 'lodash.camelcase'
-// const { NODE_ENV } = process.env
-// const isProd = NODE_ENV === 'production'
-//     // browser-friendly UMD build with dependencies
-//     {
-//       input,
-//       output: [{ file: pkg.browser, name: camelCase(pkg.name), format: 'umd', sourcemap: true }],
-//       watch: {
-//         include: ['src/**'],
-//       },
-//       plugins: [resolve(), commonjs(), typescript({ useTsconfigDeclarationDir: true })],
-//     }
-//   )

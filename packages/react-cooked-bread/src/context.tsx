@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
-import { getDisplayName, error } from './utils'
+import { isDev, getDisplayName, error } from './utils'
 
 const { useContext, createContext } = React
 
@@ -50,8 +50,10 @@ export const ToastConsumer: React.FC<ToastConsumerProps> = ({ children }) => (
   <Context.Consumer>{(context) => children(context)}</Context.Consumer>
 )
 
-ToastConsumer.propTypes = {
-  children: PropTypes.func.isRequired,
+if (isDev) {
+  ToastConsumer.propTypes = {
+    children: PropTypes.func.isRequired,
+  }
 }
 
 export interface WithToastContextProps {

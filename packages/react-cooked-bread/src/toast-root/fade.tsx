@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core'
 import { ToastType } from '../types'
 import { ToastRootProps, toastRootPropTypes } from '../toast-types'
 import { classNamePrefix } from '../styles'
-import { getTransitionDuration } from '../utils'
+import { getTransitionDuration, isDev } from '../utils'
 
 const rootClassName = `${classNamePrefix}__toast__root`
 
@@ -54,4 +54,6 @@ export const FadeToastRoot: React.FC<ToastRootProps> = ({
   </div>
 )
 
-FadeToastRoot.propTypes = toastRootPropTypes
+if (isDev) {
+  FadeToastRoot.propTypes = toastRootPropTypes
+}

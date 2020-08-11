@@ -11,7 +11,7 @@ import {
   PlacementOption,
   Placement,
 } from './types'
-import { getStylesCSS } from './utils'
+import { isDev, getStylesCSS } from './utils'
 import { scrollStyles } from './styles'
 import { classNamePrefix } from './styles'
 
@@ -73,9 +73,11 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
   </div>
 )
 
-ToastContainer.propTypes = {
-  hasToasts: PropTypes.bool.isRequired,
-  placement: placementsProps.isRequired,
-  styler: stylerProps,
-  children: childrenProps,
+if (isDev) {
+  ToastContainer.propTypes = {
+    hasToasts: PropTypes.bool.isRequired,
+    placement: placementsProps.isRequired,
+    styler: stylerProps,
+    children: childrenProps,
+  }
 }

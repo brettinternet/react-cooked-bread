@@ -19,7 +19,7 @@ import {
 } from './types'
 import { Context } from './context'
 import { useActiveToasts } from './active-toasts-hook'
-import { isBrowser, getStylesCSS, getFocusEvents } from './utils'
+import { isBrowser, getStylesCSS, getFocusEvents, isDev } from './utils'
 
 const transitionGroupClassName = 'react-cooked-bread__toast__transition-group'
 
@@ -182,21 +182,23 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   )
 }
 
-ToastProvider.propTypes = {
-  autoDismiss: PropTypes.bool,
-  timeout: PropTypes.number,
-  toastRoot: PropTypes.func.isRequired,
-  toastContent: PropTypes.func,
-  container: PropTypes.func,
-  placement: placementsProps,
-  transitionDuration: transitionDurationPropsType,
-  pauseAllOnHover: PropTypes.bool,
-  containerStyles: stylerProps,
-  transitionGroupStyles: stylerProps,
-  toastRootStyles: stylerProps,
-  toastContentStyles: stylerProps,
-  reverseColumn: PropTypes.bool,
-  pauseOnFocusLoss: PropTypes.bool,
-  maxToasts: PropTypes.number,
-  children: childrenProps.isRequired,
+if (isDev) {
+  ToastProvider.propTypes = {
+    autoDismiss: PropTypes.bool,
+    timeout: PropTypes.number,
+    toastRoot: PropTypes.func.isRequired,
+    toastContent: PropTypes.func,
+    container: PropTypes.func,
+    placement: placementsProps,
+    transitionDuration: transitionDurationPropsType,
+    pauseAllOnHover: PropTypes.bool,
+    containerStyles: stylerProps,
+    transitionGroupStyles: stylerProps,
+    toastRootStyles: stylerProps,
+    toastContentStyles: stylerProps,
+    reverseColumn: PropTypes.bool,
+    pauseOnFocusLoss: PropTypes.bool,
+    maxToasts: PropTypes.number,
+    children: childrenProps.isRequired,
+  }
 }

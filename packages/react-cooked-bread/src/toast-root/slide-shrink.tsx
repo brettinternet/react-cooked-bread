@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core'
 import { PlacementOption, ToastType, TransitionStatus } from '../types'
 import { ToastRootProps, toastRootPropTypes } from '../toast-types'
 import { classNamePrefix } from '../styles'
-import { getTransitionDuration } from '../utils'
+import { getTransitionDuration, isDev } from '../utils'
 
 const rootClassName = `${classNamePrefix}__toast__root`
 
@@ -71,4 +71,6 @@ export const SlideShrinkToastRoot: React.FC<ToastRootProps> = ({
   </div>
 )
 
-SlideShrinkToastRoot.propTypes = toastRootPropTypes
+if (isDev) {
+  SlideShrinkToastRoot.propTypes = toastRootPropTypes
+}

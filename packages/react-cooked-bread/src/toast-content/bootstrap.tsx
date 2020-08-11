@@ -6,6 +6,7 @@ import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { CloseIcon } from './icons'
 import { ToastContentProps, toastContentPropTypes } from '../toast-types'
 import { classNamePrefix } from '../styles'
+import { isDev } from '../utils'
 
 /**
  * @note styles mimic source https://getbootstrap.com/docs/4.3/components/toasts/
@@ -244,4 +245,6 @@ export const BootstrapToastContent: React.FC<BootstrapToastContentProps> = ({
   </Wrapper>
 )
 
-BootstrapToastContent.propTypes = toastContentPropTypes
+if (isDev) {
+  BootstrapToastContent.propTypes = toastContentPropTypes
+}

@@ -1,5 +1,7 @@
 import { Styler, StylerMap, StylesObj, Styles, TransitionDuration, TransitionStatus } from './types'
 
+export const isDev = process.env.NODE_ENV !== 'production'
+
 export const noop = (): void => undefined
 
 /**
@@ -115,17 +117,16 @@ export const getFocusEvents = (cb: (isBlurred: boolean) => void) => {
   }
 }
 
-export const error =
-  process.env.NODE_ENV !== 'production'
-    ? (message: string) => {
-        if (typeof console !== 'undefined') {
-          console.error(message)
-        }
-        try {
-          throw Error(message)
-        } catch (err) {} // eslint-disable-line no-empty
+export const error = isDev
+  ? (message: string) => {
+      if (typeof console !== 'undefined') {
+        console.error(message)
       }
-    : noop
+      try {
+        throw Error(message)
+      } catch (err) {} // eslint-disable-line no-empty
+    }
+  : noop
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getDisplayName = (WrappedComponent: React.ComponentType<any>) =>

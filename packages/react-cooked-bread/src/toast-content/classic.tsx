@@ -6,6 +6,7 @@ import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from './icons'
 import { ToastContentProps, toastContentPropTypes } from '../toast-types'
 import { classNamePrefix } from '../styles'
+import { isDev } from '../utils'
 
 const borderRadius = 3
 const typeColors = {
@@ -227,4 +228,6 @@ export const ClassicToastContent: React.FC<ClassicToastContentProps> = ({
   </Wrapper>
 )
 
-ClassicToastContent.propTypes = toastContentPropTypes
+if (isDev) {
+  ClassicToastContent.propTypes = toastContentPropTypes
+}
