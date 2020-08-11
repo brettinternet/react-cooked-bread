@@ -58,7 +58,6 @@ export const SlideShrinkToastRoot: React.FC<ToastRootProps> = ({
         })}
     aria-atomic="true"
     css={{
-      overflow: 'hidden',
       transform: 'scale(1)',
       transition: getTransition(getTransitionDuration(transitionDuration, transitionState)),
       ...geToastStates(placement)[transitionState],

@@ -42,7 +42,6 @@ export const FadeToastRoot: React.FC<ToastRootProps> = ({
         })}
     aria-atomic="true"
     css={{
-      overflow: 'hidden',
       transition: getTransition(getTransitionDuration(transitionDuration, transitionState)),
       ...toastStates[transitionState],
       ...styles,
