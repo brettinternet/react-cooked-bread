@@ -8,12 +8,14 @@ import {
   ToastProviderProps,
   AddToastOptions,
 } from 'react-cooked-bread'
-import { Box } from 'reflexbox'
 
-import { getRandomPhrase, getRandomShortPhrase } from 'utils/content'
-import { FluentUiContent, fluentUiToastOptions } from 'toast-content-examples'
+import {
+  FluentUiContent,
+  fluentUiToastOptions,
+  getFluentUiToastProps,
+} from 'toast-content-examples'
 
-type ComoponentOption = {
+type ComponentOption = {
   key: string
   name: string
   str: string
@@ -26,7 +28,14 @@ type ComoponentOption = {
   }
 }
 
-export const rootOptions: ComoponentOption[] = [
+type RootComponentOption = {
+  providerProps: ToastProviderProps
+} & ComponentOption
+
+export const getOption = <T extends { key: string }>(selectedKey: string, options: T[]) =>
+  options.filter(({ key }) => key === selectedKey)[0]
+
+export const rootOptions: RootComponentOption[] = [
   {
     key: 'slide-shrink',
     name: 'Slide shrink',
@@ -45,7 +54,7 @@ export const rootOptions: ComoponentOption[] = [
   },
 ]
 
-export const contentOptions: ComoponentOption[] = [
+export const contentOptions: ComponentOption[] = [
   {
     key: 'glossy',
     name: 'Glossy',
@@ -72,7 +81,7 @@ export const contentOptions: ComoponentOption[] = [
   },
 ]
 
-export const customContentOptions: ComoponentOption[] = [
+export const customContentOptions: ComponentOption[] = [
   {
     key: 'fluentui',
     name: 'Fluent UI',
@@ -82,22 +91,6 @@ export const customContentOptions: ComoponentOption[] = [
       toastContent: FluentUiContent,
     },
     toastOptions: fluentUiToastOptions,
+    getToastProps: getFluentUiToastProps,
   },
 ]
-
-const ExampleReactNode = () => {
-  const phrase = getRandomShortPhrase()
-  return (
-    <Box my={1}>
-      <button
-        onClick={() => {
-          console.log(phrase)
-        }}
-      >
-        {phrase}
-      </button>
-    </Box>
-  )
-}
-
-const getContent = () => (Math.random() > 0.8 ? <ExampleReactNode /> : getRandomPhrase())

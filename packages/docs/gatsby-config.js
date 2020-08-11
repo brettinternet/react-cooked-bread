@@ -10,7 +10,7 @@ module.exports = {
     description: pkg.description,
     author: pkg.author.split(' ').slice(0, 1),
     repoUrl: pkg.repository.url,
-    editPagesRepoUrl: pkg.repository.url + '/edit/master/packages/docs /src/pages',
+    editPagesRepoUrl: pkg.repository.url + '/edit/master/packages/docs/src/pages',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

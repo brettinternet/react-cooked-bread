@@ -1,19 +1,16 @@
 /** @jsx jsx */
 import React, { useState } from 'react'
 import { jsx } from '@emotion/core'
-import {
-  ToastProvider,
-  useToasts,
-  ToastTypeOption,
-  ToastProviderProps,
-  AddToastOptions,
-} from 'react-cooked-bread'
+import { ToastProvider, useToasts, ToastTypeOption, AddToastOptions } from 'react-cooked-bread'
+import { Link } from 'gatsby'
 
 import { Layout } from 'components/layout'
 import { Head } from 'components/head'
 import { Box, Flex } from 'reflexbox'
 import { Code } from 'components/code'
-import { rootOptions, contentOptions, customContentOptions } from 'components/demo'
+import { getOption, rootOptions, contentOptions, customContentOptions } from 'components/demo'
+import { HeaderLink } from 'components/header-link'
+import { EditLink } from 'components/edit-link'
 
 const typeOptions = ['success', 'info', 'warning', 'error']
 
@@ -38,9 +35,6 @@ const Creator: React.FC<CreatorProps> = ({ content, options }) => {
   )
 }
 
-const getOptions = <T extends { key: string }>(selectedKey: string, options: T[]) =>
-  options.filter(({ key }) => key === selectedKey)[0]
-
 const QuickStartPage = () => {
   const [selectedToastRoot, setSelectToastRoot] = useState(rootOptions[0])
   const [selectedToastContent, setSelectedToastContent] = useState(contentOptions[0])
@@ -51,12 +45,13 @@ const QuickStartPage = () => {
   return (
     <Layout>
       <Head title="Docs" />
-      <ToastProvider
-        {...(selectedToastRoot.providerProps as ToastProviderProps)}
-        {...selectedToastContent.providerProps}
-      >
-        <h1>Quick Start</h1>
-        <h2>Provider</h2>
+      <ToastProvider {...selectedToastRoot.providerProps} {...selectedToastContent.providerProps}>
+        <HeaderLink id="quick-start" as="h1">
+          Quick Start
+        </HeaderLink>
+        <HeaderLink id="provider" as="h2">
+          Provider
+        </HeaderLink>
         <Flex alignItems="center" mb={3}>
           <Box mr={3}>
             <Box mb={2}>
@@ -65,7 +60,7 @@ const QuickStartPage = () => {
             <select
               id="toast-root-select"
               onChange={(ev) => {
-                setSelectToastRoot(getOptions(ev.currentTarget.value, rootOptions))
+                setSelectToastRoot(getOption(ev.currentTarget.value, rootOptions))
               }}
             >
               {rootOptions.map(({ key, name }) => (
@@ -84,19 +79,19 @@ const QuickStartPage = () => {
               id="toast-content-select"
               onChange={(ev) => {
                 const options =
-                  getOptions(ev.currentTarget.value, contentOptions) ||
-                  getOptions(ev.currentTarget.value, customContentOptions)
+                  getOption(ev.currentTarget.value, contentOptions) ||
+                  getOption(ev.currentTarget.value, customContentOptions)
                 setSelectedToastContent(options)
               }}
             >
-              <optgroup label="From library">
+              <optgroup label="react-cooked-bread">
                 {contentOptions.map(({ key, name }) => (
                   <option key={key} value={key}>
                     {name}
                   </option>
                 ))}
               </optgroup>
-              <optgroup label="Third party libraries">
+              <optgroup label="Custom examples">
                 {customContentOptions.map(({ key, name }) => (
                   <option key={key} value={key}>
                     {name}
@@ -122,8 +117,9 @@ const MyApp = () => (
     <Example />
   </ToastProvider>
 )`}</Code>
-        <h2>Toast</h2>
-        <p>Creat a toast!</p>
+        <HeaderLink id="toasts" as="h2">
+          Toasts
+        </HeaderLink>
         <Flex justifyContent="space-between" flexWrap="wrap">
           <Flex alignItems="center" flexWrap="wrap">
             <Box mr={3} mb={3}>
@@ -176,6 +172,9 @@ const MyApp = () => (
             />
           </Box>
         </Flex>
+        <p>
+          Consumers, such as the <Link to="/hook">hook</Link>, must be descendants of the provider.
+        </p>
         <Code>{`import { useToasts } from 'react-cooked-bread'
 
 const Example = () => {
@@ -194,6 +193,7 @@ const Example = () => {
 
   return <button onClick={handleClick}>Run</button>
 }`}</Code>
+        <EditLink ext="tsx" />
       </ToastProvider>
     </Layout>
   )
