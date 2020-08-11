@@ -38,12 +38,6 @@ const links: SiteLink[] = [
   {
     to: '/extend',
     name: 'Extend',
-    subLinks: [
-      {
-        to: '/extend/examples',
-        name: 'Examples',
-      },
-    ],
   },
   {
     to: '/troubleshoot',

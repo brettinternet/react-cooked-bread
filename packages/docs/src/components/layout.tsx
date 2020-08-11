@@ -36,15 +36,13 @@ export const Layout: React.FC = ({ children }) => {
         siteMetadata {
           title
           repoUrl
-          version
-          npmLink
         }
       }
     }
   `)
 
   const [themeType, setThemeType] = useStorage(LocalStorageKey.THEME_TYPE, systemThemeType)
-  const { title, repoUrl, version, npmLink } = site.siteMetadata
+  const { title, repoUrl } = site.siteMetadata
 
   return (
     <ThemeProvider theme={getTheme(themeType)}>
@@ -52,7 +50,7 @@ export const Layout: React.FC = ({ children }) => {
         <Global styles={getGlobalStyles} />
         <Global styles={getPrismStyles} />
         <SkipLink />
-        <Header siteTitle={title} repoUrl={repoUrl} version={version} npmLink={npmLink} />
+        <Header siteTitle={title} repoUrl={repoUrl} />
         <Flex
           as="main"
           flexGrow={1}
