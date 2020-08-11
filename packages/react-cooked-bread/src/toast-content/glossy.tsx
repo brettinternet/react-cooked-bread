@@ -6,6 +6,7 @@ import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from './icons'
 import { ToastContentProps, toastContentPropTypes } from '../toast-types'
 import { classNamePrefix } from '../styles'
+import { isDev } from '../utils'
 
 const borderRadius = 4
 const toastWidth = 360
@@ -245,4 +246,6 @@ export const GlossyToastContent: React.FC<GlossyToastContentProps> = ({
   </Wrapper>
 )
 
-GlossyToastContent.propTypes = toastContentPropTypes
+if (isDev) {
+  GlossyToastContent.propTypes = toastContentPropTypes
+}
