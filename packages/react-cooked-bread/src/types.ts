@@ -26,11 +26,11 @@ export type ToastTypeOption = ToastType | 'error' | 'info' | 'success' | 'warnin
 
 /**
  * Allow custom props if users don't wish to
- * shadow/override or extend
+ * use declaration merging
  */
 export type GenericObject = Record<string, unknown>
 
-export type AddToastOptions = {
+export interface AddToastOptions extends GenericObject {
   id?: Id
   type?: ToastTypeOption
   autoDismiss?: boolean
@@ -39,13 +39,13 @@ export type AddToastOptions = {
   title?: string
   subtitle?: string
   onDismiss?: (id: Id | undefined) => void
-} & GenericObject
+}
 
-export type UpdateToastOptions = {
+export interface UpdateToastOptions extends AddToastOptions {
   content?: ReactNode
-} & AddToastOptions
+}
 
-export type ActiveToast = {
+export interface ActiveToast extends GenericObject {
   id: Id
   content: ReactNode
   type: ToastTypeOption
@@ -55,7 +55,7 @@ export type ActiveToast = {
   onDismiss?: (id: Id | undefined) => void
   title?: string
   subtitle?: string
-} & GenericObject
+}
 
 export type Add = (content: ReactNode, options?: AddToastOptions) => Id
 export type Update = (id: Id, options: UpdateToastOptions) => void
