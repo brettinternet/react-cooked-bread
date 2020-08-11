@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.1...react-cooked-bread@0.3.2) (2020-08-11)
+
+
+### Bug Fixes
+
+* **types:** change context prop method types to interface to allow declaration merging ([d692dc7](https://github.com/brettinternet/react-cooked-bread/commit/d692dc7a1b1282ecc506f31720707a82458b2e84))
+
+
+
+
+
 ## [0.3.1](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.0...react-cooked-bread@0.3.1) (2020-08-11)
 
 
