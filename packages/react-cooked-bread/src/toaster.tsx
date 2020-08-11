@@ -14,7 +14,7 @@ export const Toaster: React.FC<ToasterProps> = ({
   placement,
   transitionDuration,
   transitionState,
-  isPaused,
+  isContainerHovered,
   onDismiss,
   rootStyles,
   contentStyles,
@@ -44,28 +44,28 @@ export const Toaster: React.FC<ToasterProps> = ({
   useEffect(() => timer.current?.clear, [])
 
   useEffect(() => {
-    if (isPaused) {
+    if (isContainerHovered) {
       timer.current?.pause()
       setRunning(false)
     } else if (timer.current?.state === TimerState.PAUSED) {
       timer.current.start()
       setRunning(true)
     }
-  }, [isPaused])
+  }, [isContainerHovered])
 
   const handleMouseEnter = useCallback(() => {
-    if (autoDismiss && !isPaused) {
+    if (autoDismiss && !isContainerHovered) {
       timer.current?.pause()
       setRunning(false)
     }
-  }, [autoDismiss, isPaused])
+  }, [autoDismiss, isContainerHovered])
 
   const handleMouseLeave = useCallback(() => {
-    if (autoDismiss && !isPaused) {
+    if (autoDismiss && !isContainerHovered) {
       timer.current?.start()
       setRunning(true)
     }
-  }, [autoDismiss, isPaused])
+  }, [autoDismiss, isContainerHovered])
 
   const styleProps = {
     ...unknownProps,
@@ -78,6 +78,7 @@ export const Toaster: React.FC<ToasterProps> = ({
     placement,
     transitionDuration,
     transitionState,
+    isContainerHovered,
   }
 
   const sharedProps = {

@@ -29,6 +29,7 @@ interface ToasterValueProps extends GenericObject {
   id: string
   title?: string
   subtitle?: string
+  isContainerHovered: boolean
 }
 
 interface ToastValueProps extends ToasterValueProps {
@@ -68,7 +69,6 @@ export interface ToastComponentsProps {
 }
 
 export interface ToasterProps extends ToastComponentsProps, SharedToastProps, ToasterValueProps {
-  isPaused: boolean
   rootStyles: ToastComponentsProps['toastRootStyles'] | undefined
   contentStyles: ToastContentStyles | undefined
 }

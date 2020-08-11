@@ -60,7 +60,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   pauseOnFocusLoss,
   maxToasts,
 }) => {
-  const [isPaused, setPause] = useState(false)
+  const [isContainerHovered, setContainerHovered] = useState(false)
   const {
     toasts,
     addToast,
@@ -71,7 +71,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   } = useActiveToasts(maxToasts)
 
   useEffect(() => {
-    const { bind, unbind } = getFocusEvents(setPause)
+    const { bind, unbind } = getFocusEvents(setContainerHovered)
     if (pauseOnFocusLoss) {
       bind()
     }
@@ -80,13 +80,13 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
 
   const handleMouseEnter = useCallback(() => {
     if (pauseAllOnHover) {
-      setPause(true)
+      setContainerHovered(true)
     }
   }, [pauseAllOnHover])
 
   const handleMouseLeave = useCallback(() => {
     if (pauseAllOnHover) {
-      setPause(false)
+      setContainerHovered(false)
     }
   }, [pauseAllOnHover])
 
@@ -139,7 +139,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
                   placement={placement}
                   transitionDuration={transitionDuration}
                   transitionState={transitionState}
-                  isPaused={isPaused}
+                  isContainerHovered={isContainerHovered}
                   onDismiss={() => {
                     removeToast(id)
                     if (onDismiss) {
