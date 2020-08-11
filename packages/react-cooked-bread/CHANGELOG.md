@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.0...react-cooked-bread@0.3.1) (2020-08-11)
+
+
+### Bug Fixes
+
+* only set proptypes on library components when node env is not production ([b1d86ea](https://github.com/brettinternet/react-cooked-bread/commit/b1d86ea71b1afde3bff652cdd5930ee4f2f22250))
+
+
+
+
+
 # [0.3.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.2.0...react-cooked-bread@0.3.0) (2020-08-06)
 
 
