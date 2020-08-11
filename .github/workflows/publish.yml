@@ -36,7 +36,11 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm run test
+        uses: mattallty/jest-github-action@v1
+        with:
+          test-command: npm run test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: npm run build
