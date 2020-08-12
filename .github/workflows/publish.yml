@@ -35,7 +35,7 @@ jobs:
       - name: Test
         uses: mattallty/jest-github-action@v1
         with:
-          test-command: npm run test
+          test-command: npm run test && npm run test-followup
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
