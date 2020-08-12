@@ -1,6 +1,9 @@
 name: Publish
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   publish:
@@ -33,11 +36,7 @@ jobs:
         run: npm run lint
 
       - name: Test
-        uses: mattallty/jest-github-action@v1
-        with:
-          test-command: npm run test && npm run test-followup
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run test
 
       - name: Build
         run: npm run build
