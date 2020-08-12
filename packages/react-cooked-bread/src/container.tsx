@@ -3,14 +3,7 @@ import React, { PropsWithChildren } from 'react'
 import { jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
-import {
-  Styler,
-  childrenProps,
-  placementsProps,
-  stylerProps,
-  PlacementOption,
-  Placement,
-} from './types'
+import { Styler, childrenProps, placementsProps, stylerProps, PlacementOption } from './types'
 import { isDev, getStylesCSS } from './utils'
 import { scrollStyles } from './styles'
 import { classNamePrefix } from './styles'
@@ -55,10 +48,11 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
     css={[
       scrollStyles,
       {
+        overflowWrap: 'break-word',
+        wordBreak: 'break-word',
         boxSizing: 'border-box',
         maxHeight: '100%',
-        overflowX: 'hidden',
-        overflowY: placement === Placement.BOTTOM_CENTER ? 'hidden' : 'auto',
+        overflow: 'hidden',
         padding: '1rem',
         pointerEvents: hasToasts ? 'auto' : 'none',
         position: 'fixed',

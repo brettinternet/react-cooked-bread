@@ -1,1 +1,1 @@
-export * from './fluent-ui'
+export * from './fluent'

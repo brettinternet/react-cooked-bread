@@ -1,3 +1,7 @@
+/**
+ * MessageBar component from Fluent UI
+ * @source https://github.com/microsoft/fluentui/tree/master/packages/office-ui-fabric-react
+ */
 /** @jsx jsx */
 import React from 'react'
 import { jsx } from '@emotion/core'
@@ -53,7 +57,7 @@ export const FluentUiContent: React.FC<ToastContentProps & CustomFluentUiContent
       truncated={truncated}
       isMultiline={isMultiline || !truncated}
       actions={
-        actions && actions.length ? (
+        actions?.length ? (
           <div>
             {actions.map((buttonProps, index) => (
               <MessageBarButton key={index} {...buttonProps} />

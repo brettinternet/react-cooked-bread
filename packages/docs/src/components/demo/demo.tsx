@@ -55,6 +55,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
   const { placement, pauseAllOnHover, pauseOnFocusLoss, reverseColumn, maxToasts } = providerProps
   const { addToast, removeToast, removeAllToasts, updateToast, toasts } = useToasts()
   const [autoDismiss, setAutoDismiss] = useState(true)
+  const [timeoutValue, setTimeoutValue] = useState(5000)
 
   const patchProviderProps = (props: Partial<ToastProviderProps>) => {
     setProviderProps({ ...providerProps, ...props })
@@ -65,16 +66,17 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
       const includeTitle = getRandom([true, false])
       const includeSubtitle = getRandom([true, false])
       const { getToastProps } = selectedToastContent
-      const content = getContent()
+      const content = selectedToastContent.custom ? getContent() : getRandomPhrase()
       addToast(content, {
         autoDismiss,
+        timeout: timeoutValue,
         type,
         title: includeTitle ? getRandomShortPhrase() : undefined,
         subtitle: includeTitle && includeSubtitle ? getRandomWord() : undefined,
         ...(getToastProps ? getToastProps(content) : {}),
       })
     },
-    [addToast, autoDismiss]
+    [addToast, autoDismiss, timeoutValue]
   )
 
   return (
@@ -84,7 +86,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
           <HeaderLink id="toasts" as="h2">
             Toasts
           </HeaderLink>
-          <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']} mb={3}>
+          <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']}>
             <Flex alignItems="center" flexWrap="wrap" pr={[0, 0, 0, 0, 0, 3]}>
               {toastTypes.map((type) => (
                 <Box key={type} mr={2} mb={3}>
@@ -118,6 +120,28 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
                 />
                 <label htmlFor="toast-option-auto-dismiss">autoDismiss</label>
               </Flex>
+            </Flex>
+
+            <Flex alignItems="center" mr={3} mb={3}>
+              <Box mr={2}>
+                <label htmlFor="toast-option-timeout">timeout:</label>
+              </Box>
+              <input
+                disabled={!autoDismiss}
+                type="number"
+                id="toast-option-timeout"
+                min="1000"
+                step="1000"
+                max="10000"
+                value={timeoutValue || '5000'}
+                onChange={(ev: React.FormEvent<HTMLInputElement>) => {
+                  setTimeoutValue(parseInt(ev.currentTarget.value) || 5000)
+                }}
+                css={{
+                  marginRight: '0.5rem',
+                  width: 60,
+                }}
+              />
             </Flex>
           </Flex>
           <Box mb={2}>Active toasts: {toasts.length}</Box>
@@ -172,7 +196,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
         <HeaderLink id="provider" as="h2">
           Provider
         </HeaderLink>
-        <Flex alignItems="center" flexWrap="wrap" mb={3}>
+        <Flex alignItems="center" flexWrap="wrap">
           <Box mr={3} mb={3}>
             <Box mb={2}>
               <label htmlFor="toast-root-select">Root theme:</label>
@@ -223,7 +247,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
             </select>
           </Box>
         </Flex>
-        <Flex flexWrap="wrap">
+        <Flex alignItems="center" flexWrap="wrap">
           <Flex mr={3} mb={3}>
             <input
               type="checkbox"
@@ -307,6 +331,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
                 addToast(newPlacement, {
                   id: newPlacement,
                   autoDismiss,
+                  timeout: timeoutValue,
                   type: 'info',
                 })
                 patchProviderProps({ placement: newPlacement })

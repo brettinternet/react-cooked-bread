@@ -76,9 +76,9 @@
     "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
-    "prop-types": ">= 15.x.x",
-    "react": ">= 16.8.x",
-    "react-dom": ">= 16.8.x"
+    "prop-types": ">=15.x.x",
+    "react": ">=16.8.x",
+    "react-dom": ">=16.8.x"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",

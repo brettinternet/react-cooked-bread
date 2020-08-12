@@ -2,6 +2,7 @@ export { ToastContainer } from './container'
 export {
   SlideShrinkToastRoot as DefaultToastRoot,
   SlideShrinkToastRoot,
+  SlideSlideToastRoot,
   FadeToastRoot,
 } from './toast-root'
 export {
@@ -9,6 +10,8 @@ export {
   GlossyToastContent,
   BootstrapToastContent,
   ClassicToastContent,
+  ZeitToastContent,
+  HtmlyToastContent,
 } from './toast-content'
 export {
   ToastContentProps,

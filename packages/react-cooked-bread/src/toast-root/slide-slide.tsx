@@ -29,12 +29,12 @@ type ToastStates = Record<TransitionStatus, React.CSSProperties>
 const geToastStates = (placement: PlacementOption): ToastStates => ({
   entering: { transform: getTranslate(placement), opacity: 0 },
   entered: { transform: 'translate3d(0,0,0)', opacity: 1, maxHeight: 800 },
-  exiting: { transform: 'scale(0.80)', opacity: 0, maxHeight: 0 },
-  exited: { transform: 'scale(0.80)', opacity: 0 },
+  exiting: { transform: getTranslate(placement), opacity: 0, maxHeight: 0 },
+  exited: { transform: getTranslate(placement), opacity: 0 },
   unmounted: {},
 })
 
-export const SlideShrinkToastRoot: React.FC<ToastRootProps> = ({
+export const SlideSlideToastRoot: React.FC<ToastRootProps> = ({
   children,
   type,
   placement,
@@ -70,5 +70,5 @@ export const SlideShrinkToastRoot: React.FC<ToastRootProps> = ({
 )
 
 if (isDev) {
-  SlideShrinkToastRoot.propTypes = toastRootPropTypes
+  SlideSlideToastRoot.propTypes = toastRootPropTypes
 }

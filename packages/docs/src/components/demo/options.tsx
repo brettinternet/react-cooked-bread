@@ -1,10 +1,13 @@
 import React from 'react'
 import {
   SlideShrinkToastRoot,
+  SlideSlideToastRoot,
   FadeToastRoot,
   GlossyToastContent,
   BootstrapToastContent,
   ClassicToastContent,
+  ZeitToastContent,
+  HtmlyToastContent,
   ToastProviderProps,
   AddToastOptions,
 } from 'react-cooked-bread'
@@ -14,6 +17,7 @@ import {
   fluentUiToastOptions,
   getFluentUiToastProps,
 } from 'toast-content-examples'
+import { getRandom } from 'utils/content'
 
 type ComponentOption = {
   key: string
@@ -42,6 +46,14 @@ export const rootOptions: RootComponentOption[] = [
     str: 'SlideShrinkToastRoot',
     providerProps: {
       toastRoot: SlideShrinkToastRoot,
+    },
+  },
+  {
+    key: 'slide-slide',
+    name: 'Slide slide',
+    str: 'SlideSlideToastRoot',
+    providerProps: {
+      toastRoot: SlideSlideToastRoot,
     },
   },
   {
@@ -77,6 +89,79 @@ export const contentOptions: ComponentOption[] = [
     str: 'BootstrapToastContent',
     providerProps: {
       toastContent: BootstrapToastContent,
+    },
+  },
+  {
+    key: 'htmly',
+    name: 'HTMLy',
+    str: 'HtmlyToastContent',
+    providerProps: {
+      toastContent: HtmlyToastContent,
+    },
+  },
+  {
+    key: 'zeit',
+    name: 'Zeit',
+    str: 'ZeitToastContentProps',
+    providerProps: {
+      toastContent: ZeitToastContent,
+    },
+    getToastProps: () => ({
+      buttons: getRandom(
+        [
+          [
+            {
+              text: 'Accept',
+              onClick: () => {
+                console.log('Accept')
+              },
+            },
+            {
+              text: 'Cancel',
+              onClick: () => {
+                console.log('Cancel')
+              },
+              secondary: true,
+            },
+          ],
+        ].concat(new Array(4))
+      ),
+    }),
+    toastOptions: {
+      options: {
+        actions: [
+          {
+            text: 'Accept',
+            onClick: () => {
+              console.log('Accept')
+            },
+          },
+          {
+            text: 'Cancel',
+            onClick: () => {
+              console.log('Cancel')
+            },
+            secondary: true,
+          },
+        ],
+      },
+      str: `
+          // custom props
+          actions: [
+            {
+              text: 'Accept',
+              onClick: () => {
+                console.log('Accept')
+              },
+            },
+            {
+              text: 'Cancel',
+              onClick: () => {
+                console.log('Cancel')
+              },
+              secondary: true,
+            },
+          ],`,
     },
   },
 ]

@@ -1,17 +1,17 @@
 import { createContext, useContext, Dispatch, SetStateAction } from 'react'
 
-import { darkModePreferred, ThemeType } from 'utils/theme'
+import { ThemeType } from 'utils/theme'
 
 interface AppContextProps {
   themeType: ThemeType
   setThemeType: Dispatch<SetStateAction<ThemeType>>
 }
 
-export const systemThemeType = darkModePreferred ? ThemeType.DARK : ThemeType.LIGHT
+export const defaultThemeType = ThemeType.LIGHT
 
 export const AppContext = createContext<AppContextProps>({
-  themeType: systemThemeType,
-  setThemeType: () => systemThemeType,
+  themeType: defaultThemeType,
+  setThemeType: () => defaultThemeType,
 })
 
 export const useApp = () => {

@@ -26,7 +26,7 @@ const PlacementButton: React.FC<PlacementButtonProps> = ({ placement, onClick, i
       disabled={isActive}
       onClick={onClick}
       css={(theme) => ({
-        width: 110,
+        width: 130,
         border: `1px solid ${isActive ? theme.colors.grayLight : 'transparent'}`,
         background: isActive ? theme.colors.bgCode : 'transparent',
       })}
@@ -48,8 +48,19 @@ export const PlacementSelect: React.FC<PlacementSelectProps> = ({ placement, set
         <label htmlFor={`position-${placement}`}>Placement:</label>
       </Box>
       <Flex>
-        <Flex flexDirection="column" width="auto" p={1} css={{ border: '1px solid black' }}>
-          <Flex alignItems="center" flexWrap="wrap">
+        <Flex
+          flexDirection="column"
+          width="auto"
+          p={1}
+          css={{ border: '1px solid black' }}
+          flexWrap="wrap"
+          mx={['auto', 'auto', 0]}
+        >
+          <Flex
+            alignItems="center"
+            flexWrap="wrap"
+            flexDirection={['column', 'column', 'column', 'row']}
+          >
             {placements.slice(0, 3).map((place) => (
               <PlacementButton
                 key={place}
@@ -61,7 +72,11 @@ export const PlacementSelect: React.FC<PlacementSelectProps> = ({ placement, set
               />
             ))}
           </Flex>
-          <Flex alignItems="center" flexWrap="wrap">
+          <Flex
+            alignItems="center"
+            flexWrap="wrap"
+            flexDirection={['column', 'column', 'column', 'row']}
+          >
             {placements.slice(3).map((place) => (
               <PlacementButton
                 key={place}

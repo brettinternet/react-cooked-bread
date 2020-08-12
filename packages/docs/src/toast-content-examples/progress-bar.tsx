@@ -3,6 +3,7 @@ import React from 'react'
 import { css, jsx, keyframes } from '@emotion/core'
 
 interface ProgressBarProps {
+  className?: string
   timeout: number
   isRunning: boolean
   isHidden?: boolean
@@ -10,8 +11,14 @@ interface ProgressBarProps {
 
 const shrinkKeyframes = keyframes`from { width: 100%; } to { width: 0% }`
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({ isHidden, timeout, isRunning }) => (
+export const ProgressBar: React.FC<ProgressBarProps> = ({
+  className,
+  isHidden,
+  timeout,
+  isRunning,
+}) => (
   <div
+    className={className}
     css={css`
       animation: ${shrinkKeyframes} ${timeout}ms linear;
       animation-play-state: ${isRunning ? 'running' : 'paused'};

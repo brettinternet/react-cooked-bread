@@ -17,7 +17,7 @@ import {
   breakpoints,
   getGlobalStyles,
 } from 'utils/styles'
-import { AppContext, systemThemeType } from 'utils/app.context'
+import { AppContext, defaultThemeType } from 'utils/app.context'
 import { Footer } from 'components/footer'
 import { Menu } from 'components/menu'
 import { SkipLink } from 'components/skip-link'
@@ -41,7 +41,7 @@ export const Layout: React.FC = ({ children }) => {
     }
   `)
 
-  const [themeType, setThemeType] = useStorage(LocalStorageKey.THEME_TYPE, systemThemeType)
+  const [themeType, setThemeType] = useStorage(LocalStorageKey.THEME_TYPE, defaultThemeType)
   const { title, repoUrl } = site.siteMetadata
 
   return (

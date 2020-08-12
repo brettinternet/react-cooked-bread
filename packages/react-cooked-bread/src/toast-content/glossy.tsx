@@ -9,7 +9,6 @@ import { classNamePrefix } from '../styles'
 import { isDev } from '../utils'
 
 const borderRadius = 4
-const toastWidth = 360
 const typeColors = {
   success: {
     text: '#006644',
@@ -57,19 +56,23 @@ const icons = {
 
 interface WrapperProps {
   type: ToastTypeOption
+  styles: Styles
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, type }) => (
+const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
-    className={classNames.wrapper}
+    className={`${classNames.wrapper} ${classNames.wrapper}--${type}`}
     css={{
+      boxSizing: 'border-box',
       borderRadius,
-      width: toastWidth,
+      width: 360,
+      maxWidth: 'calc(100vw - 2rem)',
       display: 'flex',
       backgroundColor: typeColors[type].bg,
       color: typeColors[type].text,
       boxShadow: '0 3px 8px rgba(0, 0, 0, 0.175)',
       marginBottom: '0.5rem',
+      ...styles,
     }}
   >
     {children}
@@ -209,7 +212,7 @@ export const GlossyToastContent: React.FC<GlossyToastContentProps> = ({
   onDismiss,
   children,
 }) => (
-  <Wrapper type={type}>
+  <Wrapper type={type} styles={styles?.wrapper}>
     <Icon type={type} wrapperStyles={styles?.iconWrapper} iconStyles={styles?.icon}>
       <Progress
         key={timeout}

@@ -122,12 +122,30 @@ export const getGlobalStyles = (theme: Theme) =>
       color: ${theme.colors.fg};
       border: 1px solid ${theme.colors.fg};
       padding: 0.25rem 0.75rem;
+      font-size: 16px;
 
       &:disabled {
         color: ${theme.colors.grayLight};
         border-color: ${theme.colors.grayLight};
         cursor: auto;
       }
+    }
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     button,

@@ -40,15 +40,18 @@ const icons = {
 
 interface WrapperProps {
   type: ToastTypeOption
+  styles: Styles
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, type }) => (
+const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
-    className={classNames.wrapper}
+    className={`${classNames.wrapper} ${classNames.wrapper}--${type}`}
     css={{
+      boxSizing: 'border-box',
       position: 'relative',
       borderRadius,
       width: 350,
+      maxWidth: 'calc(100vw - 2rem)',
       display: 'flex',
       backgroundColor: typeColors[type],
       color: 'white',
@@ -59,6 +62,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, type }) => (
         opacity: '1',
         boxShadow: '0 0 12px #000',
       },
+      ...styles,
     }}
   >
     {children}
@@ -192,7 +196,7 @@ export const ClassicToastContent: React.FC<ClassicToastContentProps> = ({
   onDismiss,
   children,
 }) => (
-  <Wrapper type={type}>
+  <Wrapper type={type} styles={styles?.wrapper}>
     <Progress
       key={timeout}
       opacity={autoDismiss ? 1 : 0}

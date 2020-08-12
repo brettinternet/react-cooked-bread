@@ -20,7 +20,7 @@
     "start": "lerna run start --parallel",
     "test": "lerna run test",
     "deploy": "gh-pages -d packages/docs/public",
-    "version": "lerna version --no-private --conventional-commits --create-release github -m \"chore(release): publish %v\" --yes",
+    "version": "lerna version --no-private --conventional-commits --create-release github --yes",
     "prepublish": "ts-node bin/pre-publish",
     "publish": "lerna publish from-git --yes",
     "publish:fix": "git fetch --tags && npm run prepublish && lerna publish from-package --yes",
