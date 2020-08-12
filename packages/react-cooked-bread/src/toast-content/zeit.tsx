@@ -51,7 +51,7 @@ type WrapperProps = {
 
 const Wrapper: React.FC<WrapperProps> = ({ children, styles, type }) => (
   <div
-    className={classNames.wrapper}
+    className={`${classNames.wrapper} ${classNames.wrapper}--${type}`}
     css={{
       boxSizing: 'border-box',
       position: 'relative',
@@ -64,7 +64,6 @@ const Wrapper: React.FC<WrapperProps> = ({ children, styles, type }) => (
       boxShadow: 'rgba(0, 0, 0, 0.12) 0px 5px 10px',
       borderRadius: '5px',
       padding: '1rem',
-      transition: 'transform 400ms ease 0ms, opacity 200ms ease 0ms',
       ...typeStyles[type],
       ...styles,
     }}

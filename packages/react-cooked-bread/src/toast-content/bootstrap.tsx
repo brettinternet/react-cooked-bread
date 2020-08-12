@@ -43,11 +43,12 @@ const shrinkKeyframes = keyframes`from { width: 100%; } to { width: 0% }`
 
 type WrapperProps = {
   styles: Styles
+  type: ToastTypeOption
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, styles }) => (
+const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
-    className={classNames.wrapper}
+    className={`${classNames.wrapper} ${classNames.wrapper}--${type}`}
     css={{
       boxSizing: 'border-box',
       overflow: 'hidden',
@@ -209,7 +210,7 @@ export const BootstrapToastContent: React.FC<BootstrapToastContentProps> = ({
   subtitle,
   children,
 }) => (
-  <Wrapper styles={styles?.wrapper}>
+  <Wrapper type={type} styles={styles?.wrapper}>
     <Header>
       <Icon
         type={type}

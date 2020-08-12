@@ -48,6 +48,8 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
     css={[
       scrollStyles,
       {
+        overflowWrap: 'break-word',
+        wordBreak: 'break-word',
         boxSizing: 'border-box',
         maxHeight: '100%',
         overflow: 'hidden',

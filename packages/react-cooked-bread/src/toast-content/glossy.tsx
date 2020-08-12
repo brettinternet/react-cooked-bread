@@ -61,7 +61,7 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
-    className={classNames.wrapper}
+    className={`${classNames.wrapper} ${classNames.wrapper}--${type}`}
     css={{
       boxSizing: 'border-box',
       borderRadius,
