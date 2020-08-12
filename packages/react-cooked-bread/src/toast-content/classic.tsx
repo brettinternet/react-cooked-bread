@@ -47,9 +47,11 @@ const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
     className={classNames.wrapper}
     css={{
+      boxSizing: 'border-box',
       position: 'relative',
       borderRadius,
       width: 350,
+      maxWidth: 'calc(100vw - 2rem)',
       display: 'flex',
       backgroundColor: typeColors[type],
       color: 'white',

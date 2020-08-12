@@ -49,9 +49,11 @@ const Wrapper: React.FC<WrapperProps> = ({ children, styles }) => (
   <div
     className={classNames.wrapper}
     css={{
+      boxSizing: 'border-box',
       overflow: 'hidden',
       borderRadius: '0.25rem',
       width: 350,
+      maxWidth: 'calc(100vw - 2rem)',
       backgroundColor: 'white',
       boxShadow: '0 0.1rem 0.75rem rgba(0,0,0,.1)',
       backdropFilter: 'blur(10px)',

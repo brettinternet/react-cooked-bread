@@ -3,14 +3,7 @@ import React, { PropsWithChildren } from 'react'
 import { jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
-import {
-  Styler,
-  childrenProps,
-  placementsProps,
-  stylerProps,
-  PlacementOption,
-  Placement,
-} from './types'
+import { Styler, childrenProps, placementsProps, stylerProps, PlacementOption } from './types'
 import { isDev, getStylesCSS } from './utils'
 import { scrollStyles } from './styles'
 import { classNamePrefix } from './styles'

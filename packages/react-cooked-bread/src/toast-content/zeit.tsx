@@ -53,11 +53,12 @@ const Wrapper: React.FC<WrapperProps> = ({ children, styles, type }) => (
   <div
     className={classNames.wrapper}
     css={{
+      boxSizing: 'border-box',
       position: 'relative',
       marginBottom: '0.5rem',
       display: 'flex',
-      width: '420px',
-      maxWidth: '90vw',
+      width: 420,
+      maxWidth: 'calc(100vw - 2rem)',
       justifyContent: 'space-between',
       alignItems: 'center',
       boxShadow: 'rgba(0, 0, 0, 0.12) 0px 5px 10px',

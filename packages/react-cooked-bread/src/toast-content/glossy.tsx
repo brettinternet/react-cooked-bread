@@ -9,7 +9,6 @@ import { classNamePrefix } from '../styles'
 import { isDev } from '../utils'
 
 const borderRadius = 4
-const toastWidth = 360
 const typeColors = {
   success: {
     text: '#006644',
@@ -64,8 +63,10 @@ const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
     className={classNames.wrapper}
     css={{
+      boxSizing: 'border-box',
       borderRadius,
-      width: toastWidth,
+      width: 360,
+      maxWidth: 'calc(100vw - 2rem)',
       display: 'flex',
       backgroundColor: typeColors[type].bg,
       color: typeColors[type].text,
