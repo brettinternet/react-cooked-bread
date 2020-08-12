@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.2...react-cooked-bread@0.4.0) (2020-08-12)
+
+
+### Bug Fixes
+
+* minor css improvements, export new components ([6a7fa83](https://github.com/brettinternet/react-cooked-bread/commit/6a7fa83f313ae720c92acfa9926e8d19f23b0026))
+* missing classnames and styler spreads, improve code style ([04d741b](https://github.com/brettinternet/react-cooked-bread/commit/04d741b2ca302083067fbafb150720d58479a060))
+* mobile styles for toast content widths ([caf01b4](https://github.com/brettinternet/react-cooked-bread/commit/caf01b4794002cb1702697434228384f640bee61))
+* remove overflow hidden on toast root components ([0d66e29](https://github.com/brettinternet/react-cooked-bread/commit/0d66e2920825b395d3b39edafb1594b9908d91f3))
+
+
+### Features
+
+* add new toast content for similar feel to docs site ([ce281d4](https://github.com/brettinternet/react-cooked-bread/commit/ce281d4a054821a4abd5cc59bd8df8a6fde1661c))
+* add new toast root slide-slide ([3aeb8aa](https://github.com/brettinternet/react-cooked-bread/commit/3aeb8aa6f04fd9cdbae0e7440c3d2cd5a5a96427))
+* pass index, reverse-column, item hover state and toasts down to toast components ([8561a18](https://github.com/brettinternet/react-cooked-bread/commit/8561a1871dfdee92cd511598837cc4b963fbca6a))
+* **zeit.tsx:** add new toast content component ([8272f50](https://github.com/brettinternet/react-cooked-bread/commit/8272f50060c5f591c1c7111c1514e4a0f04bfb2f))
+* provide container hover status to toast components ([eff9da3](https://github.com/brettinternet/react-cooked-bread/commit/eff9da3d88df7b6a97d4336848397537c7d80f06))
+
+
+
+
+
 ## [0.3.2](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.1...react-cooked-bread@0.3.2) (2020-08-11)
 
 
