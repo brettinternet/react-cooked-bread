@@ -2,3 +2,4 @@ coverage
 dist
 docs
 README.md
+jest.results.json
