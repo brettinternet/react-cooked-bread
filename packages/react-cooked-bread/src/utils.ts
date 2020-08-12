@@ -28,11 +28,11 @@ export enum TimerState {
 export class Timer {
   private timerId: number | undefined
   private startDate: number | undefined
-  private remaining: number
+  timeLeft: number
   state: TimerState = TimerState.READY
 
   constructor(private readonly callback: () => void, timeout: number) {
-    this.remaining = timeout
+    this.timeLeft = timeout
 
     if (isBrowser) {
       this.start()
@@ -41,12 +41,13 @@ export class Timer {
 
   start = (): void => {
     this.clear()
-    if (this.remaining > 0) {
+    if (this.timeLeft > 0) {
       this.startDate = Date.now()
       this.timerId = window.setTimeout(() => {
         this.callback()
+        this.timeLeft = 0
         this.state = TimerState.COMPLETED
-      }, this.remaining)
+      }, this.timeLeft)
       this.state = TimerState.RUNNING
     }
   }
@@ -55,13 +56,13 @@ export class Timer {
     if (this.startDate) {
       this.clear()
       this.state = TimerState.PAUSED
-      this.remaining -= Date.now() - this.startDate
+      this.timeLeft -= Date.now() - this.startDate
     }
   }
 
   updateTimeout = (newTimeout: number): void => {
     this.clear()
-    this.remaining = newTimeout
+    this.timeLeft = newTimeout
     this.start()
   }
 
