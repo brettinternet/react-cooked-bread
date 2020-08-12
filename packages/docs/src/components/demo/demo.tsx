@@ -86,7 +86,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
           <HeaderLink id="toasts" as="h2">
             Toasts
           </HeaderLink>
-          <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']} mb={3}>
+          <Flex flexWrap={['wrap', 'wrap', 'wrap', 'wrap', 'wrap', 'nowrap']}>
             <Flex alignItems="center" flexWrap="wrap" pr={[0, 0, 0, 0, 0, 3]}>
               {toastTypes.map((type) => (
                 <Box key={type} mr={2} mb={3}>
@@ -196,7 +196,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
         <HeaderLink id="provider" as="h2">
           Provider
         </HeaderLink>
-        <Flex alignItems="center" flexWrap="wrap" mb={3}>
+        <Flex alignItems="center" flexWrap="wrap">
           <Box mr={3} mb={3}>
             <Box mb={2}>
               <label htmlFor="toast-root-select">Root theme:</label>
@@ -247,7 +247,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
             </select>
           </Box>
         </Flex>
-        <Flex flexWrap="wrap">
+        <Flex alignItems="center" flexWrap="wrap">
           <Flex mr={3} mb={3}>
             <input
               type="checkbox"
