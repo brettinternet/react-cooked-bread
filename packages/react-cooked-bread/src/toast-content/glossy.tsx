@@ -57,9 +57,10 @@ const icons = {
 
 interface WrapperProps {
   type: ToastTypeOption
+  styles: Styles
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, type }) => (
+const Wrapper: React.FC<WrapperProps> = ({ children, type, styles }) => (
   <div
     className={classNames.wrapper}
     css={{
@@ -70,6 +71,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, type }) => (
       color: typeColors[type].text,
       boxShadow: '0 3px 8px rgba(0, 0, 0, 0.175)',
       marginBottom: '0.5rem',
+      ...styles,
     }}
   >
     {children}
@@ -209,7 +211,7 @@ export const GlossyToastContent: React.FC<GlossyToastContentProps> = ({
   onDismiss,
   children,
 }) => (
-  <Wrapper type={type}>
+  <Wrapper type={type} styles={styles?.wrapper}>
     <Icon type={type} wrapperStyles={styles?.iconWrapper} iconStyles={styles?.icon}>
       <Progress
         key={timeout}

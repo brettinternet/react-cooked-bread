@@ -21,7 +21,6 @@ const getTranslate = (placement: PlacementOption): string | undefined => {
     bottom: 'translate3d(0, 120%, 0)',
     top: 'translate3d(0, -120%, 0)',
   }
-
   return translateMap[position]
 }
 

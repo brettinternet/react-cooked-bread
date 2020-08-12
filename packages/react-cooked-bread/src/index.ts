@@ -9,6 +9,7 @@ export {
   GlossyToastContent,
   BootstrapToastContent,
   ClassicToastContent,
+  ZeitToastContent,
 } from './toast-content'
 export {
   ToastContentProps,

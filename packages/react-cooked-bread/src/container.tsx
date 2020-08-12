@@ -57,8 +57,7 @@ export const ToastContainer: React.FC<PropsWithChildren<ContainerProps>> = ({
       {
         boxSizing: 'border-box',
         maxHeight: '100%',
-        overflowX: 'hidden',
-        overflowY: placement === Placement.BOTTOM_CENTER ? 'hidden' : 'auto',
+        overflow: 'hidden',
         padding: '1rem',
         pointerEvents: hasToasts ? 'auto' : 'none',
         position: 'fixed',

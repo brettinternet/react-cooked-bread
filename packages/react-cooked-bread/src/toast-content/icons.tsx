@@ -1,11 +1,12 @@
 import React from 'react'
 
-const getDefaultProps = (width: number) => {
+const getDefaultProps = (width: number, height: number = 16) => {
   return {
     role: 'img',
-    height: 16,
+    height,
     width: width,
-    viewBox: `0 0 ${width} 16`,
+    viewBox: `0 0 ${width} ${height}`,
+    xmlns: 'http://www.w3.org/2000/svg',
     style: {
       display: 'inline-block',
       verticalAlign: 'text-top',
@@ -74,5 +75,13 @@ export const CloseIcon: React.FC<IconProps> = (props) => (
       fillRule="evenodd"
       d="M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z"
     />
+  </svg>
+)
+
+export const CloseThinIcon: React.FC<IconProps> = (props) => (
+  <svg aria-labelledby={ids.close} {...getDefaultProps(20, 20)} viewBox="0 0 50 50" {...props}>
+    <title id={ids.close}>close</title>
+    <path d="M37.304 11.282l1.414 1.414-26.022 26.02-1.414-1.413z"></path>
+    <path d="M12.696 11.282l26.022 26.02-1.414 1.415-26.022-26.02z"></path>
   </svg>
 )
