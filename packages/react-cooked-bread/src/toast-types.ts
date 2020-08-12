@@ -17,7 +17,13 @@ import {
   TransitionDuration,
   ActiveToast,
 } from './types'
-import { GlossyStyleKeys, ClassicStyleKeys, BootstrapStyleKeys } from './toast-content'
+import {
+  GlossyStyleKeys,
+  ClassicStyleKeys,
+  BootstrapStyleKeys,
+  ZeitStyleKeys,
+  HtmlyStyleKeys,
+} from './toast-content'
 
 interface ToasterValueProps extends GenericObject {
   content: React.ReactNode
@@ -66,6 +72,8 @@ type ToastContentStyles =
   | ToastContentStyler<GlossyStyleKeys>
   | ToastContentStyler<ClassicStyleKeys>
   | ToastContentStyler<BootstrapStyleKeys>
+  | ToastContentStyler<ZeitStyleKeys>
+  | ToastContentStyler<HtmlyStyleKeys>
 export interface ToastComponentsProps {
   toastRoot: ComponentType<ToastRootProps>
   toastContent?: ComponentType<ToastContentProps>
