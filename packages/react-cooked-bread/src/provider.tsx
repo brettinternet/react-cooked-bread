@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import PropTypes from 'prop-types'
