@@ -55,6 +55,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
   const { placement, pauseAllOnHover, pauseOnFocusLoss, reverseColumn, maxToasts } = providerProps
   const { addToast, removeToast, removeAllToasts, updateToast, toasts } = useToasts()
   const [autoDismiss, setAutoDismiss] = useState(true)
+  const [timeoutValue, setTimeoutValue] = useState(5000)
 
   const patchProviderProps = (props: Partial<ToastProviderProps>) => {
     setProviderProps({ ...providerProps, ...props })
@@ -65,16 +66,17 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
       const includeTitle = getRandom([true, false])
       const includeSubtitle = getRandom([true, false])
       const { getToastProps } = selectedToastContent
-      const content = getContent()
+      const content = selectedToastContent.custom ? getContent() : getRandomPhrase()
       addToast(content, {
         autoDismiss,
+        timeout: timeoutValue,
         type,
         title: includeTitle ? getRandomShortPhrase() : undefined,
         subtitle: includeTitle && includeSubtitle ? getRandomWord() : undefined,
         ...(getToastProps ? getToastProps(content) : {}),
       })
     },
-    [addToast, autoDismiss]
+    [addToast, autoDismiss, timeoutValue]
   )
 
   return (
@@ -118,6 +120,28 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
                 />
                 <label htmlFor="toast-option-auto-dismiss">autoDismiss</label>
               </Flex>
+            </Flex>
+
+            <Flex alignItems="center" mr={3} mb={3}>
+              <Box mr={2}>
+                <label htmlFor="toast-option-timeout">timeout:</label>
+              </Box>
+              <input
+                disabled={!autoDismiss}
+                type="number"
+                id="toast-option-timeout"
+                min="1000"
+                step="1000"
+                max="10000"
+                value={timeoutValue || '5000'}
+                onChange={(ev: React.FormEvent<HTMLInputElement>) => {
+                  setTimeoutValue(parseInt(ev.currentTarget.value) || 5000)
+                }}
+                css={{
+                  marginRight: '0.5rem',
+                  width: 60,
+                }}
+              />
             </Flex>
           </Flex>
           <Box mb={2}>Active toasts: {toasts.length}</Box>

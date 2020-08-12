@@ -76,5 +76,8 @@ export const getTheme = (themeType: ThemeType) => ({
 
 export type Theme = ReturnType<typeof getTheme>
 
+/**
+ * @note not used for now while dark mode colors are improved
+ */
 export const darkModePreferred =
   isBrowser && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches

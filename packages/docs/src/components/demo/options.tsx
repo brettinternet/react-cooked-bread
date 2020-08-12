@@ -5,6 +5,7 @@ import {
   GlossyToastContent,
   BootstrapToastContent,
   ClassicToastContent,
+  ZeitToastContent,
   ToastProviderProps,
   AddToastOptions,
 } from 'react-cooked-bread'
@@ -14,6 +15,7 @@ import {
   fluentUiToastOptions,
   getFluentUiToastProps,
 } from 'toast-content-examples'
+import { getRandom } from 'utils/content'
 
 type ComponentOption = {
   key: string
@@ -77,6 +79,71 @@ export const contentOptions: ComponentOption[] = [
     str: 'BootstrapToastContent',
     providerProps: {
       toastContent: BootstrapToastContent,
+    },
+  },
+  {
+    key: 'zeit',
+    name: 'Zeit',
+    str: 'ZeitToastContentProps',
+    providerProps: {
+      toastContent: ZeitToastContent,
+    },
+    getToastProps: () => ({
+      buttons: getRandom(
+        [
+          [
+            {
+              text: 'Accept',
+              onClick: () => {
+                console.log('Accept')
+              },
+            },
+            {
+              text: 'Cancel',
+              onClick: () => {
+                console.log('Cancel')
+              },
+              secondary: true,
+            },
+          ],
+        ].concat(new Array(4))
+      ),
+    }),
+    toastOptions: {
+      options: {
+        actions: [
+          {
+            text: 'Accept',
+            onClick: () => {
+              console.log('Accept')
+            },
+          },
+          {
+            text: 'Cancel',
+            onClick: () => {
+              console.log('Cancel')
+            },
+            secondary: true,
+          },
+        ],
+      },
+      str: `
+          // custom props
+          actions: [
+            {
+              text: 'Accept',
+              onClick: () => {
+                console.log('Accept')
+              },
+            },
+            {
+              text: 'Cancel',
+              onClick: () => {
+                console.log('Cancel')
+              },
+              secondary: true,
+            },
+          ],`,
     },
   },
 ]
