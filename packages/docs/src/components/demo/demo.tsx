@@ -331,6 +331,7 @@ const Library: React.FC<LibraryProps> = ({ providerProps, setProviderProps }) =>
                 addToast(newPlacement, {
                   id: newPlacement,
                   autoDismiss,
+                  timeout: timeoutValue,
                   type: 'info',
                 })
                 patchProviderProps({ placement: newPlacement })

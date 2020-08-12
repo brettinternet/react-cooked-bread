@@ -1,11 +1,13 @@
 import React from 'react'
 import {
   SlideShrinkToastRoot,
+  SlideSlideToastRoot,
   FadeToastRoot,
   GlossyToastContent,
   BootstrapToastContent,
   ClassicToastContent,
   ZeitToastContent,
+  HtmlyToastContent,
   ToastProviderProps,
   AddToastOptions,
 } from 'react-cooked-bread'
@@ -47,6 +49,14 @@ export const rootOptions: RootComponentOption[] = [
     },
   },
   {
+    key: 'slide-slide',
+    name: 'Slide slide',
+    str: 'SlideSlideToastRoot',
+    providerProps: {
+      toastRoot: SlideSlideToastRoot,
+    },
+  },
+  {
     key: 'fade',
     name: 'Fade',
     str: 'FadeToastRoot',
@@ -79,6 +89,14 @@ export const contentOptions: ComponentOption[] = [
     str: 'BootstrapToastContent',
     providerProps: {
       toastContent: BootstrapToastContent,
+    },
+  },
+  {
+    key: 'htmly',
+    name: 'HTMLy',
+    str: 'HtmlyToastContent',
+    providerProps: {
+      toastContent: HtmlyToastContent,
     },
   },
   {
