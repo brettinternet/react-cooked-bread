@@ -15,6 +15,7 @@ import {
   placementsProps,
   Styler,
   TransitionDuration,
+  ActiveToast,
 } from './types'
 import { GlossyStyleKeys, ClassicStyleKeys, BootstrapStyleKeys } from './toast-content'
 
@@ -30,10 +31,14 @@ interface ToasterValueProps extends GenericObject {
   title?: string
   subtitle?: string
   isContainerHovered: boolean
+  index: number
+  reverseColumn: boolean
+  toasts: ActiveToast[]
 }
 
 interface ToastValueProps extends ToasterValueProps {
   isRunning: boolean
+  isItemHovered: boolean
 }
 
 export type ToastRootStyler = Styler<ToastValueProps>
@@ -69,6 +74,7 @@ export interface ToastComponentsProps {
 }
 
 export interface ToasterProps extends ToastComponentsProps, SharedToastProps, ToasterValueProps {
+  pauseAllOnHover: boolean
   rootStyles: ToastComponentsProps['toastRootStyles'] | undefined
   contentStyles: ToastContentStyles | undefined
 }

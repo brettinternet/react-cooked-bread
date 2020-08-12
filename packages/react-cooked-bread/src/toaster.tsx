@@ -8,21 +8,27 @@ export const Toaster: React.FC<ToasterProps> = ({
   toastRoot: ToastRoot,
   toastContent: ToastContent,
   type,
-  autoDismiss = false,
+  autoDismiss,
   timeout,
   content,
   placement,
   transitionDuration,
   transitionState,
+  pauseAllOnHover,
   isContainerHovered,
   onDismiss,
   rootStyles,
   contentStyles,
   id,
+  index,
+  toasts,
+  reverseColumn,
   ...unknownProps
 }) => {
   const [isRunning, setRunning] = useState(autoDismiss)
+  const [isItemHovered, setItemHovered] = useState(false)
   const timer = useRef<Timer>()
+  const isParentPaused = pauseAllOnHover && isContainerHovered
 
   useEffect(() => {
     if (
@@ -44,32 +50,36 @@ export const Toaster: React.FC<ToasterProps> = ({
   useEffect(() => timer.current?.clear, [])
 
   useEffect(() => {
-    if (isContainerHovered) {
+    if (isParentPaused) {
       timer.current?.pause()
       setRunning(false)
     } else if (timer.current?.state === TimerState.PAUSED) {
       timer.current.start()
       setRunning(true)
     }
-  }, [isContainerHovered])
+  }, [isParentPaused])
 
   const handleMouseEnter = useCallback(() => {
-    if (autoDismiss && !isContainerHovered) {
+    if (autoDismiss && !isParentPaused) {
       timer.current?.pause()
       setRunning(false)
     }
-  }, [autoDismiss, isContainerHovered])
+    setItemHovered(true)
+  }, [autoDismiss, isParentPaused])
 
   const handleMouseLeave = useCallback(() => {
-    if (autoDismiss && !isContainerHovered) {
+    if (autoDismiss && !isParentPaused) {
       timer.current?.start()
       setRunning(true)
     }
-  }, [autoDismiss, isContainerHovered])
+    setItemHovered(false)
+  }, [autoDismiss, isParentPaused])
 
   const styleProps = {
     ...unknownProps,
     id,
+    index,
+    toasts,
     type,
     content,
     autoDismiss,
@@ -79,6 +89,8 @@ export const Toaster: React.FC<ToasterProps> = ({
     transitionDuration,
     transitionState,
     isContainerHovered,
+    reverseColumn,
+    isItemHovered,
   }
 
   const sharedProps = {

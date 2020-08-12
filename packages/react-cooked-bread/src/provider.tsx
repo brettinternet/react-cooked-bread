@@ -51,12 +51,12 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
   container: Container = DefaultContainer,
   placement = 'bottom-right',
   transitionDuration: defaultTransitionDuration = { appear: 200, exit: 200 },
-  pauseAllOnHover,
+  pauseAllOnHover = false,
   containerStyles,
   transitionGroupStyles,
   toastRootStyles,
   toastContentStyles,
-  reverseColumn,
+  reverseColumn = false,
   pauseOnFocusLoss,
   maxToasts,
 }) => {
@@ -78,17 +78,13 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
     return unbind
   }, [pauseOnFocusLoss])
 
-  const handleMouseEnter = useCallback(() => {
-    if (pauseAllOnHover) {
-      setContainerHovered(true)
-    }
-  }, [pauseAllOnHover])
+  const handleMouseEnter = () => {
+    setContainerHovered(true)
+  }
 
-  const handleMouseLeave = useCallback(() => {
-    if (pauseAllOnHover) {
-      setContainerHovered(false)
-    }
-  }, [pauseAllOnHover])
+  const handleMouseLeave = () => {
+    setContainerHovered(false)
+  }
 
   const cookedLoaf = (
     <Container
@@ -101,6 +97,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
       <TransitionGroup
         className={transitionGroupClassName}
         css={{
+          position: 'relative',
           ...(reverseColumn
             ? {
                 display: 'flex',
@@ -117,22 +114,29 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
         }}
       >
         {toasts.map(
-          ({
-            id,
-            autoDismiss = defaultAutoDismiss,
-            timeout = defaultTimeout,
-            transitionDuration = defaultTransitionDuration,
-            onDismiss,
-            content,
-            ...props
-          }) => (
+          (
+            {
+              id,
+              autoDismiss = defaultAutoDismiss,
+              timeout = defaultTimeout,
+              transitionDuration = defaultTransitionDuration,
+              onDismiss,
+              content,
+              ...props
+            },
+            index,
+            arr
+          ) => (
             <Transition key={id} appear mountOnEnter timeout={transitionDuration} unmountOnExit>
               {(transitionState) => (
                 <Toaster
                   key={id}
                   id={id}
+                  index={index}
+                  toasts={arr}
                   toastRoot={ToastRoot}
                   toastContent={ToastContent}
+                  pauseAllOnHover={pauseAllOnHover}
                   autoDismiss={autoDismiss}
                   timeout={timeout}
                   content={content}
@@ -140,6 +144,7 @@ export const ToastProvider: React.FC<PropsWithRequiredChildren<ToastProviderProp
                   transitionDuration={transitionDuration}
                   transitionState={transitionState}
                   isContainerHovered={isContainerHovered}
+                  reverseColumn={reverseColumn}
                   onDismiss={() => {
                     removeToast(id)
                     if (onDismiss) {
