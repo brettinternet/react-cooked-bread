@@ -31,7 +31,7 @@
     "docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": "cross-env NODE_ENV=development rollup -c -w",
-    "test": "jest --coverage --json --outputFile=jest.results.json",
+    "test": "jest --ci --coverage --json --outputFile=jest.results.json",
     "test:prod": "npm run lint && npm run test -- --no-cache",
     "test:watch": "jest --watch"
   },
