@@ -1,1 +1,1 @@
-require('typeface-source-sans-pro')
+import 'typeface-source-sans-pro'

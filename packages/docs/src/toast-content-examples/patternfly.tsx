@@ -6,81 +6,79 @@
 import React from 'react'
 import { jsx } from '@emotion/core'
 import { ToastContentProps, ToastTypeOption } from 'react-cooked-bread'
-import { MessageBar, MessageBarType } from '@fluentui/react/lib/MessageBar'
-import { MessageBarButton, IButtonProps } from '@fluentui/react/lib/Button'
-import { initializeIcons } from '@uifabric/icons'
+import {
+  Alert,
+  AlertActionCloseButton,
+  AlertActionLink,
+  AlertActionLinkProps,
+  AlertVariant,
+  // @ts-ignore
+} from '@patternfly/react-core/dist/js/components/Alert'
+// import '@patternfly/react-core/dist/styles/base.css'
 
 import { getRandom } from 'utils/content'
-import { ProgressBar } from './progress-bar'
+// import { ProgressBar } from './progress-bar'
 
-initializeIcons()
-
-const getMessageBarType = (type: ToastTypeOption) => {
+const getAlertVariant = (type: ToastTypeOption) => {
   switch (type) {
     case 'success':
-      return MessageBarType.success
+      return AlertVariant.success
     case 'warning':
-      return MessageBarType.warning
+      return AlertVariant.warning
     case 'error':
-      return MessageBarType.error
+      return AlertVariant.danger
     case 'info':
     default:
-      return MessageBarType.info
+      return AlertVariant.info
   }
 }
 
-export interface CustomFluentUiContentProps {
-  actions?: IButtonProps[]
-  truncated?: boolean
-  isMultiline?: boolean
+export interface CustomPatternflyContentProps {
+  actions?: AlertActionLinkProps[]
 }
 
-export const FluentUiContent: React.FC<ToastContentProps & CustomFluentUiContentProps> = ({
+export const PatternflyContent: React.FC<ToastContentProps> = ({
   children,
   type,
   isRunning,
   autoDismiss,
   timeout,
   onDismiss,
+  title,
   actions,
-  truncated,
-  isMultiline,
-}) => (
-  <div css={{ position: 'relative', marginBottom: '0.5rem' }}>
-    <MessageBar
-      messageBarType={getMessageBarType(type)}
-      onDismiss={onDismiss}
-      dismissButtonAriaLabel="Close"
-      overflowButtonAriaLabel="See more"
-      truncated={truncated}
-      isMultiline={isMultiline || !truncated}
-      actions={
-        actions?.length ? (
-          <div>
-            {actions.map((buttonProps, index) => (
-              <MessageBarButton key={index} {...buttonProps} />
+}) => {
+  const variant = getAlertVariant(type)
+  return (
+    <div css={{ position: 'relative', marginBottom: '1rem', width: 400 }}>
+      <Alert
+        css={{
+          '.pf-c-alert__title': {
+            textTransform: 'capitalize',
+          },
+        }}
+        variant={variant}
+        title={title || variant}
+        actionClose={<AlertActionCloseButton onClose={onDismiss} />}
+        actionLinks={
+          <React.Fragment>
+            {actions?.map((actionProps: AlertActionLinkProps) => (
+              <AlertActionLink {...actionProps} />
             ))}
-          </div>
-        ) : undefined
-      }
-      styles={{
-        root: {
-          width: 350,
-        },
-      }}
-    >
-      {children}
-    </MessageBar>
-    <ProgressBar isHidden={!autoDismiss} timeout={timeout} isRunning={isRunning} />
-  </div>
-)
+          </React.Fragment>
+        }
+      >
+        {children}
+      </Alert>
+    </div>
+  )
+}
 
-export const getFluentUiToastProps = (content: React.ReactNode) => {
+export const getPatternflyToastProps = (content: React.ReactNode) => {
   const isLongString = typeof content === 'string' && content.length > 100
   return {
     isMultiline: getRandom([true, false]),
     truncated: isLongString && getRandom([true, false]),
-    actions: getRandom<CustomFluentUiContentProps['actions']>(
+    actions: getRandom<CustomPatternflyContentProps['actions']>(
       [
         [
           {
@@ -101,7 +99,7 @@ export const getFluentUiToastProps = (content: React.ReactNode) => {
   }
 }
 
-export const fluentUiToastOptions = {
+export const patternflyToastOptions = {
   options: {
     isMultiline: true,
     truncated: false,

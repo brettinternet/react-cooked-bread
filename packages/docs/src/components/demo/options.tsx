@@ -16,6 +16,9 @@ import {
   FluentUiContent,
   fluentUiToastOptions,
   getFluentUiToastProps,
+  PatternflyContent,
+  patternflyToastOptions,
+  getPatternflyToastProps,
 } from 'toast-content-examples'
 import { getRandom } from 'utils/content'
 
@@ -177,5 +180,16 @@ export const customContentOptions: ComponentOption[] = [
     },
     toastOptions: fluentUiToastOptions,
     getToastProps: getFluentUiToastProps,
+  },
+  {
+    key: 'patternfly',
+    name: 'Patternfly',
+    custom: true,
+    str: 'PatternflyContent',
+    providerProps: {
+      toastContent: PatternflyContent,
+    },
+    toastOptions: patternflyToastOptions,
+    getToastProps: getPatternflyToastProps,
   },
 ]
