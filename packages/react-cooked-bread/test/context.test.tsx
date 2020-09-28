@@ -10,12 +10,22 @@ import {
   WithToastContextProps,
   useToasts,
 } from '../src/context'
-import { noop, getId } from '../src/utils'
 import { ToastType } from '../src/types'
+const utils = require('../src/utils')
+const { noop } = jest.requireActual('../src/utils')
+
+let id: number = 1
+jest.mock('../src/utils')
+utils.getFocusEvents.mockImplementation(() => ({ bind: noop, unbind: noop }))
+utils.getId.mockImplementation(() => ++id)
+utils.getStylesMapCSS.mockImplementation(() => ({}))
 
 describe('ToastConsumer', () => {
   beforeAll(() => {
     setupPortals()
+  })
+  beforeEach(() => {
+    id = 1
   })
 
   test('has an empty/noop default values', () => {
@@ -44,7 +54,7 @@ describe('ToastConsumer', () => {
 
   test('shows values from provider', () => {
     const toast = {
-      id: getId(),
+      id: 'what',
       content: 'Cheers!',
       type: ToastType.INFO,
       autoDismiss: false,
@@ -77,7 +87,7 @@ describe('ToastConsumer', () => {
 
 test('withToastContext shows values from provider', () => {
   const toast = {
-    id: getId(),
+    id: 'what',
     content: 'Cheers!',
     type: ToastType.INFO,
     autoDismiss: false,
@@ -115,9 +125,9 @@ test('withToastContext shows values from provider', () => {
 
 test('useToasts hook returns empty/noop default values', () => {
   const { result } = renderHook(() => useToasts(), { wrapper: ProviderWrapper })
-
+  let toastId = ''
   act(() => {
-    const toastId = result.current.addToast('Cheers!')
+    toastId = result.current.addToast('Cheers!')
     result.current.updateToast(toastId, {
       content: 'Cheers?',
     })
@@ -127,4 +137,13 @@ test('useToasts hook returns empty/noop default values', () => {
   })
 
   expect(result.current.toasts.length).toBe(1)
+  expect(result.current.toasts).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "content": "Cheers again!",
+        "id": 3,
+        "type": "info",
+      },
+    ]
+  `)
 })
