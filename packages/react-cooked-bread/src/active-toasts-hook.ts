@@ -5,7 +5,7 @@ import { getId } from './utils'
 
 const checkForId = (id: string) => (t: ActiveToast) => t.id === id
 
-export const useActiveToasts = (maxToasts: number | undefined) => {
+export const useActiveToasts = (maxToasts?: number | undefined) => {
   const [toasts, setToasts] = useState<ActiveToast[]>([])
   const hasToasts = !!toasts.length
 
@@ -36,8 +36,12 @@ export const useActiveToasts = (maxToasts: number | undefined) => {
         const { type = 'info', ...rest } = options
         const newToast = { content, id, type, ...rest }
         setToasts((t) => {
-          if (maxToasts && maxToasts < t.length + 1) {
-            return [...t.slice(1), newToast]
+          if (typeof maxToasts === 'number' && maxToasts < t.length + 1) {
+            if (maxToasts > 0) {
+              return [...t.slice(1), newToast]
+            } else {
+              return []
+            }
           } else {
             return [...t, newToast]
           }
