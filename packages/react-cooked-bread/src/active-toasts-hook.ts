@@ -24,20 +24,6 @@ export const useActiveToasts = (maxToasts: number | undefined) => {
     setToasts([])
   }, [])
 
-  const updateToast = useCallback(
-    (id: Id, options: UpdateToastOptions = {}) => {
-      if (exists(id)) {
-        setToasts((t) => {
-          const index = t.findIndex(checkForId(id))
-          const updatedToast = { ...t[index], ...options }
-          t.splice(index, 1, updatedToast)
-          return t
-        })
-      }
-    },
-    [exists]
-  )
-
   /**
    * @todo It's very convenient to guarantee a string return,
    * but we should configure this to gracefully fail creation
@@ -63,6 +49,20 @@ export const useActiveToasts = (maxToasts: number | undefined) => {
       }
     },
     [exists, maxToasts]
+  )
+
+  const updateToast = useCallback(
+    (id: Id, options: UpdateToastOptions = {}) => {
+      if (exists(id)) {
+        setToasts((t) => {
+          const index = t.findIndex(checkForId(id))
+          const updatedToast = { ...t[index], ...options }
+          t.splice(index, 1, updatedToast)
+          return t
+        })
+      }
+    },
+    [exists]
   )
 
   return {
