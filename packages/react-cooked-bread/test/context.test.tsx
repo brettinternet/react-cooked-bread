@@ -17,7 +17,7 @@ const { noop } = jest.requireActual('../src/utils')
 let id: number = 1
 jest.mock('../src/utils')
 utils.getFocusEvents.mockImplementation(() => ({ bind: noop, unbind: noop }))
-utils.getId.mockImplementation(() => ++id)
+utils.getId.mockImplementation(() => String(++id))
 utils.getStylesMapCSS.mockImplementation(() => ({}))
 
 describe('ToastConsumer', () => {
@@ -92,9 +92,8 @@ describe('ToastConsumer', () => {
 
   test('useToasts hook returns empty/noop default values', () => {
     const { result } = renderHook(() => useToasts(), { wrapper: ProviderWrapper })
-    let toastId = ''
     act(() => {
-      toastId = result.current.addToast('Cheers!')
+      const toastId = result.current.addToast('Cheers!')
       result.current.updateToast(toastId, {
         content: 'Cheers?',
       })
@@ -105,14 +104,14 @@ describe('ToastConsumer', () => {
 
     expect(result.current.toasts.length).toBe(1)
     expect(result.current.toasts).toMatchInlineSnapshot(`
-    Array [
-      Object {
-        "content": "Cheers again!",
-        "id": 3,
-        "type": "info",
-      },
-    ]
-  `)
+      Array [
+        Object {
+          "content": "Cheers again!",
+          "id": "3",
+          "type": "info",
+        },
+      ]
+    `)
   })
 
   test('shows values from provider', () => {

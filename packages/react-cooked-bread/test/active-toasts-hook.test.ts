@@ -151,7 +151,7 @@ describe('useActiveToasts', () => {
 
     expect(result.current.hasToasts).toBe(false)
     expect(result.current.toasts.length).toBe(0)
-    const { result:r2 } = renderHook(() => useActiveToasts(-1))
+    const { result: r2 } = renderHook(() => useActiveToasts(-1))
     act(() => {
       r2.current.addToast('Cheers!')
     })
