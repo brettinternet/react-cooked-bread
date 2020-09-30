@@ -122,6 +122,8 @@ describe('useActiveToasts', () => {
     act(() => {
       result.current.addToast('Cheers!')
       result.current.addToast('Cheers?')
+    })
+    act(() => {
       result.current.addToast('Cheers again')
     })
 
@@ -143,21 +145,30 @@ describe('useActiveToasts', () => {
     `)
   })
 
-  it('should not add toasts if maxToasts <= 0', () => {
+  it('should allow adding toasts if maxToasts <= 0', () => {
     const { result } = renderHook(() => useActiveToasts(0))
     act(() => {
       result.current.addToast('Cheers!')
     })
 
-    expect(result.current.hasToasts).toBe(false)
-    expect(result.current.toasts.length).toBe(0)
+    expect(result.current.hasToasts).toBe(true)
+    expect(result.current.toasts.length).toBe(1)
+
     const { result: r2 } = renderHook(() => useActiveToasts(-1))
     act(() => {
       r2.current.addToast('Cheers!')
     })
 
-    expect(r2.current.hasToasts).toBe(false)
-    expect(r2.current.toasts.length).toBe(0)
+    expect(r2.current.hasToasts).toBe(true)
+    expect(r2.current.toasts.length).toBe(1)
+
+    const { result: r3 } = renderHook(() => useActiveToasts(NaN))
+    act(() => {
+      r3.current.addToast('Cheers!')
+    })
+
+    expect(r3.current.hasToasts).toBe(true)
+    expect(r3.current.toasts.length).toBe(1)
   })
 
   it('should prevent duplicate toasts with the same custom ID', () => {

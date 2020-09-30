@@ -3,13 +3,12 @@ import { useState, useCallback } from 'react'
 import { ActiveToast, Id, AddToastOptions, UpdateToastOptions } from './types'
 import { getId } from './utils'
 
-const checkForId = (id: string) => (t: ActiveToast) => t.id === id
-
-export const useActiveToasts = (maxToasts?: number | undefined) => {
+export const useActiveToasts = (_maxToasts?: number | undefined) => {
   const [toasts, setToasts] = useState<ActiveToast[]>([])
   const hasToasts = !!toasts.length
+  const maxToasts = Math.max(Number(_maxToasts), 0)
 
-  const exists = useCallback((id: Id) => toasts.some(checkForId(id)), [toasts])
+  const exists = useCallback((id: Id) => toasts.some((t: ActiveToast) => t.id === id), [toasts])
 
   const removeToast = useCallback(
     (id: Id) => {
@@ -36,12 +35,8 @@ export const useActiveToasts = (maxToasts?: number | undefined) => {
         const { type = 'info', ...rest } = options
         const newToast = { content, id, type, ...rest }
         setToasts((prevToasts) => {
-          if (typeof maxToasts === 'number' && maxToasts < prevToasts.length + 1) {
-            if (maxToasts > 0) {
-              return [...prevToasts.slice(1), newToast]
-            } else {
-              return []
-            }
+          if (maxToasts && maxToasts < toasts.length + 1) {
+            return [...prevToasts, newToast].slice(prevToasts.length + 1 - maxToasts)
           } else {
             return [...prevToasts, newToast]
           }
@@ -58,7 +53,7 @@ export const useActiveToasts = (maxToasts?: number | undefined) => {
     (id: Id, options: UpdateToastOptions = {}) => {
       if (exists(id)) {
         setToasts((prevToasts) => {
-          const index = prevToasts.findIndex(checkForId(id))
+          const index = prevToasts.findIndex((t: ActiveToast) => t.id === id)
           const updatedToast = { ...prevToasts[index], ...options }
           prevToasts.splice(index, 1, updatedToast)
           return prevToasts
