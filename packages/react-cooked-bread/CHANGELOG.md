@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.4.0...react-cooked-bread@0.5.0) (2020-09-30)
+
+
+### Bug Fixes
+
+* incorrect behavior when `maxToasts` <= 0 ([0bf73cb](https://github.com/brettinternet/react-cooked-bread/commit/0bf73cb94942e8cdb72f53675f80653980507b7f))
+
+
+### Features
+
+* wrap functions in useCallback and use function `setState` to prevent including toasts in deps ([4444f80](https://github.com/brettinternet/react-cooked-bread/commit/4444f80be085beef4a1181dca87e2ac7b6c80a6e))
+
+
+
+
+
 # [0.4.0](https://github.com/brettinternet/react-cooked-bread/compare/react-cooked-bread@0.3.2...react-cooked-bread@0.4.0) (2020-08-12)
 
 
