@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 
 import { ActiveToast, Id, AddToastOptions, UpdateToastOptions } from './types'
 import { getId } from './utils'
@@ -7,17 +7,14 @@ export const useActiveToasts = (_maxToasts?: number | undefined) => {
   const [toasts, setToasts] = useState<ActiveToast[]>([])
   const hasToasts = !!toasts.length
   const maxToasts = Math.max(Number(_maxToasts), 0)
+  const toastsRef = useRef<ActiveToast[]>(toasts)
+  useEffect(() => {
+    toastsRef.current = toasts
+  }, [toasts])
 
-  const exists = useCallback((id: Id) => toasts.some((t) => t.id === id), [toasts])
-
-  const removeToast = useCallback(
-    (id: Id) => {
-      if (exists(id)) {
-        setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id))
-      }
-    },
-    [exists]
-  )
+  const removeToast = useCallback((id: Id) => {
+    setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id))
+  }, [])
 
   const removeAllToasts = useCallback(() => {
     setToasts([])
@@ -30,38 +27,37 @@ export const useActiveToasts = (_maxToasts?: number | undefined) => {
    */
   const addToast = useCallback(
     (content: React.ReactNode, options: AddToastOptions = {}): string => {
-      const id = options.id
-      if (id && !exists(id)) {
-        const { type = 'info', ...rest } = options
-        const newToast = { content, id, type, ...rest }
-        setToasts((prevToasts) => {
-          if (maxToasts && maxToasts < prevToasts.length + 1) {
-            return [...prevToasts, newToast].slice(prevToasts.length + 1 - maxToasts)
-          } else {
-            return [...prevToasts, newToast]
-          }
-        })
-        return id
-      } else {
-        return addToast(content, { ...options, id: getId() })
+      const id = options.id || getId()
+      const { type = 'info', ...rest } = options
+      const newToast = { content, id, type, ...rest }
+
+      while (toastsRef.current.some((t) => t.id === newToast.id)) {
+        newToast.id = getId()
       }
+      setToasts((prevToasts) => {
+
+        if (maxToasts && maxToasts < prevToasts.length + 1) {
+          return [...prevToasts, newToast].slice(prevToasts.length + 1 - maxToasts)
+        } else {
+          return [...prevToasts, newToast]
+        }
+      })
+      return newToast.id
     },
-    [exists, maxToasts]
+    [maxToasts]
   )
 
-  const updateToast = useCallback(
-    (id: Id, options: UpdateToastOptions = {}) => {
-      if (exists(id)) {
-        setToasts((prevToasts) => {
-          const index = prevToasts.findIndex((t) => t.id === id)
-          const updatedToast = { ...prevToasts[index], ...options }
-          prevToasts.splice(index, 1, updatedToast)
-          return prevToasts
-        })
+  const updateToast = useCallback((id: Id, options: UpdateToastOptions = {}) => {
+    setToasts((prevToasts) => {
+      const index = prevToasts.findIndex((t) => t.id === id)
+      if (index !== -1) {
+        const updatedToast = { ...prevToasts[index], ...options }
+        prevToasts.splice(index, 1, updatedToast)
+        return prevToasts
       }
-    },
-    [exists]
-  )
+      return prevToasts
+    })
+  }, [])
 
   return {
     addToast,
