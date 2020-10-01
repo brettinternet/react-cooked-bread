@@ -27,15 +27,13 @@ export const useActiveToasts = (_maxToasts?: number | undefined) => {
    */
   const addToast = useCallback(
     (content: React.ReactNode, options: AddToastOptions = {}): string => {
-      const id = options.id || getId()
-      const { type = 'info', ...rest } = options
+      const { type = 'info', id = getId(), ...rest } = options
       const newToast = { content, id, type, ...rest }
 
       while (toastsRef.current.some((t) => t.id === newToast.id)) {
         newToast.id = getId()
       }
       setToasts((prevToasts) => {
-
         if (maxToasts && maxToasts < prevToasts.length + 1) {
           return [...prevToasts, newToast].slice(prevToasts.length + 1 - maxToasts)
         } else {
