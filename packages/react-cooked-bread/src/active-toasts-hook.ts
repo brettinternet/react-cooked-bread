@@ -20,11 +20,6 @@ export const useActiveToasts = (_maxToasts?: number | undefined) => {
     setToasts([])
   }, [])
 
-  /**
-   * @todo It's very convenient to guarantee a string return,
-   * but we should configure this to gracefully fail creation
-   * when a duplicate custom `id` is set in options
-   */
   const addToast = useCallback(
     (content: React.ReactNode, options: AddToastOptions = {}): string => {
       const { type = 'info', id = getId(), ...rest } = options
