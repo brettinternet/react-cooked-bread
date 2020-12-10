@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react'
-import { jsx, keyframes } from '@emotion/core'
+import { jsx, keyframes } from '@emotion/react'
 
 import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { CheckIcon, FlameIcon, InfoIcon, CloseIcon, AlertIcon } from './icons'

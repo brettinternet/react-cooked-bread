@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 
 import { PlacementOption, ToastType, TransitionStatus } from '../types'
 import { ToastRootProps, toastRootPropTypes } from '../toast-types'

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { PropsWithChildren } from 'react'
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 import PropTypes from 'prop-types'
 
 import { Styler, childrenProps, placementsProps, stylerProps, PlacementOption } from './types'

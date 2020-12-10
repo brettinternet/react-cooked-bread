@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react'
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 
 import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { ToastContentProps, toastContentPropTypes } from '../toast-types'

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import PropTypes from 'prop-types'
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 
 import { ToastContainer as DefaultContainer, ContainerProps, ContainerStyler } from './container'
 import { Toaster } from './toaster'
