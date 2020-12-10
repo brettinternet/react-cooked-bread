@@ -29,6 +29,7 @@ module.exports = {
     'react-transition-group/Transition',
     '@emotion/core',
     'prop-types',
+    'hoist-non-react-statics',
   ],
   plugins: [
     typescript({ useTsconfigDeclarationDir: true }),

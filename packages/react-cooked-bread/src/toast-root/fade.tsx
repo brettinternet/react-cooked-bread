@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { TransitionStatus } from 'react-transition-group/Transition'
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 
 import { ToastType } from '../types'
 import { ToastRootProps, toastRootPropTypes } from '../toast-types'

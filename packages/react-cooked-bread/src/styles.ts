@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
 /**
  * @note Must be string styles else `scrollbar-color` and `scrollbar-width`

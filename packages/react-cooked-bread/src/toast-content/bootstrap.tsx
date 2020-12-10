@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx, keyframes } from '@emotion/core'
+import { jsx, keyframes } from '@emotion/react'
 
 import { ToastTypeOption, Styles, StylesObj } from '../types'
 import { CloseIcon } from './icons'
