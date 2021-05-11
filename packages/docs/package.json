@@ -23,7 +23,7 @@
     "gatsby-plugin-root-import": "^2.0.5",
     "gatsby-source-filesystem": "^2.3.14",
     "install": "^0.13.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "prism-react-renderer": "^1.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
